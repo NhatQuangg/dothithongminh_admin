@@ -43,15 +43,26 @@
                                             <label for="yourPassword" class="form-label">Mật khẩu</label>
                                             <input type="password" name="password" class="form-control" id="password" required>
                                         </div>
-
+                                        <?php
+                                        if (isset($_SESSION["LOGIN_FAIL"])) {
+                                            unset($_SESSION['LOGIN_FAIL']);
+                                        ?>
+                                            <div class="col-12">
+                                                <p class="small mb-0 text-center text-danger" style="font-style: italic;">
+                                                    Đăng nhập sai. Vui lòng thử lại !
+                                                </p>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit" name="login_btn" value="Đăng nhập">Đăng nhập</button>
                                         </div>
-                                        <div class="col-12">
+                                        <!-- <div class="col-12">
                                             <p class="small mb-0">
                                                 Bạn chưa có tài khoản? <a href="register_page.php" style="font-style: italic;">Đăng kí</a>
                                             </p>
-                                        </div>
+                                        </div> -->
                                     </form>
                                 </div>
                             </div>

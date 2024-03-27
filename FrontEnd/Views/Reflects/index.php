@@ -1,32 +1,3 @@
-	<!-- ======= Sidebar ======= -->
-	<aside id="sidebar" class="sidebar">
-		<ul class="sidebar-nav" id="sidebar-nav">
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="home">
-					<i class="bi bi-circle"></i>
-					<span>Quản lý phản ánh</span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="category">
-					<i class="bi bi-circle"></i>
-					<span>Quản lý danh mục</span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="user">
-					<i class="bi bi-circle"></i>
-					<span>Quản lý tài khoản</span>
-				</a>
-			</li>
-
-		</ul>
-	</aside>
-	<!-- End Sidebar-->
-
 	<!-- =============== Main ============== -->
 	<main id="main" class="main" style="min-height: 625px;">
 		<section class="section">

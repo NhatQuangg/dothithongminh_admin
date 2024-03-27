@@ -1,32 +1,3 @@
-	<!-- ======= Sidebar ======= -->
-	<aside id="sidebar" class="sidebar">
-		<ul class="sidebar-nav" id="sidebar-nav">
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="home">
-					<i class="bi bi-circle"></i>
-					<span>Quản lý phản ánh</span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="category">
-					<i class="bi bi-circle"></i>
-					<span>Quản lý danh mục</span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="user">
-					<i class="bi bi-circle"></i>
-					<span>Quản lý tài khoản</span>
-				</a>
-			</li>
-
-		</ul>
-	</aside>
-	<!-- End Sidebar-->
-
 	<!-- =============== Main ============== -->
 	<main id="main" class="main" style="min-height: 625px;">
 		<section class="section">
@@ -38,12 +9,6 @@
 							<h5 class="card-title">---</h5>
 
 							<form method="POST" action="category">
-								<!-- <div class="row mb-3">
-									<label for="" class="col-sm-3 col-form-label">Mã loại</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" id="" name="txtmaloai" value="">
-									</div>
-								</div> -->
 								<div class="row mb-3">
 									<label for="" class="col-sm-3 col-form-label">Tên loại</label>
 									<div class="col-sm-9">
@@ -58,6 +23,7 @@
 											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['create_fail'] . "</em></p>";
 											unset($_SESSION['create_fail']);
 										}
+										
 										if (isset($_SESSION['update_success'])) {
 											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['update_success'] . "</em></p>";
 											unset($_SESSION['update_success']);
@@ -177,6 +143,7 @@
 			document.querySelector('.font-italic.text-danger').style.display = 'none';
 		}, 5000); // 5000 milliseconds = 5 giây
 	</script>
+	
 	<script>
 		// Lắng nghe sự kiện click trên nút Chọn
 		document.querySelectorAll('.select-btn').forEach(button => {

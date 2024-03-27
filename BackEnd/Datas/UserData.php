@@ -27,6 +27,31 @@ class UserData
         return $result;
     }
 
+    public function updateUser($userId, $un, $fn, $pw, $phone, $level)
+    {
+        $updateData = [
+            'email' => $un,
+            'fullname' => $fn,
+            'password' => $pw,
+            'phone' => $phone,
+            'level' => $level,
+        ];
+
+
+        $ref_table = "Users/" . $userId;
+        
+        $updatequery = $this->UserContext
+            ->getReference($ref_table)
+            ->update($updateData);
+        
+        if ($updatequery) {
+            return $updatequery;
+        }
+        else {
+            return null;
+        }
+    }
+
     public function deleteUser($userId)
     {
         $ref_table = "Users";

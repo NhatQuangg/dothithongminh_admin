@@ -16,6 +16,10 @@ class CategoryController extends Controller
     }
     public function GateWay()
     {
+        // if (!isset($_SESSION['USER_LOGED'])) {
+        //     header("Location: /dothithongminh_admin/");
+        // }
+
         $method = $_SERVER["REQUEST_METHOD"];
         $service = new CategoryService();
 

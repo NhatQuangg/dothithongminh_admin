@@ -15,6 +15,8 @@ class UserController extends Controller
     }
     public function GateWay()
     {
+
+
         $method = $_SERVER["REQUEST_METHOD"];
         $service = new UserService();
 
@@ -27,17 +29,43 @@ class UserController extends Controller
                 if ($userLogin != null) {
                     $_SESSION["USER_LOGED"] = $userLogin;
                     header("Location: /dothithongminh_admin/home");
-                } else
-                    echo "hihi";
+                } else {
+                    $_SESSION["LOGIN_FAIL"] = "Thất bại";
+                    header("Location: /dothithongminh_admin/");
+                }
             }
             if (isset($_POST['delete_btn'])) {
                 $userId = $_POST['userId'];
                 echo $userId;
             }
+            if (isset($_POST['update_btn'])) {
+                $userId = $_POST['txtmtk'];
+                $un = $_POST['txttdn'];
+                $fn = $_POST['txthoten'];
+                $pw = $_POST['txtmk'];
+                $phone = $_POST['txtphone'];
+                $level = $_POST['txtlevel'];
+
+                // echo $userId . "<br>" . $un . "<br>" . $fn . "<br>" . $pw . "<br>" . $phone . "<br>" . $level;
+                $updateUser = $service->updateUser($userId, $un, $fn, $pw, $phone, $level);
+
+                if ($updateUser != null) {
+                    $_SESSION["UPDATE_SUCCESS"] = "Thành công";
+                    header("Location: /dothithongminh_admin/user");
+                } else {
+                    $_SESSION["UPDATE_FAIL"] = "Thất bại";
+                    header("Location: /dothithongminh_admin/home");
+                }
+            }
         }
         if ($method == "GET") {
-
-            echo "haha";
+            if (!isset($_SESSION['USER_LOGED'])) {
+                header("Location: /dothithongminh_admin/");
+            }
+            if (isset($_GET["logout"])) {
+                unset($_SESSION['USER_LOGED']);
+                header("Location: /dothithongminh_admin/");
+            }
 
             $allUsers = $service->getAllUsers();
 

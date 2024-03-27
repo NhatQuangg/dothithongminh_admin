@@ -10,17 +10,20 @@ use Service\ReflectService;
 
 class HomeController extends Controller
 {
-    
+
 
     public function __construct()
     {
-        
     }
     public function GateWay()
     {
+        if (!isset($_SESSION['USER_LOGED'])) {
+            header("Location: /dothithongminh_admin/");
+        }
+
         $method = $_SERVER["REQUEST_METHOD"];
         $service = new ReflectService();
-        
+
         $allReflects = $service->getAllReflects();
 
 

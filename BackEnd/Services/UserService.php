@@ -18,8 +18,11 @@ class UserService
     {
         $users = $this->UserData->getAllUsers();
 
+        // 0: admin
+        // 1: nhanvien
+        // 2: user
         foreach ($users as $userId => $userData) {
-            if ($userData['email'] == $username && $userData["password"] == $password) {
+            if ($userData['email'] == $username && $userData["password"] == $password && ($userData['level'] == 0 || $userData['level'] == 1)) {
                 return $userData;
             }
         }
@@ -29,6 +32,13 @@ class UserService
     public function getAllUsers()
     {
         $result = $this->UserData->getAllUsers();
+
+        return $result;
+    }
+
+    public function updateUser($userId, $un, $fn, $pw, $phone, $level)
+    {
+        $result = $this->UserData->updateUser($userId, $un, $fn, $pw, $phone, $level);
 
         return $result;
     }
