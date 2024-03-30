@@ -20,6 +20,13 @@ class ReflectService
         return $reflects;
     }
 
+    public function getReflectByReflectId($reflectId)
+    {
+        $result = $this->ReflectData->getReflectByReflectId($reflectId);
+
+        return $result;
+    }
+
     public function getEmailByUserId($userId)
     {
         $result = $this->ReflectData->getEmailByUserId($userId);

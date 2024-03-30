@@ -7,17 +7,23 @@
 
   <title>Phản ánh đô thị</title>
 
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <style>
+    .carousel-custom {
+      max-width: 500px;
+      margin: auto;
+    }
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-  <link href="../assets/css/style.css" rel="stylesheet">
-
+    .carousel-item img,
+    .carousel-item video {
+      width: 100%;
+      /* Đảm bảo rằng ảnh sẽ lấp đầy container */
+      height: 250px;
+      /* Thiết lập chiều cao cố định cho tất cả các hình ảnh */
+      object-fit: cover;
+    }
+  </style>
 
 </head>
 

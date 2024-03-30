@@ -41,22 +41,22 @@
 											<td style="text-align: center;"><?= $reflectData['category_name']; ?></td>
 											<td style="text-align: center;"><?= $reflectData['address']; ?></td>
 											<td style="text-align: center;"><?= $date; ?></td>
-											<?php if ($reflectData['handle'] == 1) {?>
+											<?php if ($reflectData['handle'] == 1) { ?>
 												<td style="text-align: center;">Đã xử lý</td>
 											<?php } else { ?>
 												<td style="text-align: center;">Đang xử lý</td>
 											<?php } ?>
 
-											<?php if ($reflectData['accept']) {?>
+											<?php if ($reflectData['accept']) { ?>
 												<td style="text-align: center;">
 													<i class="bi bi-check"></i>
 												</td>
-											<?php } else {?>
-											<td style="text-align: center;">
-											<button type="button" class="btn btn-danger">Duyệt</button>
-											</td>
+											<?php } else { ?>
+												<td style="text-align: center;">
+													<button type="button" class="btn btn-danger">Duyệt</button>
+												</td>
 											<?php } ?>
-											<td style="text-align: center;"><a href="">Xem</a></td>
+											<td style="text-align: center;"><a href="detailreflect?detail=<?= $reflectId ?>">Xem</a></td>
 										</tr>
 									<?php
 									}
@@ -71,4 +71,3 @@
 		</section>
 
 	</main>
-

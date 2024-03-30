@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="./FrontEnd/assets/css/style.css">
+<!-- <link rel="stylesheet" href="/FrontEnd/assets/css/datatables.min.css"> -->
 
 <?php
 
@@ -30,6 +31,12 @@ switch ($path) {
   case '/dothithongminh_admin/category':
     include __DIR__ . '/BackEnd/Controllers/CategoryController.php';
     break;
+  case '/dothithongminh_admin/statistic':
+    include __DIR__ . '/BackEnd/Controllers/StatisticController.php';
+    break;
+  case '/dothithongminh_admin/detailreflect':
+    include __DIR__ . '/BackEnd/Controllers/ReflectController.php';
+    break;
   default:
     include 'pages/404.php';
     break;
@@ -37,5 +44,8 @@ switch ($path) {
 
 ?>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> -->
-<!-- <script src="./FrontEnd/assets/js/main.js"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="./FrontEnd/assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

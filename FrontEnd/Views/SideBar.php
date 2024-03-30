@@ -27,7 +27,7 @@ if (isset($_SESSION['USER_LOGED'])) {
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link collapsed" href="user">
+					<a class="nav-link collapsed" href="statistic">
 						<i class="bi bi-circle"></i>
 						<span>Thống kê</span>
 					</a>
