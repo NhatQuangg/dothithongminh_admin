@@ -23,7 +23,7 @@ class ConnectionFirebase
 {
 
     public $database;
-    // public $storage;
+    public $storage;
 
     public function __construct()
     {
@@ -32,6 +32,6 @@ class ConnectionFirebase
             ->withDatabaseUri('https://dothithongminhkl-default-rtdb.firebaseio.com/');
 
         $this->database = $factory->createDatabase();
-        // $this->storage = $factory->createStorage();
+        $this->storage = $factory->createStorage();
     }
 }

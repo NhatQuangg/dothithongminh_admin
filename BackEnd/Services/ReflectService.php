@@ -1,7 +1,9 @@
 <?php
+
 namespace Service;
 
 require_once __DIR__ . "/../Datas/ReflectData.php";
+
 use Data\ReflectData;
 
 class ReflectService
@@ -32,5 +34,19 @@ class ReflectService
         $result = $this->ReflectData->getEmailByUserId($userId);
 
         return $result;
+    }
+
+    public function upFile($filePath, $fileName)
+    {
+        $result = $this->ReflectData->uploadFile($filePath, $fileName);
+
+        return $result;
+    }
+
+    public function upFiles($filePaths, $fileNames)
+    {
+        $resultUrls = $this->ReflectData->uploadFiles($filePaths, $fileNames);
+
+        return $resultUrls;
     }
 }

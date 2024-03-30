@@ -9,11 +9,13 @@ use Data\ConnectionFirebase;
 class ReflectData
 {
     public $ReflectContext;
+    public $StorageContext;
 
     public function __construct()
     {
         $ConnectDB = new ConnectionFirebase();
         $this->ReflectContext = $ConnectDB->database;
+        $this->StorageContext = $ConnectDB->storage;
     }
 
     public function getAllReflects()
@@ -91,7 +93,7 @@ class ReflectData
                 'contentfeedback' => $detailReflect['contentfeedback'],
                 'createdAt' => $detailReflect['createdAt'],
                 'handle' => $detailReflect['handle'],
-                'media' => $mediaUrls, 
+                'media' => $mediaUrls,
                 'title' => $detailReflect['title'],
                 'category_name' => $categoryName,
                 'email' => $email,
@@ -130,5 +132,41 @@ class ReflectData
         } else {
             return "Category không tồn tại";
         }
+    }
+
+    public function uploadFile($filePath, $fileName)
+    {
+        // Tạo tên thư mục con ngẫu nhiên
+        $subfolder = uniqid();
+
+        // Upload file to Firebase Storage
+        $bucket = $this->StorageContext->getBucket();
+        $file = fopen($filePath, 'r');
+        $object = $bucket->upload($file, [
+            'name' => "test/{$subfolder}/{$fileName}"  // Thêm tên thư mục con vào đường dẫn của tệp tin
+        ]);
+        // fclose($file);
+
+        // Get uploaded file URL
+        $downloadUrl = $object->signedUrl(new \DateTime('tomorrow'));
+
+        // Trả về đường dẫn của tệp tin sau khi tải lên
+        return $downloadUrl;
+    }
+
+    public function uploadFiles($filePaths, $fileNames)
+    {
+        $downloadUrls = [];
+
+        // Lặp qua mảng các đường dẫn và tên tệp tin
+        foreach ($filePaths as $key => $filePath) {
+            // Upload từng tệp tin
+            $downloadUrl = $this->uploadFile($filePath, $fileNames[$key]);
+
+            // Thêm đường dẫn của tệp tin vào mảng kết quả
+            $downloadUrls[] = $downloadUrl;
+        }
+
+        return $downloadUrls;
     }
 }
