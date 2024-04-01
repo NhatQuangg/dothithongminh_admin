@@ -49,4 +49,27 @@ class ReflectService
 
         return $resultUrls;
     }
+
+    // =========================================================================
+
+    public function updateContentFeedback($dataArray, $reflectId)
+    {
+        $result = $this->ReflectData->updateContentFeedback($dataArray, $reflectId);
+
+        return $result;
+    }
+
+    public function updateAccept($reflectId)
+    {
+        $result = $this->ReflectData->updateAccept($reflectId);
+
+        return $result;
+    }
+
+    public function updateMediaField($texts)
+    {
+        $result = $this->ReflectData->updateMediaField($texts);
+
+        return $result;
+    }
 }

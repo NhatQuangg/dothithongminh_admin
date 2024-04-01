@@ -22,109 +22,132 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Chi tiết</h5>
+						<div class="row g-3">
 
-						<?php
-						foreach ($detailReflect as $reflect) {
-							$timestamp = $reflect['createdAt'];
-							$date = date('d-m-Y H:i:s', $timestamp / 1000);
-						?>
-							<form action="detailreflect" method="post" enctype="multipart/form-data">
-								<div class="row g-3 mb-3">
-									<div class="col-md-8">
-										<div class="row">
-											<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Tiêu đề</label>
-											<div class="col-sm-9">
-												<p class="form-control form-control-plaintext" style="font-weight: bold;"><?= $reflect['title'] ?></p>
-											</div>
-										</div>
-										<div class="row">
-											<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Danh mục</label>
-											<div class="col-sm-9">
-												<p class="form-control form-control-plaintext"><?= $reflect['category_name'] ?></p>
-											</div>
-										</div>
-										<div class="row">
-											<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Tình trạng</label>
-											<div class="col-sm-9">
-												<p class="form-control form-control-plaintext"><?= $reflect['handle'] ?></p>
-											</div>
-										</div>
-										<div class="row">
-											<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Nội dung</label>
-											<div class="col-sm-9">
-												<p class="form-control form-control-plaintext"><?= $reflect['content'] ?></p>
-											</div>
+							<h5 class="card-title col-md-6">Chi tiết</h5>
+							<?php
+							foreach ($detailReflect as $reflect) {
+								if ($reflect['handle'] == 0) {
+
+							?>
+									<div class="col-md-6">
+										<div class="d-flex justify-content-end align-items-center" style="padding: 20px 0 15px 0;">
+											<h5 style="color: red; margin: 5px 20px 5px 0px;">Đang xử lý</h5>
+											<?php if ($reflect['accept'] == false) { ?>
+												<button type="button" class="btn btn-outline-danger" id="acceptButton" value="accept" name="accept">Tiếp nhận</button>
+											<?php } ?>
 										</div>
 									</div>
+								<?php } else {
+								?>
+									<h5 class="col-md-6 d-flex justify-content-end" style="padding: 20px; color: #15c;">Đã xử lý</h5>
 
-									<div class="col-md-4">
-										<div class="row">
-											<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Họ tên</label>
-											<div class="col-sm-9">
-												<p class="form-control form-control-plaintext"><?= $reflect['email'] ?></p>
-											</div>
+							<?php
+								}
+							} ?>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form id="saveForm" method="post" action="detailreflect">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Tiếp nhận</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<div class="row">
-											<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Ngày đăng</label>
-											<div class="col-sm-9">
-												<p class="form-control form-control-plaintext"><?= $date ?></p>
-											</div>
-										</div>
-										<div class="row">
-											<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Địa chỉ</label>
-											<div class="col-sm-9">
-												<p class="form-control form-control-plaintext"><?= $reflect['address'] ?></p>
-											</div>
-										</div>
-										<div class="row">
-											<div id="carouselExampleIndicators" class="carousel slide carousel-custom" data-ride="carousel" data-interval="false">
-												<div class="carousel-inner">
-													<?php foreach ($reflect['media'] as $index => $mediaUrl) { ?>
-														<div class="carousel-item <?= ($index === 0) ? 'active' : '' ?>">
-															<?php
-															$extension = pathinfo(parse_url($mediaUrl, PHP_URL_PATH), PATHINFO_EXTENSION);
-															// echo $extension;
-															if ($extension === 'mp4') { ?>
-																<video controls class="d-block w-100 media-item">
-																	<source src="<?= $mediaUrl ?>" type="video/mp4">
-																	Your browser does not support the video tag.
-																</video>
-															<?php } else { ?>
-																<img src="<?= $mediaUrl ?>" class="d-block w-100 media-item" alt="...">
-															<?php } ?>
-														</div>
-													<?php } ?>
-												</div>
-												<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-													<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-													<span class="visually-hidden">Previous</span>
-												</button>
-												<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-													<span class="carousel-control-next-icon" aria-hidden="true"></span>
-													<span class="visually-hidden">Next</span>
-												</button>
-											</div>
+										<div class="modal-body">
+											<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
+											<input type="hidden" name="save" id="save" value="-1">
 
-
-											<!-- <div id="carouselExampleIndicators" class="carousel slide carousel-custom" data-ride="carousel" data-interval="false">
-											<div class="carousel-indicators">
-												<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-												<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-												<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+											<div class="mb-3">
+												<label for="exampleFormControlInput1" class="form-label">Ngày hiện tại</label>
+												<input type="date" class="form-control" id="currentDateInput" name="currentDateInput" readonly>
 											</div>
+											<div class="mb-3">
+												<label for="exampleFormControlTextarea1" class="form-label">Hạn xử lý</label>
+												<input type="date" class="form-control" id="processingDeadline" name="processingDeadline">
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+												<button type="submit" class="btn btn-primary" id="save_time" value="save_time" name="save_time">Lưu</button>
+											</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php
+					foreach ($detailReflect as $reflect) {
+						$timestamp = $reflect['createdAt'];
+						$date = date('d-m-Y H:i:s', $timestamp / 1000);
+					?>
+						<form action="detailreflect" method="post" enctype="multipart/form-data">
+							<div class="row g-3 mb-3">
+								<div class="col-md-8">
+									<div class="row">
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Tiêu đề</label>
+										<div class="col-sm-9">
+											<p class="form-control form-control-plaintext" style="font-weight: bold;"><?= $reflect['title'] ?></p>
+										</div>
+									</div>
+									<div class="row">
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Danh mục</label>
+										<div class="col-sm-9">
+											<p class="form-control form-control-plaintext"><?= $reflect['category_name'] ?></p>
+										</div>
+									</div>
+									<div class="row">
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Tình trạng</label>
+										<div class="col-sm-9">
+											<p class="form-control form-control-plaintext"><?= $reflect['handle'] ?></p>
+										</div>
+									</div>
+									<div class="row">
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Nội dung</label>
+										<div class="col-sm-9">
+											<p class="form-control form-control-plaintext"><?= $reflect['content'] ?></p>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="row">
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Họ tên</label>
+										<div class="col-sm-9">
+											<p class="form-control form-control-plaintext"><?= $reflect['email'] ?></p>
+										</div>
+									</div>
+									<div class="row">
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Ngày đăng</label>
+										<div class="col-sm-9">
+											<p class="form-control form-control-plaintext"><?= $date ?></p>
+										</div>
+									</div>
+									<div class="row">
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Địa chỉ</label>
+										<div class="col-sm-9">
+											<p class="form-control form-control-plaintext"><?= $reflect['address'] ?></p>
+										</div>
+									</div>
+									<div class="row">
+										<div id="carouselExampleIndicators" class="carousel slide carousel-custom" data-ride="carousel" data-interval="false">
 											<div class="carousel-inner">
-												<div class="carousel-item active">
-													<img src="FrontEnd\assets\img\slides-1.jpg" class="d-block w-100" alt="...">
-												</div>
-												<div class="carousel-item">
-													<img src="FrontEnd\assets\img\slides-2.jpg" class="d-block w-100" alt="...">
-												</div>
-												<div class="carousel-item">
-													<img src="FrontEnd\assets\img\slides-4.jpg" class="d-block w-100" alt="...">
-												</div>
+												<?php foreach ($reflect['media'] as $index => $mediaUrl) { ?>
+													<div class="carousel-item <?= ($index === 0) ? 'active' : '' ?>">
+														<?php
+														$extension = pathinfo(parse_url($mediaUrl, PHP_URL_PATH), PATHINFO_EXTENSION);
+														// echo $extension;
+														if ($extension === 'mp4') { ?>
+															<video controls class="d-block w-100 media-item">
+																<source src="<?= $mediaUrl ?>" type="video/mp4">
+																Your browser does not support the video tag.
+															</video>
+														<?php } else { ?>
+															<img src="<?= $mediaUrl ?>" class="d-block w-100 media-item" alt="...">
+														<?php } ?>
+													</div>
+												<?php } ?>
 											</div>
-
 											<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 												<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 												<span class="visually-hidden">Previous</span>
@@ -133,36 +156,65 @@
 												<span class="carousel-control-next-icon" aria-hidden="true"></span>
 												<span class="visually-hidden">Next</span>
 											</button>
-										</div> -->
 										</div>
 									</div>
 								</div>
-								<div class="row g-3 mb-3">
-									<div class="col-md-12">
-										<div class="row">
-											<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Nội dung phản hồi</label>
-											<div class="col-sm-10">
-												<textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+							</div>
+							<div class="row g-3 mb-3">
+								<?php if ($reflect['accept'] == true) {
+									foreach ($reflect['contentfeedback'] as $index => $contentFeedbacks) {
+								?>
+										<div class="col-md-12">
+											<div class="row">
+												<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Thời hạn xử lý</label>
+												<div class="col-sm-10">
+													<p class="form-control form-control-plaintext"><?= $contentFeedbacks ?></p>
+													<input type="hidden" name="timeAccept" id="timeAccept" value="<?= $contentFeedbacks; ?>">
+												</div>
 											</div>
 										</div>
+								<?php
+										break;
+									}
+								}  ?>
+								<div class="col-md-12">
+									<div class="row">
+										<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Nội dung phản hồi</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" id="contentFeedback" rows="10" name="contentFeedback"><?php
+																																	$contentFeedbacks = $reflect['contentfeedback'];
+																																	if (!empty($contentFeedbacks)) {
+																																		$firstIteration = true;
+																																		foreach ($contentFeedbacks as $contentFeedback) {
+																																			if ($firstIteration) {
+																																				$firstIteration = false;
+																																				continue;
+																																			}
+																																			echo $contentFeedback;
+																																		}
+																																	} else
+																																		echo "";
+																																	?></textarea>
+										</div>
 									</div>
 								</div>
-								<div class="row g-3">
-									<label for="inputNumber" class="col-sm-2 col-form-label" style="font-style: italic;">File</label>
-									<div class="col-sm-10">
-										<input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
-										<div class="mt-2" id="preview"></div>
-									</div>
+							</div>
+
+							<div class="row g-3">
+								<label for="inputNumber" class="col-sm-2 col-form-label" style="font-style: italic;">File</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
+									<div class="mt-2" id="preview"></div>
 								</div>
-								<div class="text-center">
-									<button type="submit" class="btn btn-primary" value="update_btn" name="update_btn">Cập nhật</button>
-								</div>
-							</form>
-						<?php } ?>
-					</div>
+							</div>
+							<div class="text-center">
+								<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
+								<button type="submit" class="btn btn-primary" value="update_btn" name="update_btn">Cập nhật</button>
+							</div>
+						</form>
+					<?php } ?>
 				</div>
 			</div>
-		</div>
 		</div>
 	</section>
 
@@ -243,4 +295,39 @@
 			return defaultIcon;
 		}
 	}
+
+	document.getElementById('acceptButton').addEventListener('click', function() {
+		// Lấy ngày hiện tại
+		var currentDate = new Date().toISOString().slice(0, 10);
+		// Đặt giá trị cho input ngày hiện tại
+		document.getElementById('currentDateInput').value = currentDate;
+
+		// Hiển thị modal khi nút được nhấn
+		var myModal = new bootstrap.Modal(document.getElementById('acceptModal'));
+		myModal.show();
+
+	});
+
+	document.getElementById('saveForm').addEventListener('submit', function(event) {
+		var currentDateInput = document.getElementById('currentDateInput').value;
+		var processingDeadlineInput = document.getElementById('processingDeadline').value;
+
+		if (currentDateInput == "" || processingDeadlineInput == "") {
+			// Ngăn chặn gửi form
+			event.preventDefault();
+			// Hiển thị thông báo
+			alert('Không được để trống');
+		}
+		// Chuyển đổi các giá trị ngày thành đối tượng Date để so sánh
+		var currentDate = new Date(currentDateInput);
+		var processingDeadline = new Date(processingDeadlineInput);
+
+		// Kiểm tra nếu ngày hiện tại không nhỏ hơn ngày xử lý
+		if (currentDate >= processingDeadline) {
+			// Ngăn chặn gửi form
+			event.preventDefault();
+			// Hiển thị thông báo
+			alert('Ngày hiện tại phải bé hơn ngày xử lý.');
+		}
+	});
 </script>

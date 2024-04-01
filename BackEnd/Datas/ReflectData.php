@@ -54,6 +54,36 @@ class ReflectData
             ->getValue();
 
         $mediaUrls = [];
+        $contentFeedbacks = [];
+        $reflectData = [];
+
+        if ($detailReflect && isset($detailReflect['contentfeedback'])) {
+            $feedback = $detailReflect['contentfeedback'];
+            if ($feedback !== "") {
+                if (is_array($feedback)) {
+                    // Nếu media đã là một mảng, sử dụng trực tiếp
+                    $contentArray = $feedback;
+                } else {
+                    // Nếu media là một chuỗi JSON, chuyển đổi thành mảng
+                    $contentArray = json_decode($feedback, true);
+                }
+
+                // Lặp qua mảng media để lấy các đường dẫn
+                foreach ($contentArray as $feedbackUrl) {
+                    $contentFeedbacks[] = $feedbackUrl;
+                }
+            } else {
+                $contentFeedbacks = [];
+            }
+        }
+
+        // if (!empty($contentFeedbacks)) {
+        //     foreach ($contentFeedbacks as $contentFeedback) {
+        //         echo "$contentFeedback";
+        //     }
+        // } else {
+        //     echo "";
+        // }
 
         if ($detailReflect && isset($detailReflect['media'])) {
             $media = $detailReflect['media'];
@@ -75,9 +105,6 @@ class ReflectData
         //     echo "<img src=\"$mediaUrl\" alt=\"\">";
         // }
 
-        // return $mediaUrls;
-
-        $reflectData = [];
 
         if ($detailReflect) {
             $userId = $detailReflect['id_user'];
@@ -90,7 +117,8 @@ class ReflectData
                 'accept' => $detailReflect['accept'],
                 'address' => $detailReflect['address'],
                 'content' => $detailReflect['content'],
-                'contentfeedback' => $detailReflect['contentfeedback'],
+                'contentfeedback' => $contentFeedbacks,
+                // 'contentfeedback' => $detailReflect['contentfeedback'],
                 'createdAt' => $detailReflect['createdAt'],
                 'handle' => $detailReflect['handle'],
                 'media' => $mediaUrls,
@@ -168,5 +196,64 @@ class ReflectData
         }
 
         return $downloadUrls;
+    }
+
+    public function updateContentFeedback($dataArray, $reflectId)
+    {
+
+        $ref_table = "Reflects/" . $reflectId . "/contentfeedback";
+
+        echo $ref_table;
+        $contentData = [];
+
+        foreach ($dataArray as $index => $data) {
+            $contentData[$index] = $data;
+        }
+
+        $updateQuery = $this->ReflectContext
+            ->getReference($ref_table)
+            ->set($contentData);
+
+        if ($updateQuery)
+            echo "thc";
+        else
+            echo "tb";
+
+        return $updateQuery;
+    }
+
+    public function updateAccept($reflectId)
+    {
+        $updateData = [
+            'accept' => true,
+        ];
+
+        $ref_table = "Reflects/" . $reflectId;
+
+        $updateQuery = $this->ReflectContext
+            ->getReference($ref_table)
+            ->update($updateData);
+
+        return $updateQuery;
+    }
+
+    public function updateMediaField($texts)
+    {
+        // Tạo đường dẫn tới bảng Reflects
+        $ref_table = "Reflects/-NtZ7KT91Pi6l1M6Oqfg/media";
+
+        // Tạo một mảng để chứa dữ liệu mới của trường media
+        $mediaData = [];
+
+        foreach ($texts as $index => $text) {
+            // Thêm giá trị text vào mảng với key tăng dần từ 0
+            $mediaData[$index] = $text;
+        }
+
+        $updateQuery = $this->ReflectContext
+            ->getReference($ref_table)
+            ->set($mediaData);
+
+        return $updateQuery;
     }
 }

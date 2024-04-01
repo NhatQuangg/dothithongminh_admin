@@ -24,42 +24,74 @@ class ReflectController extends Controller
         $method = $_SERVER["REQUEST_METHOD"];
         $service = new ReflectService();
 
-        if($method == "POST") {
-            echo "post";
-        }
-        if($method == "GET") {
-            if (isset($_GET['detail'])) {
-                $reflectId = $_GET['detail'];
-                
-                $detailReflect = $service->getReflectByReflectId($reflectId);
+        if ($method == "POST") {
+            // $dataArray = [];
+            if (isset($_POST['save'])) {
+                $currentDateInput = $_POST['currentDateInput'];
+                $processingDeadline = $_POST['processingDeadline'];
+                $reflectId = $_POST['id_reflect'];
 
-                // foreach ($detailReflect as $reflect) {
-                //     // In ra tiêu đề của phản ánh
-                //     echo "<h1>Tiêu đề: " . $reflect['title'] . "</h1>";
-                //     // In ra nội dung của phản ánh
-                //     echo "<p>Nội dung: " . $reflect['content'] . "</p>";
-                //     // In ra email của người dùng
-                //     echo "<p>Email: " . $reflect['email'] . "</p>";
-                //     // In ra tên của danh mục
-                //     echo "<p>Danh mục: " . $reflect['category_name'] . "</p>";
-        
-                //     // Hiển thị phương tiện truyền thông
-                //     foreach ($reflect['media'] as $mediaUrl) {
-                //         // Kiểm tra nếu là ảnh
-                //         if (strpos($mediaUrl, '.jpg') !== false || strpos($mediaUrl, '.jpeg') !== false || strpos($mediaUrl, '.png') !== false || strpos($mediaUrl, '.gif') !== false) {
-                //             echo "<img src=\"$mediaUrl\" alt=\"\">";
-                //         }
-                //         // Kiểm tra nếu là video
-                //         else if (strpos($mediaUrl, '.mp4') !== false || strpos($mediaUrl, '.avi') !== false || strpos($mediaUrl, '.mov') !== false || strpos($mediaUrl, '.wmv') !== false) {
-                //             echo "<video controls><source src=\"$mediaUrl\" type=\"video/mp4\"></video>";
-                //         }
-                //     }
-                // }
-                include __DIR__ . "/../../FrontEnd/Views/Details/Details.php";
+                $currentDateFormatted = date('d-m-Y', strtotime($currentDateInput));
+                $processingDeadlineFormatted = date('d-m-Y', strtotime($processingDeadline));
+
+                $timeHandle = 'Từ ' . $currentDateFormatted . ' đến ' . $processingDeadlineFormatted;
+
+                $dataArray[] = $timeHandle;
+
+                $update = $service->updateContentFeedback($dataArray, $reflectId);
+                $accept = $service->updateAccept($reflectId);
+
+                $previousPageUrl = $_SERVER['HTTP_REFERER'];
+
+                header("Location: $previousPageUrl");
+            }
+            if (isset($_POST['update_btn'])) {
+
+                $dataArray = [];
+                $reflectId = $_POST['id_reflect'];
+                $contentFeedback = $_POST['contentFeedback'];
+                $timeAccept = $_POST['timeAccept'];
+
+                $dataArray[] = $contentFeedback;
+                $dataArray[] = $timeAccept;
+
+
+                if (!empty($_FILES['fileToUpload']['name'][0])) {
+                    $fileCount = count($_FILES['fileToUpload']['name']);
+
+                    // Lặp qua từng tệp tin được tải lên
+                    for ($i = 0; $i < $fileCount; $i++) {
+                        $fileName = $_FILES['fileToUpload']['name'][$i];
+                        $tmpFilePath = $_FILES['fileToUpload']['tmp_name'][$i];
+
+                        // Kiểm tra xem có lỗi khi tải lên không
+                        if ($_FILES['fileToUpload']['error'][$i] === UPLOAD_ERR_OK) {
+                            // Gọi phương thức upFile từ service để tải lên file
+                            $downloadUrl = $service->upFile($tmpFilePath, $fileName);
+
+                            $dataArray[] = $downloadUrl;
+                        } else {
+                            // Xử lý lỗi khi tải lên file
+                            echo "Có lỗi khi tải lên file: " . $_FILES['fileToUpload']['error'][$i] . "<br>";
+                        }
+                    }
+                } else {
+                    echo "Vui lòng chọn ít nhất một file để tải lên.";
+                }
                 
+                $update = $service->updateContentFeedback($dataArray, $reflectId);
+                // print_r($dataArray);
             }
         }
+        if ($method == "GET") {
+            if (isset($_GET['detail'])) {
+                $reflectId = $_GET['detail'];
 
+                $detailReflect = $service->getReflectByReflectId($reflectId);
+
+                include __DIR__ . "/../../FrontEnd/Views/Details/Details.php";
+            }
+        }
     }
 }
 
