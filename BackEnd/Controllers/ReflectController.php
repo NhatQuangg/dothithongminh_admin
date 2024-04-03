@@ -52,8 +52,8 @@ class ReflectController extends Controller
                 $contentFeedback = $_POST['contentFeedback'];
                 $timeAccept = $_POST['timeAccept'];
 
-                $dataArray[] = $contentFeedback;
                 $dataArray[] = $timeAccept;
+                $dataArray[] = $contentFeedback;
 
 
                 if (!empty($_FILES['fileToUpload']['name'][0])) {
@@ -75,12 +75,14 @@ class ReflectController extends Controller
                             echo "Có lỗi khi tải lên file: " . $_FILES['fileToUpload']['error'][$i] . "<br>";
                         }
                     }
-                } else {
-                    echo "Vui lòng chọn ít nhất một file để tải lên.";
                 }
-                
-                $update = $service->updateContentFeedback($dataArray, $reflectId);
-                // print_r($dataArray);
+
+                $updateContentFeedback = $service->updateContentFeedback($dataArray, $reflectId);
+                $updateHandle = $service->updateHandle($reflectId);
+
+                $previousPageUrl = $_SERVER['HTTP_REFERER'];
+
+                header("Location: $previousPageUrl");
             }
         }
         if ($method == "GET") {

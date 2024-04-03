@@ -27,8 +27,7 @@
 							<h5 class="card-title col-md-6">Chi tiết</h5>
 							<?php
 							foreach ($detailReflect as $reflect) {
-								if ($reflect['handle'] == 0) {
-
+								if ($reflect['handle'] == 1) {
 							?>
 									<div class="col-md-6">
 										<div class="d-flex justify-content-end align-items-center" style="padding: 20px 0 15px 0;">
@@ -38,14 +37,12 @@
 											<?php } ?>
 										</div>
 									</div>
-								<?php } else {
-								?>
+								<?php } else { ?>
 									<h5 class="col-md-6 d-flex justify-content-end" style="padding: 20px; color: #15c;">Đã xử lý</h5>
-
-							<?php
-								}
+							<?php }
 							} ?>
 						</div>
+
 						<!-- Modal -->
 						<div class="modal fade" id="acceptModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -76,6 +73,7 @@
 							</div>
 						</div>
 					</div>
+
 					<?php
 					foreach ($detailReflect as $reflect) {
 						$timestamp = $reflect['createdAt'];
@@ -160,10 +158,11 @@
 									</div>
 								</div>
 							</div>
-							<div class="row g-3 mb-3">
-								<?php if ($reflect['accept'] == true) {
-									foreach ($reflect['contentfeedback'] as $index => $contentFeedbacks) {
-								?>
+
+							<!-- accept == true : Đã tiếp nhận -->
+							<?php if ($reflect['accept'] == true) { ?>
+								<?php foreach ($reflect['contentfeedback'] as $index => $contentFeedbacks) { ?>
+									<div class="row g-3 mb-3">
 										<div class="col-md-12">
 											<div class="row">
 												<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Thời hạn xử lý</label>
@@ -173,52 +172,109 @@
 												</div>
 											</div>
 										</div>
-								<?php
-										break;
-									}
-								}  ?>
-								<div class="col-md-12">
-									<div class="row">
-										<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Nội dung phản hồi</label>
-										<div class="col-sm-10">
-											<textarea class="form-control" id="contentFeedback" rows="10" name="contentFeedback"><?php
-																																	$contentFeedbacks = $reflect['contentfeedback'];
-																																	if (!empty($contentFeedbacks)) {
-																																		$firstIteration = true;
-																																		foreach ($contentFeedbacks as $contentFeedback) {
-																																			if ($firstIteration) {
-																																				$firstIteration = false;
-																																				continue;
-																																			}
-																																			echo $contentFeedback;
-																																		}
-																																	} else
-																																		echo "";
-																																	?></textarea>
+									</div>
+									<?php break; ?>
+								<?php } ?>
+							<?php } ?>
+
+							<!-- == 1 : Đang xử lý -->
+							<!-- == 0 : Đã xử lý   -->
+							<?php if ($reflect['handle'] == 1) { ?>
+								<!-- content feefback input -->
+								<div class="row g-3 mb-3">
+									<div class="col-md-12">
+										<div class="row">
+											<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Nội dung phản hồi</label>
+											<div class="col-sm-10">
+												<textarea class="form-control" id="contentFeedback" rows="10" name="contentFeedback"></textarea>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="row g-3">
-								<label for="inputNumber" class="col-sm-2 col-form-label" style="font-style: italic;">File</label>
-								<div class="col-sm-10">
-									<input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
-									<div class="mt-2" id="preview"></div>
+								<!-- Upload File input -->
+								<div class="row g-3">
+									<label for="inputNumber" class="col-sm-2 col-form-label" style="font-style: italic;">File</label>
+									<div class="col-sm-10">
+										<input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
+										<div class="mt-2" id="preview"></div>
+									</div>
 								</div>
-							</div>
-							<div class="text-center">
-								<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
-								<button type="submit" class="btn btn-primary" value="update_btn" name="update_btn">Cập nhật</button>
-							</div>
+
+								<!-- Btn update input -->
+								<div class="row g-3 mt-3">
+									<div class="text-center">
+										<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
+										<button type="submit" class="btn btn-primary" id="update_btn" value="update_btn" name="update_btn">Cập nhật</button>
+									</div>
+								</div>
+							<?php
+							} else {
+							?>
+								<!-- contentfeedback -->
+								<div class="row g-3 mb-3">
+									<div class="col-md-12">
+										<div class="row">
+											<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Nội dung phản hồi</label>
+											<div class="col-sm-10">
+												<p class="form-control form-control-plaintext" style="  text-align: justify; text-justify: inter-word;">
+													<?php
+													$contentFeedbacks = $reflect['contentfeedback'];
+													if (!empty($contentFeedbacks)) {
+														$firstIteration = true;
+														foreach ($contentFeedbacks as $contentFeedback) {
+															if ($firstIteration) {
+																$firstIteration = false;
+																continue;
+															}
+															echo $contentFeedback;
+														}
+													} else
+														echo "";
+													?>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- File -->
+								<div class="row g-3">
+									<label for="inputNumber" class="col-sm-2 col-form-label" style="font-style: italic;">File</label>
+									<div class="col-sm-10">
+										<div class="row">
+											<?php $count = 0; ?>
+											<?php foreach ($reflect['media'] as $index => $mediaUrl) { ?>
+												<?php $extension = pathinfo(parse_url($mediaUrl, PHP_URL_PATH), PATHINFO_EXTENSION); ?>
+												<div class="col-md-4">
+													<?php if ($extension === 'mp4') { ?>
+														<video controls class="d-block w-100 media-item">
+															<source src="<?= $mediaUrl ?>" type="video/mp4">
+															Your browser does not support the video tag.
+														</video>
+													<?php } else { ?>
+														<img src="<?= $mediaUrl ?>" class="d-block w-100 media-item" alt="...">
+													<?php } ?>
+												</div>
+												<?php $count++; ?>
+												<?php if ($count % 3 == 0 && $count != count($reflect['media'])) { ?>
+										</div>
+										<div class="row">
+										<?php } ?>
+									<?php } ?>
+										</div>
+									</div>
+								</div>
+
+							<?php } ?>
 						</form>
-					<?php } ?>
+					<?php	} ?>
 				</div>
 			</div>
 		</div>
 	</section>
-
-</main><!-- End #main -->
+</main>
+<!-- End #main -->
 
 <script>
 	function previewFiles() {
@@ -315,10 +371,9 @@
 		if (currentDateInput == "" || processingDeadlineInput == "") {
 			// Ngăn chặn gửi form
 			event.preventDefault();
-			// Hiển thị thông báo
 			alert('Không được để trống');
 		}
-		// Chuyển đổi các giá trị ngày thành đối tượng Date để so sánh
+
 		var currentDate = new Date(currentDateInput);
 		var processingDeadline = new Date(processingDeadlineInput);
 
@@ -329,5 +384,14 @@
 			// Hiển thị thông báo
 			alert('Ngày hiện tại phải bé hơn ngày xử lý.');
 		}
+	});
+
+	document.getElementById('update_btn').addEventListener('click', function(event) {
+		<?php foreach ($detailReflect as $reflect) { ?>
+			<?php if ($reflect['handle'] !== true) { ?>
+				event.preventDefault(); // Ngăn chặn gửi form
+				alert('Bạn chưa thực hiện việc tiếp nhận nên không thể Cập Nhật');
+			<?php } ?>
+		<?php } ?>
 	});
 </script>

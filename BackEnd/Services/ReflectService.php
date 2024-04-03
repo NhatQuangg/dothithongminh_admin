@@ -66,9 +66,9 @@ class ReflectService
         return $result;
     }
 
-    public function updateMediaField($texts)
+    public function updateHandle($reflectId)
     {
-        $result = $this->ReflectData->updateMediaField($texts);
+        $result = $this->ReflectData->updateHandle($reflectId);
 
         return $result;
     }

@@ -23,6 +23,14 @@
       /* Thiết lập chiều cao cố định cho tất cả các hình ảnh */
       object-fit: cover;
     }
+
+    .media-item {
+      width: 100%;
+      /* Đảm bảo rằng ảnh sẽ lấp đầy container */
+      height: 250px;
+      /* Thiết lập chiều cao cố định cho tất cả các hình ảnh */
+      object-fit: cover;
+    }
   </style>
 
 </head>

@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="./FrontEnd/assets/css/style.css">
-<!-- <link rel="stylesheet" href="/FrontEnd/assets/css/datatables.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+
 
 <?php
 

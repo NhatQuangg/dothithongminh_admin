@@ -206,6 +206,8 @@ class ReflectData
         echo $ref_table;
         $contentData = [];
 
+        // echo $dataArray[0];
+        // echo $dataArray[1];
         foreach ($dataArray as $index => $data) {
             $contentData[$index] = $data;
         }
@@ -237,22 +239,17 @@ class ReflectData
         return $updateQuery;
     }
 
-    public function updateMediaField($texts)
+    public function updateHandle($reflectId)
     {
-        // Tạo đường dẫn tới bảng Reflects
-        $ref_table = "Reflects/-NtZ7KT91Pi6l1M6Oqfg/media";
+        $updateData = [
+            'handle' => 0,
+        ];
 
-        // Tạo một mảng để chứa dữ liệu mới của trường media
-        $mediaData = [];
-
-        foreach ($texts as $index => $text) {
-            // Thêm giá trị text vào mảng với key tăng dần từ 0
-            $mediaData[$index] = $text;
-        }
+        $ref_table = "Reflects/" . $reflectId;
 
         $updateQuery = $this->ReflectContext
             ->getReference($ref_table)
-            ->set($mediaData);
+            ->update($updateData);
 
         return $updateQuery;
     }

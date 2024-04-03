@@ -20,11 +20,11 @@ if (!empty($_FILES['fileToUpload']['name'][0])) {
             $downloadUrl = $service->upFile($tmpFilePath, $fileName);
 
             // Xử lý kết quả tải lên, có thể hiển thị URL của file đã tải lên
-            echo "File đã được tải lên thành công. URL: $downloadUrl <br>";
+            echo "File đã được tải lên thành công. URL: $downloadUrl <br> <br>";
 
             // Hiển thị hình ảnh đã tải lên
-            echo "Hình ảnh: <br>";
-            echo "<img src='$downloadUrl' alt='Ảnh đã tải lên'><br><br>";
+            // echo "Hình ảnh: <br>";
+            // echo "<img src='$downloadUrl' alt='Ảnh đã tải lên'><br><br>";
         } else {
             // Xử lý lỗi khi tải lên file
             echo "Có lỗi khi tải lên file: " . $_FILES['fileToUpload']['error'][$i] . "<br>";

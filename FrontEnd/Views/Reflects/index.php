@@ -41,10 +41,10 @@
 											<td style="text-align: center;"><?= $reflectData['category_name']; ?></td>
 											<td style="text-align: center;"><?= $reflectData['address']; ?></td>
 											<td style="text-align: center;"><?= $date; ?></td>
-											<?php if ($reflectData['handle'] == 1) { ?>
-												<td style="text-align: center;">Đã xử lý</td>
+											<?php if ($reflectData['handle'] == 0) { ?>
+												<td style="text-align: center;" class="text-primary">Đã xử lý</td>
 											<?php } else { ?>
-												<td style="text-align: center;">Đang xử lý</td>
+												<td style="text-align: center;" class="text-danger">Đang xử lý</td>
 											<?php } ?>
 
 											<?php if ($reflectData['accept']) { ?>

@@ -25,6 +25,13 @@
       font-weight: bold;
       margin-left: 5px;
     }
+
+    .delete-button {
+      background-color: transparent;
+      border: none;
+      color: red;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -36,7 +43,7 @@
   </form>
 
   <div id="preview"></div>
-
+  <p id="fileList"></p>
   <script>
     function previewFiles() {
       var preview = document.getElementById('preview');
@@ -44,6 +51,7 @@
 
       preview.innerHTML = '';
 
+      // alert(files.length);
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         var fileTypeIcon = getFileTypeIcon(file.type);
@@ -60,7 +68,32 @@
         filePreview.className = 'file-preview'; // Thêm lớp CSS cho phần tử <div>
 
         preview.appendChild(filePreview);
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Xóa';
+        deleteButton.className = 'delete-button';
+        deleteButton.onclick = function () {
+          // Lấy phần tử cha của nút xóa (là phần tử <div> chứa thông tin tệp)
+          var filePreview = this.parentElement;
+          // Loại bỏ phần tử <div> chứa thông tin tệp
+          preview.removeChild(filePreview);
+          // Cập nhật lại danh sách tệp
+          updateFileList();
+        };
+        filePreview.appendChild(deleteButton);
+
       }
+
+
+    }
+
+    function updateFileList() {
+      var files = document.getElementById('fileToUpload').files;
+      var fileList = [];
+      for (var i = 0; i < files.length; i++) {
+        fileList.push(files[i].name);
+      }
+      // Hiển thị danh sách tệp trong một phần tử HTML
+      document.getElementById('preview').textContent = fileList.join(', ');
     }
 
     function getFileTypeIcon(fileType) {
