@@ -23,7 +23,8 @@ class UserService
         // 2: user
         foreach ($users as $userId => $userData) {
             if ($userData['email'] == $username && $userData["password"] == $password && ($userData['level'] == 0 || $userData['level'] == 1)) {
-                return $userData;
+                // return $userData;
+                return array('userData' => $userData, 'userId' => $userId);
             }
         }
         return null;
@@ -36,9 +37,23 @@ class UserService
         return $result;
     }
 
-    public function updateUser($userId, $un, $fn, $pw, $phone, $level)
+    public function updateUser($userId, $un, $fn, $pw, $phone, $level, $flag)
     {
-        $result = $this->UserData->updateUser($userId, $un, $fn, $pw, $phone, $level);
+        $result = $this->UserData->updateUser($userId, $un, $fn, $pw, $phone, $level, $flag);
+
+        return $result;
+    }
+
+    public function create($newun, $newfn, $newpw, $newphone, $newlevel, $value)
+    {
+        $user = $this->UserData->createUser($newun, $newfn, $newpw, $newphone, $newlevel, $value);
+
+        return $user;
+    }
+
+    public function deleteUser($userId, $email, $flagg)
+    {
+        $result = $this->UserData->deleteUser($userId, $email, $flagg);
 
         return $result;
     }

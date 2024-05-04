@@ -53,7 +53,8 @@
 												</td>
 											<?php } else { ?>
 												<td style="text-align: center;">
-													<button type="button" class="btn btn-danger">Duyệt</button>
+													<i class="bi bi-x"></i>
+													<!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
 												</td>
 											<?php } ?>
 											<td style="text-align: center;"><a href="detailreflect?detail=<?= $reflectId ?>">Xem</a></td>

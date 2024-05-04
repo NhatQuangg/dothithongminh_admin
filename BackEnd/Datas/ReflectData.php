@@ -101,10 +101,6 @@ class ReflectData
                 $mediaUrls[] = $mediaUrl;
             }
         }
-        // foreach ($mediaUrls as $mediaUrl) {
-        //     echo "<img src=\"$mediaUrl\" alt=\"\">";
-        // }
-
 
         if ($detailReflect) {
             $userId = $detailReflect['id_user'];
@@ -164,21 +160,23 @@ class ReflectData
 
     public function uploadFile($filePath, $fileName)
     {
-        // Tạo tên thư mục con ngẫu nhiên
         $subfolder = uniqid();
 
-        // Upload file to Firebase Storage
-        $bucket = $this->StorageContext->getBucket();
+        $bucket = $this->StorageContext->getBucket('dothithongminhkl.appspot.com');
+
         $file = fopen($filePath, 'r');
         $object = $bucket->upload($file, [
-            'name' => "test/{$subfolder}/{$fileName}"  // Thêm tên thư mục con vào đường dẫn của tệp tin
+            'name' => "ListingContentFeedback/{$subfolder}/{$fileName}",
+            'predefinedAcl' => 'publicRead'
         ]);
-        // fclose($file);
 
-        // Get uploaded file URL
-        $downloadUrl = $object->signedUrl(new \DateTime('tomorrow'));
+        // $downloadUrl = $object->signedUrl(new \DateTime('tomorrow'));
 
-        // Trả về đường dẫn của tệp tin sau khi tải lên
+        $expiryDate = new \DateTime('2030-12-31');
+        $downloadUrl = $object->signedUrl($expiryDate);
+        echo "--------------------------------------------------";
+
+        echo $downloadUrl;
         return $downloadUrl;
     }
 

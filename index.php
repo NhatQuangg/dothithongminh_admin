@@ -38,6 +38,12 @@ switch ($path) {
   case '/dothithongminh_admin/detailreflect':
     include __DIR__ . '/BackEnd/Controllers/ReflectController.php';
     break;
+  case '/dothithongminh_admin/profile':
+    include __DIR__ . '/BackEnd/Controllers/ProfileController.php';
+    break;
+  // case '/dothithongminh_admin/check':
+  //   include __DIR__ . '/BackEnd/Controllers/TestController.php';
+  //   break;
   default:
     include 'pages/404.php';
     break;

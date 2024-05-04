@@ -5,8 +5,247 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">---</h5>
-						<form method="POST" action="user">
+						<h5 class="card-title">Tài khoản</h5>
+						<ul class="nav nav-tabs nav-tabs-bordered">
+
+							<li class="nav-item">
+								<button name="profileEdit" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Sửa tài khoản</button>
+							</li>
+
+							<li class="nav-item">
+								<button name="profileCreate" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-create">Tạo tài khoản</button>
+							</li>
+						</ul>
+
+						<div class="tab-content pt-4">
+
+							<div name="profileEdit" class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+								<form method="POST" action="user">
+									<div class="row mb-3">
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Mã tài khoản</label>
+											<input type="text" class="form-control" id="txtmtk" name="txtmtk" value="" readonly>
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Tên đăng nhập</label>
+											<input type="text" class="form-control" id="txttdn" name="txttdn" value="" readonly>
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Họ tên</label>
+											<input type="text" class="form-control" id="txthoten" name="txthoten" value="">
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Mật khẩu</label>
+											<input type="password" class="form-control" id="txtmk" name="txtmk" value="">
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Số điện thoại</label>
+											<input type="number" class="form-control" id="txtphone" name="txtphone" value="">
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Quyền</label>
+											<select class="form-select" aria-label="" name="txtlevel" id="txtlevel">
+												<option selected value="0">Admin</option>
+												<option value="1">Employee</option>
+												<option value="2">Customer</option>
+											</select>
+										</div>
+									</div>
+									<?php
+									if (isset($_SESSION["UPDATE_SUCCESS"])) {
+										unset($_SESSION["UPDATE_SUCCESS"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-success" style="font-style: italic;">
+												Cập nhật thành công !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["UPDATE_FAIL"])) {
+										unset($_SESSION["UPDATE_FAIL"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Cập nhật thất bại !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["UPDATE_ERROR"])) {
+										unset($_SESSION["UPDATE_ERROR"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Không có dữ liệu nào !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["UPDATE_FAIL_LEVEL"])) {
+										unset($_SESSION["UPDATE_FAIL_LEVEL"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Quyền không hợp lệ !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["UPDATE_FAIL_NOT_GMAIL"])) {
+										unset($_SESSION["UPDATE_FAIL_NOT_GMAIL"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Cập nhật thất bại !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["UPDATE_FAIL_PASSWORD"])) {
+										unset($_SESSION["UPDATE_FAIL_PASSWORD"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Mật khẩu phải có độ dài lớn hơn hoặc bằng 6 !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["DELETE_SUCCESS"])) {
+										unset($_SESSION["DELETE_SUCCESS"]);
+									?>
+										<div id="deleteSuccessMessage" class="text-center mb-2">
+											<p class="small mb-0 text-center text-success" style="font-style: italic;">
+												Xóa tài khoản thành công !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["DELETE_FAIL"])) {
+										unset($_SESSION["DELETE_FAIL"]);
+									?>
+										<div id="deleteFailMessage" class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Xóa tài khoản thất bại !
+											</p>
+										</div>
+									<?php } ?>
+
+									<div class="text-center">
+										<button type="submit" class="btn btn-primary" value="update_btn" name="update_btn">Cập nhật</button>
+									</div>
+								</form>
+							</div>
+
+
+
+							<div name="profileCreate" class="tab-pane fade show profile-create" id="profile-create">
+
+								<form method="POST" action="user">
+									<div class="row mb-3">
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Tên đăng nhập</label>
+											<input type="text" class="form-control" id="newun" name="newun" value="">
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Họ tên</label>
+											<input type="text" class="form-control" id="newfn" name="newfn" value="">
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Mật khẩu</label>
+											<input type="text" class="form-control" id="newpass" name="newpass" value="">
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Số điện thoại</label>
+											<input type="number" class="form-control" id="newphone" name="newphone" value="">
+										</div>
+										<div class="col-sm-6">
+											<label for="" class="col-form-label">Quyền</label>
+											<select class="form-select" aria-label="" name="newlevel" id="newlevel">
+												<option selected value="0">Admin</option>
+												<option value="1">Employee</option>
+												<option value="2">Customer</option>
+											</select>
+										</div>
+									</div>
+									<?php
+									if (isset($_SESSION["CREATE_SUCCESSFUL"])) {
+										unset($_SESSION["CREATE_SUCCESSFUL"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-success" style="font-style: italic;">
+												Tạo tài khoản thành công !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["CREATE_ERROR_<6"])) {
+										unset($_SESSION["CREATE_ERROR_<6"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Mật khẩu phải lớn hơn hoặc bằng 6 !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["CREATE_ERROR_SPACE"])) {
+										unset($_SESSION["CREATE_ERROR_SPACE"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Tên đăng nhập không được có khoảng trắng !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["CREATE_ERROR_EMPTY"])) {
+										unset($_SESSION["CREATE_ERROR_EMPTY"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Không được để trống !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["CREATE_ERROR_EXIST"])) {
+										unset($_SESSION["CREATE_ERROR_EXIST"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Tên đăng nhập đã tồn tại
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["CREATE_ERROR_LEVEL"])) {
+										unset($_SESSION["CREATE_ERROR_LEVEL"]);
+									?>
+										<div class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Quyền không hợp lệ !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["DELETE_SUCCESS"])) {
+										unset($_SESSION["DELETE_SUCCESS"]);
+									?>
+										<div id="deleteSuccessMessage" class="text-center mb-2">
+											<p class="small mb-0 text-center text-success" style="font-style: italic;">
+												Xóa tài khoản thành công !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["DELETE_FAIL"])) {
+										unset($_SESSION["DELETE_FAIL"]);
+									?>
+										<div id="deleteFailMessage" class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Xóa tài khoản thất bại !
+											</p>
+										</div>
+									<?php } ?>
+									<div class="text-center">
+										<button type="submit" class="btn btn-primary" value="create_btn" name="create_btn">Tạo</button>
+									</div>
+								</form>
+
+							</div>
+						</div>
+
+						<div>Hello</div>
+						<!-- <form method="POST" action="user">
 							<div class="row mb-3">
 								<div class="col-sm-6">
 									<label for="" class="col-form-label">Mã tài khoản</label>
@@ -15,7 +254,6 @@
 								<div class="col-sm-6">
 									<label for="" class="col-form-label">Tên đăng nhập</label>
 									<input type="text" class="form-control" id="txttdn" name="txttdn" value="" readonly>
-
 								</div>
 								<div class="col-sm-6">
 									<label for="" class="col-form-label">Họ tên</label>
@@ -23,7 +261,7 @@
 								</div>
 								<div class="col-sm-6">
 									<label for="" class="col-form-label">Mật khẩu</label>
-									<input type="text" class="form-control" id="txtmk" name="txtmk" value="" readonly>
+									<input type="text" class="form-control" id="txtmk" name="txtmk" value="">
 								</div>
 								<div class="col-sm-6">
 									<label for="" class="col-form-label">Số điện thoại</label>
@@ -56,13 +294,22 @@
 										Cập nhật thất bại !
 									</p>
 								</div>
+							<?php } else 
+								if (isset($_SESSION["UPDATE_ERROR"])) {
+								unset($_SESSION["UPDATE_ERROR"]);
+							?>
+								<div class="text-center mb-2">
+									<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+										Không có dữ liệu nào !
+									</p>
+								</div>
 							<?php } ?>
 
 							<div class="text-center">
-								<button type="submit" class="btn btn-primary" value="create_btn" name="create_btn" disabled>Thêm</button>
+								<button type="submit" class="btn btn-primary" value="create_btn" name="create_btn">Thêm</button>
 								<button type="submit" class="btn btn-primary" value="update_btn" name="update_btn">Cập nhật</button>
 							</div>
-						</form>
+						</form> -->
 						<!-- End Horizontal Form -->
 					</div>
 				</div>
@@ -122,6 +369,7 @@
 										<td style="text-align: center;"><?= $userData['email'] ?></td>
 										<td style="text-align: center;"><?= $userData['fullname'] ?></td>
 										<td style="text-align: center;"><?= $userData['password'] ?></td>
+
 										<td style="text-align: center;"><?= $userData['phone'] ?></td>
 										<td style="text-align: center;"><?= $userData['level'] ?></td>
 										<td style="text-align: center;">
@@ -130,7 +378,7 @@
 											</a>
 										</td>
 										<td style="text-align: center;">
-											<a href="javascript:void(0)" class="delete-btn" data-id="<?= $userId ?>">Xóa</a>
+											<a href="javascript:void(0)" class="delete-btn" data-id="<?= $userId ?>" data-email="<?= $userData['email'] ?>">Xóa</a>
 										</td>
 									</tr>
 								<?php
@@ -140,6 +388,7 @@
 						</table>
 						<form id="deleteForm" method="POST" action="user">
 							<input type="hidden" name="userId" id="userIdInput">
+							<input type="hidden" name="email" id="emailInput">
 							<input type="hidden" name="delete_btn">
 						</form>
 						<script>
@@ -148,10 +397,12 @@
 								button.addEventListener('click', function() {
 									// Lấy id từ thuộc tính data-id
 									const userId = this.getAttribute('data-id');
+									const email = this.getAttribute('data-email');
 									// Hiển thị confirm dialog
 									if (confirm("Bạn có muốn xóa tài khoản này không?")) {
-										// Nếu người dùng chọn OK, gán categoryId vào input của form và submit form
+										// Nếu người dùng chọn OK, gán userId vào input của form và submit form
 										document.getElementById('userIdInput').value = userId;
+										document.getElementById('emailInput').value = email;
 										// Đặt giá trị cho nút để xác định hành động là delete_btn
 										document.getElementById('deleteForm').submit();
 									}
@@ -184,4 +435,74 @@
 			document.getElementById('txtlevel').value = level;
 		});
 	});
+
+	document.querySelector('button[name="update_btn"]').addEventListener('click', function(event) {
+		// Lấy giá trị của các trường input
+		const mtkValue = document.getElementById('txtmtk').value.trim();
+		const tdnValue = document.getElementById('txttdn').value.trim();
+		const mkValue = document.getElementById('txtmk').value.trim();
+
+		// Kiểm tra xem các trường có dữ liệu không
+		if (mtkValue === '' || tdnValue === '' || mkValue === '') {
+			// Không hiển thị thông báo nếu có trường nào đó rỗng
+			return;
+		}
+		// Hiển thị confirm dialog
+		if (!confirm("Bạn có chắc chắn muốn cập nhật không?")) {
+			// Nếu người dùng chọn Cancel, ngăn chặn việc submit form bằng cách ngăn chặn mặc định hành vi của nút
+			event.preventDefault();
+		}
+	});
+
+
+	const TAB_ACTIVE_KEY = 'tab-active';
+	const defaultActive = 'profileEdit';
+	const tabActive = JSON.parse(localStorage.getItem(TAB_ACTIVE_KEY)) ?? defaultActive;
+	console.log('tab active storage:', tabActive)
+
+
+	const buttonBars = document.querySelectorAll('.card .nav-item .nav-link');
+	const tabPanes = document.querySelectorAll('.tab-content .tab-pane');
+
+	(() => {
+		tabPanes.forEach(tab => {
+			const tabId = tab.getAttribute('name');
+			if (tabId === tabActive)
+				tab.classList.add('active', 'show');
+			else tab.classList.remove('active', 'show');
+		})
+
+		buttonBars.forEach(btn => {
+			if (btn.getAttribute('name') === tabActive)
+				btn.classList.add('active');
+			else btn.classList.remove('active');
+		})
+	})()
+
+	buttonBars.forEach(btn => {
+		btn.addEventListener('click', () => {
+			const btnName = btn.getAttribute('name');
+
+			tabPanes.forEach(tab => {
+				const tabId = tab.getAttribute('name');
+				// console.log({tabId});
+				if (tabId === btnName) {
+					tab.classList.add('active', 'show');
+					localStorage.setItem(TAB_ACTIVE_KEY, JSON.stringify(tabId));
+				} else tab.classList.remove('active', 'show');
+
+			})
+		})
+	})
+
+	setTimeout(function() {
+		var deleteSuccessMessage = document.getElementById('deleteSuccessMessage');
+		var deleteFailMessage = document.getElementById('deleteFailMessage');
+		if (deleteSuccessMessage) {
+			deleteSuccessMessage.style.display = 'none';
+		}
+		if (deleteFailMessage) {
+			deleteFailMessage.style.display = 'none';
+		}
+	}, 5000);
 </script>

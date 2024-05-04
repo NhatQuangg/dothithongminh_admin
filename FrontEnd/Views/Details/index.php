@@ -219,18 +219,12 @@
 											<div class="col-sm-10">
 												<p class="form-control form-control-plaintext" style="  text-align: justify; text-justify: inter-word;">
 													<?php
-													$contentFeedbacks = $reflect['contentfeedback'];
-													if (!empty($contentFeedbacks)) {
-														$firstIteration = true;
-														foreach ($contentFeedbacks as $contentFeedback) {
-															if ($firstIteration) {
-																$firstIteration = false;
-																continue;
-															}
-															echo $contentFeedback;
-														}
-													} else
+													$contentFeedbackss = $reflect['contentfeedback'];
+													if (!empty($contentFeedbackss) && isset($contentFeedbackss[1])) {
+														echo $contentFeedbackss[1];
+													} else {
 														echo "";
+													}
 													?>
 												</p>
 											</div>
@@ -238,37 +232,47 @@
 									</div>
 								</div>
 
+
+
+
 								<!-- File -->
 								<div class="row g-3">
 									<label for="inputNumber" class="col-sm-2 col-form-label" style="font-style: italic;">File</label>
 									<div class="col-sm-10">
 										<div class="row">
-											<?php $count = 0; ?>
-											<?php foreach ($reflect['media'] as $index => $mediaUrl) { ?>
-												<?php $extension = pathinfo(parse_url($mediaUrl, PHP_URL_PATH), PATHINFO_EXTENSION); ?>
+											<?php
+											$index = 2;
+											$contentFeedbacks = $reflect['contentfeedback'];
+											$contentFeedbacks_length = count($contentFeedbacks);
+											for ($index = 2; $index < $contentFeedbacks_length; $index++) {
+												$filename_with_params = basename($contentFeedbacks[$index]);
+												$filename = strtok($filename_with_params, '?');
+
+												$extension = pathinfo(parse_url($contentFeedbacks[$index], PHP_URL_PATH), PATHINFO_EXTENSION);
+											?>
 												<div class="col-md-4">
 													<?php if ($extension === 'mp4') { ?>
 														<video controls class="d-block w-100 media-item">
-															<source src="<?= $mediaUrl ?>" type="video/mp4">
+															<source src="<?= $contentFeedbacks[$index] ?>" type="video/mp4">
 															Your browser does not support the video tag.
 														</video>
+													<?php }
+													if ($extension === 'png' || $extension === 'jpg') { ?>
+														<img src="<?= $contentFeedbacks[$index] ?>" class="d-block w-100 media-item img-thumbnail zoomable" alt="...">
 													<?php } else { ?>
-														<img src="<?= $mediaUrl ?>" class="d-block w-100 media-item" alt="...">
+														<a href="<?= $contentFeedbacks[$index] ?>" download><?= $filename; ?></a>
 													<?php } ?>
 												</div>
-												<?php $count++; ?>
-												<?php if ($count % 3 == 0 && $count != count($reflect['media'])) { ?>
-										</div>
-										<div class="row">
-										<?php } ?>
-									<?php } ?>
+												<?php } ?>
+											<?php
+										}
+											?>
 										</div>
 									</div>
 								</div>
-
-							<?php } ?>
 						</form>
-					<?php	} ?>
+					<?php
+					} ?>
 				</div>
 			</div>
 		</div>
@@ -277,6 +281,16 @@
 <!-- End #main -->
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('.zoomable');
+        images.forEach(function(image) {
+            image.addEventListener('click', function() {
+                // Thay đổi kích thước của ảnh khi click
+                this.classList.toggle('zoomed');
+            });
+        });
+    });
+
 	function previewFiles() {
 		var preview = document.getElementById('preview');
 		var files = document.getElementById('fileToUpload').files;

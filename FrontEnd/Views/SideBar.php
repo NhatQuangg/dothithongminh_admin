@@ -1,7 +1,10 @@
 <?php
 if (isset($_SESSION['USER_LOGED'])) {
 	$user = $_SESSION["USER_LOGED"];
-	if ($user['level'] == '0') {
+
+	$userData = $user['userData'];
+	$userId = $user['userId'];
+	if ($userData['level'] == '0') {
 ?>
 		<aside id="sidebar" class="sidebar">
 			<ul class="sidebar-nav" id="sidebar-nav">
@@ -36,7 +39,7 @@ if (isset($_SESSION['USER_LOGED'])) {
 		</aside>
 	<?php
 	} else
-	if ($user['level'] == '1' || $user['level'] == '2') {
+	if ($userData['level'] == '1' || $userData['level'] == '2') {
 	?>
 		<aside id="sidebar" class="sidebar">
 			<ul class="sidebar-nav" id="sidebar-nav">

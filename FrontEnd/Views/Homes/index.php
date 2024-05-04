@@ -58,11 +58,6 @@
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit" name="login_btn" value="Đăng nhập">Đăng nhập</button>
                                         </div>
-                                        <!-- <div class="col-12">
-                                            <p class="small mb-0">
-                                                Bạn chưa có tài khoản? <a href="register_page.php" style="font-style: italic;">Đăng kí</a>
-                                            </p>
-                                        </div> -->
                                     </form>
                                 </div>
                             </div>

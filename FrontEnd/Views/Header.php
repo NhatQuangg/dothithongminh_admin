@@ -31,6 +31,18 @@
       /* Thiết lập chiều cao cố định cho tất cả các hình ảnh */
       object-fit: cover;
     }
+
+
+    /* Ẩn các mũi tên điều chỉnh từ input số */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
   </style>
 
 </head>
@@ -64,16 +76,18 @@
         if (isset($_SESSION['USER_LOGED'])) {
           $user = $_SESSION["USER_LOGED"];
 
+          $userData = $user['userData'];
+          $userId = $user['userId'];
+
         ?>
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <!-- <img src="../src/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
-            <span class="d-none d-md-block dropdown-toggle ps-2">Tài khoản</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?= $userData['fullname'] ?></span>
           </a>
           <!-- End Profile Iamge Icon -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Nhật Quang</h6>
-              <span>Web Designer</span>
+              <h6><?= $userData['fullname'] ?></h6>
+              <!-- <span>Web Designer</span> -->
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -82,7 +96,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="profile">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>Hồ sơ</span>
               </a>
             </li>
             <li>

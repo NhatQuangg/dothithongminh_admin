@@ -4,148 +4,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload File</title>
-  <style>
-    .file-preview {
-      border: none;
-      /* Đặt chiều rộng của đường viền */
-      padding: 2px;
-      /* Thêm một ít padding để tạo khoảng cách giữa văn bản và đường viền */
-      margin-bottom: 10px;
-      background-color: #f5f5f5;
-      width: 400px;
-      display: flex;
-      /* Sử dụng Flexbox để căn giữa nội dung */
-      align-items: center;
-      /* Căn giữa theo chiều dọc */
-    }
+  <title>Document</title>
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    .file-name {
-      color: #15c;
-      font-weight: bold;
-      margin-left: 5px;
-    }
-
-    .delete-button {
-      background-color: transparent;
-      border: none;
-      color: red;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="./FrontEnd/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 </head>
 
 <body>
-  <h2>Upload File</h2>
-  <form action="check.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
-    <input type="submit" value="Upload File" name="submit">
-  </form>
+  <div class="container mt-5">
+    <form method="POST" action="check.php">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+      </div>
+      <button type="submit" class="btn btn-primary" name="register_btn">Submit</button>
+    </form>
+  </div>
 
-  <div id="preview"></div>
-  <p id="fileList"></p>
-  <script>
-    function previewFiles() {
-      var preview = document.getElementById('preview');
-      var files = document.getElementById('fileToUpload').files;
-
-      preview.innerHTML = '';
-
-      // alert(files.length);
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        var fileTypeIcon = getFileTypeIcon(file.type);
-
-        // Cắt chuỗi tên tập tin nếu vượt quá 35 ký tự
-        var fileNameText = file.name.length > 35 ? file.name.substring(0, 35) + '...' : file.name;
-        var fileName = document.createElement('span');
-        fileName.textContent = fileNameText;
-        fileName.className = 'file-name'; // Đặt lớp cho phần tử <span> chứa văn bản
-
-        var filePreview = document.createElement('div');
-        filePreview.appendChild(fileTypeIcon);
-        filePreview.appendChild(fileName);
-        filePreview.className = 'file-preview'; // Thêm lớp CSS cho phần tử <div>
-
-        preview.appendChild(filePreview);
-        var deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Xóa';
-        deleteButton.className = 'delete-button';
-        deleteButton.onclick = function () {
-          // Lấy phần tử cha của nút xóa (là phần tử <div> chứa thông tin tệp)
-          var filePreview = this.parentElement;
-          // Loại bỏ phần tử <div> chứa thông tin tệp
-          preview.removeChild(filePreview);
-          // Cập nhật lại danh sách tệp
-          updateFileList();
-        };
-        filePreview.appendChild(deleteButton);
-
-      }
-
-
-    }
-
-    function updateFileList() {
-      var files = document.getElementById('fileToUpload').files;
-      var fileList = [];
-      for (var i = 0; i < files.length; i++) {
-        fileList.push(files[i].name);
-      }
-      // Hiển thị danh sách tệp trong một phần tử HTML
-      document.getElementById('preview').textContent = fileList.join(', ');
-    }
-
-    function getFileTypeIcon(fileType) {
-      // Các loại tập tin và biểu tượng tương ứng
-      var fileTypeIcons = {
-        'image/jpeg': '🖼️', // Loại MIME cho ảnh JPEG
-        'image/png': '🖼️', // Loại MIME cho ảnh PNG
-        'video/mp4': '📹', // Loại MIME cho video MP4
-        'application/pdf': '📄',
-        'text/plain': '📄',
-        'application/msword': '📄',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '📄',
-        'application/vnd.ms-excel': '📄',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '📄',
-        'application/vnd.ms-powerpoint': '📄',
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation': '📄',
-        'application/zip': '📁',
-        'application/x-rar-compressed': '📁',
-        'application/x-tar': '📁',
-        'application/x-7z-compressed': '📁',
-        'application/vnd.android.package-archive': '📦',
-        'application/x-msdownload': '📦',
-        'application/x-diskcopy': '💾',
-        'application/octet-stream': '📦',
-        'application/x-sh': '📄',
-        'application/x-csh': '📄',
-        'application/x-executable': '📦',
-        'application/java-archive': '📦',
-        'application/javascript': '📄',
-        'application/json': '📄',
-        'application/xml': '📄',
-        'text/html': '📄',
-        'text/css': '📄',
-        'text/csv': '📄',
-        'text/calendar': '📄',
-        'text/javascript': '📄',
-        'text/php': '📄',
-      };
-
-      // Kiểm tra xem loại tập tin có tồn tại trong danh sách không
-      if (fileType in fileTypeIcons) {
-        var icon = document.createElement('span');
-        icon.textContent = fileTypeIcons[fileType];
-        return icon;
-      } else {
-        // Nếu không tìm thấy biểu tượng, trả về biểu tượng mặc định
-        var defaultIcon = document.createElement('span');
-        defaultIcon.textContent = '📁'; // Biểu tượng thư mục
-        return defaultIcon;
-      }
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <script src="./FrontEnd/assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 </body>
 
 </html>

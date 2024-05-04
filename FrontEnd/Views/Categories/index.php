@@ -6,7 +6,7 @@
 
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">---</h5>
+							<h5 class="card-title">Danh mục</h5>
 
 							<form method="POST" action="category">
 								<div class="row mb-3">

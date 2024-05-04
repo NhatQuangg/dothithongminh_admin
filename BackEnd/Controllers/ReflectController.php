@@ -59,19 +59,33 @@ class ReflectController extends Controller
                 if (!empty($_FILES['fileToUpload']['name'][0])) {
                     $fileCount = count($_FILES['fileToUpload']['name']);
 
+                    echo $fileCount;
+
                     // Lặp qua từng tệp tin được tải lên
                     for ($i = 0; $i < $fileCount; $i++) {
                         $fileName = $_FILES['fileToUpload']['name'][$i];
                         $tmpFilePath = $_FILES['fileToUpload']['tmp_name'][$i];
 
+                        echo $fileName;
+                        echo "<br/>";
+                        echo $tmpFilePath;
+                        echo "<br/>";
+
                         // Kiểm tra xem có lỗi khi tải lên không
                         if ($_FILES['fileToUpload']['error'][$i] === UPLOAD_ERR_OK) {
-                            // Gọi phương thức upFile từ service để tải lên file
+
+                            echo "Không lỗi";
+                            echo "<br/>";
+
                             $downloadUrl = $service->upFile($tmpFilePath, $fileName);
+
+                            echo "--------------------------------------------------";
+
+                            echo  $downloadUrl;
+                            echo "<br/>";
 
                             $dataArray[] = $downloadUrl;
                         } else {
-                            // Xử lý lỗi khi tải lên file
                             echo "Có lỗi khi tải lên file: " . $_FILES['fileToUpload']['error'][$i] . "<br>";
                         }
                     }
@@ -99,3 +113,4 @@ class ReflectController extends Controller
 
 $run = new ReflectController();
 $run->GateWay();
+
