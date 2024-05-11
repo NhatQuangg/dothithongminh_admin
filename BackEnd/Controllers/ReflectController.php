@@ -94,8 +94,11 @@ class ReflectController extends Controller
                 $updateContentFeedback = $service->updateContentFeedback($dataArray, $reflectId);
                 $updateHandle = $service->updateHandle($reflectId);
 
-                $previousPageUrl = $_SERVER['HTTP_REFERER'];
-
+                // $previousPageUrl = $_SERVER['HTTP_REFERER'];
+                // header("Location: $previousPageUrl");
+                
+                $_SESSION['previous_page_url'] = $_SERVER['REQUEST_URI'];
+                $previousPageUrl = $_SESSION['previous_page_url'];
                 header("Location: $previousPageUrl");
             }
         }
@@ -113,4 +116,3 @@ class ReflectController extends Controller
 
 $run = new ReflectController();
 $run->GateWay();
-

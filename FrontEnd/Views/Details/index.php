@@ -249,24 +249,27 @@
 												$filename = strtok($filename_with_params, '?');
 
 												$extension = pathinfo(parse_url($contentFeedbacks[$index], PHP_URL_PATH), PATHINFO_EXTENSION);
+												$lowercase_extension = strtolower($extension);
 											?>
 												<div class="col-md-4">
-													<?php if ($extension === 'mp4') { ?>
+													<?php if ($lowercase_extension  === 'mp4') { ?>
 														<video controls class="d-block w-100 media-item">
 															<source src="<?= $contentFeedbacks[$index] ?>" type="video/mp4">
 															Your browser does not support the video tag.
 														</video>
 													<?php }
-													if ($extension === 'png' || $extension === 'jpg') { ?>
-														<img src="<?= $contentFeedbacks[$index] ?>" class="d-block w-100 media-item img-thumbnail zoomable" alt="...">
+													if ($lowercase_extension  === 'png' || $lowercase_extension  === 'jpg' || $lowercase_extension  === 'jpeg') { ?>
+														<a href="<?= $contentFeedbacks[$index] ?>" target="_blank">
+															<img src="<?= $contentFeedbacks[$index] ?>" class="d-block w-100 media-item img-thumbnail" alt="...">
+														</a>
 													<?php } else { ?>
 														<a href="<?= $contentFeedbacks[$index] ?>" download><?= $filename; ?></a>
 													<?php } ?>
 												</div>
-												<?php } ?>
-											<?php
-										}
-											?>
+											<?php } ?>
+										<?php
+									}
+										?>
 										</div>
 									</div>
 								</div>
@@ -281,40 +284,53 @@
 <!-- End #main -->
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const images = document.querySelectorAll('.zoomable');
-        images.forEach(function(image) {
-            image.addEventListener('click', function() {
-                // Thay đổi kích thước của ảnh khi click
-                this.classList.toggle('zoomed');
-            });
-        });
-    });
 
 	function previewFiles() {
 		var preview = document.getElementById('preview');
 		var files = document.getElementById('fileToUpload').files;
+		var allowedTypes = ['image/jpeg', 'image/png', 'video/mp4', 'application/pdf'];
+		var maxSize = 41943040;
+		var invalidFiles = false;
 
 		preview.innerHTML = '';
 
 		for (var i = 0; i < files.length; i++) {
 			var file = files[i];
-			var fileTypeIcon = getFileTypeIcon(file.type);
 
-			// Cắt chuỗi tên tập tin nếu vượt quá 35 ký tự
+			// Kiểm tra xem tệp có phải là loại cho phép hay không
+			if (!allowedTypes.includes(file.type)) {
+				invalidFiles = true;
+				break;
+			}
+
+			// Kiểm tra kích thước của tệp
+			if (file.size > maxSize) {
+				invalidFiles = true;
+				break;
+			}
+
+			var fileTypeIcon = getFileTypeIcon(file.type);
 			var fileNameText = file.name.length > 35 ? file.name.substring(0, 35) + '...' : file.name;
 			var fileName = document.createElement('span');
 			fileName.textContent = fileNameText;
-			fileName.className = 'file-name'; // Đặt lớp cho phần tử <span> chứa văn bản
+			fileName.className = 'file-name';
 
 			var filePreview = document.createElement('div');
 			filePreview.appendChild(fileTypeIcon);
 			filePreview.appendChild(fileName);
-			filePreview.className = 'file-preview'; // Thêm lớp CSS cho phần tử <div>
+			filePreview.className = 'file-preview';
 
 			preview.appendChild(filePreview);
 		}
+
+		if (invalidFiles) {
+			// Nếu có tệp không hợp lệ, hiển thị cảnh báo và làm rỗng phần chọn tệp
+			alert('Chỉ chấp nhận các tệp ảnh, video và PDF có kích thước nhỏ hơn 164 MB.');
+			document.getElementById('fileToUpload').value = '';
+		}
 	}
+
+
 
 	function getFileTypeIcon(fileType) {
 		// Các loại tập tin và biểu tượng tương ứng

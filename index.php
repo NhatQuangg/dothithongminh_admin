@@ -6,14 +6,12 @@
 <link rel="stylesheet" href="./FrontEnd/assets/css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 
-
 <?php
 
 $requestUri = $_SERVER['REQUEST_URI'];
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $urlParts = parse_url($requestUri);
 $path = $urlParts['path'];
-// echo $path;
 
 session_start();
 switch ($path) {
@@ -41,9 +39,6 @@ switch ($path) {
   case '/dothithongminh_admin/profile':
     include __DIR__ . '/BackEnd/Controllers/ProfileController.php';
     break;
-  // case '/dothithongminh_admin/check':
-  //   include __DIR__ . '/BackEnd/Controllers/TestController.php';
-  //   break;
   default:
     include 'pages/404.php';
     break;
