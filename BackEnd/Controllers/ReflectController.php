@@ -94,12 +94,9 @@ class ReflectController extends Controller
                 $updateContentFeedback = $service->updateContentFeedback($dataArray, $reflectId);
                 $updateHandle = $service->updateHandle($reflectId);
 
-                // $previousPageUrl = $_SERVER['HTTP_REFERER'];
-                // header("Location: $previousPageUrl");
-                
-                $_SESSION['previous_page_url'] = $_SERVER['REQUEST_URI'];
-                $previousPageUrl = $_SESSION['previous_page_url'];
+                $previousPageUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: $previousPageUrl");
+                
             }
         }
         if ($method == "GET") {

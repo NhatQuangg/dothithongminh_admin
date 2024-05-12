@@ -10,27 +10,35 @@
 
 							<form method="POST" action="category">
 								<div class="row mb-3">
-									<label for="" class="col-sm-3 col-form-label">Tên loại</label>
-									<div class="col-sm-9">
+									<label for="" class="col-sm-4 col-form-label">Tên danh mục</label>
+									<div class="col-sm-8">
 										<input type="hidden" id="selectedCategoryId" name="selectedCategoryId">
 										<input type="text" class="form-control" id="txtcategory" name="txtcategory" value="">
 										<?php
 										if (isset($_SESSION['create_success'])) {
-											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['create_success'] . "</em></p>";
+											echo '<p class="font-italic text-success mt-1"><em>' . $_SESSION['create_success'] . "</em></p>";
 											unset($_SESSION['create_success']);
 										}
 										if (isset($_SESSION['create_fail'])) {
 											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['create_fail'] . "</em></p>";
 											unset($_SESSION['create_fail']);
 										}
+										if (isset($_SESSION['create_empty'])) {
+											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['create_empty'] . "</em></p>";
+											unset($_SESSION['create_empty']);
+										}
 										
 										if (isset($_SESSION['update_success'])) {
-											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['update_success'] . "</em></p>";
+											echo '<p class="font-italic text-success mt-1"><em>' . $_SESSION['update_success'] . "</em></p>";
 											unset($_SESSION['update_success']);
 										}
 										if (isset($_SESSION['update_fail'])) {
 											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['update_fail'] . "</em></p>";
 											unset($_SESSION['update_fail']);
+										}
+										if (isset($_SESSION['update_empty'])) {
+											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['update_empty'] . "</em></p>";
+											unset($_SESSION['update_empty']);
 										}
 										?>
 									</div>
@@ -79,8 +87,8 @@
 								<thead>
 									<tr style="text-align: center; vertical-align: middle;">
 										<th scope="col">#</th>
-										<th scope="col">Mã loại</th>
-										<th scope="col">Tên loại</th>
+										<th scope="col">Mã danh mục</th>
+										<th scope="col">Tên danh mục</th>
 										<th scope="col"></th>
 										<th scope="col"></th>
 									</tr>

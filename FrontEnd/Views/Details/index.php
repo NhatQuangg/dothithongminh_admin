@@ -95,9 +95,9 @@
 										</div>
 									</div>
 									<div class="row">
-										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Tình trạng</label>
+										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Địa chỉ</label>
 										<div class="col-sm-9">
-											<p class="form-control form-control-plaintext"><?= $reflect['handle'] ?></p>
+											<p class="form-control form-control-plaintext"><?= $reflect['address'] ?></p>
 										</div>
 									</div>
 									<div class="row">
@@ -110,23 +110,18 @@
 
 								<div class="col-md-4">
 									<div class="row">
-										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Họ tên</label>
-										<div class="col-sm-9">
+										<label for="inputText" class="col-sm-4 col-form-label" style="font-style: italic;">Họ tên</label>
+										<div class="col-sm-8">
 											<p class="form-control form-control-plaintext"><?= $reflect['email'] ?></p>
 										</div>
 									</div>
 									<div class="row">
-										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Ngày đăng</label>
-										<div class="col-sm-9">
+										<label for="inputText" class="col-sm-4 col-form-label" style="font-style: italic;">Ngày đăng</label>
+										<div class="col-sm-8">
 											<p class="form-control form-control-plaintext"><?= $date ?></p>
 										</div>
 									</div>
-									<div class="row">
-										<label for="inputText" class="col-sm-3 col-form-label" style="font-style: italic;">Địa chỉ</label>
-										<div class="col-sm-9">
-											<p class="form-control form-control-plaintext"><?= $reflect['address'] ?></p>
-										</div>
-									</div>
+
 									<div class="row">
 										<div id="carouselExampleIndicators" class="carousel slide carousel-custom" data-ride="carousel" data-interval="false">
 											<div class="carousel-inner">
@@ -284,7 +279,6 @@
 <!-- End #main -->
 
 <script>
-
 	function previewFiles() {
 		var preview = document.getElementById('preview');
 		var files = document.getElementById('fileToUpload').files;
@@ -329,7 +323,6 @@
 			document.getElementById('fileToUpload').value = '';
 		}
 	}
-
 
 
 	function getFileTypeIcon(fileType) {
@@ -417,11 +410,20 @@
 	});
 
 	document.getElementById('update_btn').addEventListener('click', function(event) {
+		var contentFeedback = document.getElementById('contentFeedback').value;
+		var flag = false;
 		<?php foreach ($detailReflect as $reflect) { ?>
 			<?php if ($reflect['handle'] !== true) { ?>
 				event.preventDefault(); // Ngăn chặn gửi form
-				alert('Bạn chưa thực hiện việc tiếp nhận nên không thể Cập Nhật');
+				flag = true;
+				alert('Bạn chưa thực hiện việc tiếp nhận nên không thể Cập Nhật!');
 			<?php } ?>
 		<?php } ?>
+
+		if (contentFeedback == "" && flag == false) {
+			event.preventDefault();
+			alert("Vui lòng nhập nội dung phản hồi!");
+		}
+
 	});
 </script>

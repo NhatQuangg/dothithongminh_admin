@@ -69,11 +69,9 @@ class ProfileController extends Controller
 
                                     if ($updateNewPass && $updateNewPassAuth) {
                                         $_SESSION['update_success'] = "Successful";
-                                        echo "2";
                                         header("Location: profile");
                                     } else {
                                         $_SESSION['update_fail'] = "Fail";
-                                        echo "3";
                                         header("Location: profile");
                                     }
                                 }
@@ -90,16 +88,22 @@ class ProfileController extends Controller
                     } else {
                         if ($currentpw === $pass) {
                             if ($npw === $rnpw) {
-                                $update = $service->updatePassword($userId, $npw);
-
-                                if ($update) {
-                                    $_SESSION['update_success'] = "Successful";
-                                    echo "6";
+                                if (strlen($rnpw) < 6) {
+                                    $_SESSION['rule_password'] = "Fail";
+                                    echo "1";
                                     header("Location: profile");
                                 } else {
-                                    $_SESSION['update_fail'] = "Fail";
-                                    echo "7";
-                                    header("Location: profile");
+                                    $update = $service->updatePassword($userId, $npw);
+
+                                    if ($update) {
+                                        $_SESSION['update_success'] = "Successful";
+                                        echo "6";
+                                        header("Location: profile");
+                                    } else {
+                                        $_SESSION['update_fail'] = "Fail";
+                                        echo "7";
+                                        header("Location: profile");
+                                    }
                                 }
                             } else {
                                 $_SESSION['npw_not_rnpw'] = "Fail";

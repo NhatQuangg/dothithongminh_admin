@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Beauty Garden</title>
     <link href="" rel="stylesheet">
     <!-- Google Fonts -->
 </head>
@@ -20,7 +19,7 @@
                         <div class="col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center py-4">
                                 <a href="" class="logo d-flex align-items-center w-auto">
-                                    <img src="./FrontEnd/assets/img/logo.png" alt="">
+                                    <!-- <img src="./FrontEnd/assets/img/logo.png" alt=""> -->
                                     <span class="d-none d-lg-block">Đô thị thông minh</span>
                                 </a>
                             </div>

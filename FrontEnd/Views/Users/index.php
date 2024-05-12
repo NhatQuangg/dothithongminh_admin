@@ -103,7 +103,7 @@
 									?>
 										<div class="text-center mb-2">
 											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
-												Mật khẩu phải có độ dài lớn hơn hoặc bằng 6 !
+												Mật khẩu quá yếu
 											</p>
 										</div>
 									<?php }
@@ -178,7 +178,7 @@
 									?>
 										<div class="text-center mb-2">
 											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
-												Mật khẩu phải lớn hơn hoặc bằng 6 !
+												Mật khẩu quá yếu !
 											</p>
 										</div>
 									<?php }
@@ -244,7 +244,30 @@
 							</div>
 						</div>
 
-						<div>Hello</div>
+
+						<button id="roleUser" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+							Chú thích
+						</button>
+
+						<div class="modal fade" id="roleText" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form id="saveForm" method="post" action="detailreflect">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Chú thích</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+
+											<div>Nếu tài khoản </div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+											</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
 						<!-- <form method="POST" action="user">
 							<div class="row mb-3">
 								<div class="col-sm-6">
@@ -505,4 +528,10 @@
 			deleteFailMessage.style.display = 'none';
 		}
 	}, 5000);
+
+	document.getElementById('roleUser').addEventListener('click', function() {
+		var myModal = new bootstrap.Modal(document.getElementById('roleText'));
+		myModal.show();
+
+	});
 </script>

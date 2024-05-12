@@ -42,31 +42,41 @@ class CategoryController extends Controller
             }
             if (isset($_POST['create_btn'])) {
                 $category_name = $_POST['txtcategory'];
-                $createCategory = $service->createCategory($category_name);
 
-                if ($createCategory) {
-                    $_SESSION['create_success'] = "Tạo danh mục thành công";
+                if (strlen($category_name) == null) {
+                    $_SESSION['create_empty'] = "Vui lòng không để trống !";
                     header("Location: category");
                 } else {
-                    $_SESSION['create_fail'] = "Tên danh mục đã tồn tại";
-                    header("Location: category");
+                    $createCategory = $service->createCategory($category_name);
+
+                    if ($createCategory) {
+                        $_SESSION['create_success'] = "Tạo danh mục thành công";
+                        header("Location: category");
+                    } else {
+                        $_SESSION['create_fail'] = "Tên danh mục đã tồn tại";
+                        header("Location: category");
+                    }
                 }
             }
             if (isset($_POST['update_btn'])) {
                 $categoryId = $_POST['selectedCategoryId'];
                 $category_name = $_POST['txtcategory'];
 
-                $updateCategory = $service->updateCategory($categoryId, $category_name);
-
-
-                if ($updateCategory) {
-                    // echo "thanh cong";
-                    $_SESSION['update_success'] = "Cập nhật thành công";
+                if (strlen($category_name) == null) {
+                    $_SESSION['update_empty'] = "Vui lòng không để trống !";
                     header("Location: category");
                 } else {
-                    // echo "that bai";
-                    $_SESSION['update_fail'] = "Cập nhật thất bại";
-                    header("Location: category");
+                    $updateCategory = $service->updateCategory($categoryId, $category_name);
+
+                    if ($updateCategory) {
+                        // echo "thanh cong";
+                        $_SESSION['update_success'] = "Cập nhật thành công";
+                        header("Location: category");
+                    } else {
+                        // echo "that bai";
+                        $_SESSION['update_fail'] = "Cập nhật thất bại !";
+                        header("Location: category");
+                    }
                 }
             }
         } else 

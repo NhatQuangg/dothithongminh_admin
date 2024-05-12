@@ -14,7 +14,7 @@
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="img/bsfbfs.jpg" alt="Profile" class="rounded-circle">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile" class="rounded-circle">
                             <h2><?= $profileUser['fullname'] ?></h2>
                         </div>
                     </div>
@@ -126,29 +126,29 @@
                                                 if (isset($_SESSION['update_fail'])) {
                                                     unset($_SESSION['update_fail'])
                                                 ?>
-                                                    <p class="text-danger" style="font-style: italic;">Đổi mật khẩu thất bại. Vui lòng thử lại</p>
+                                                    <p class="text-danger" style="font-style: italic;">Đổi mật khẩu thất bại. Vui lòng thử lại !</p>
                                                 <?php
                                                 }
                                                 if (isset($_SESSION['npw_not_rnpw'])) {
                                                     unset($_SESSION['npw_not_rnpw'])
                                                 ?>
-                                                    <p class="text-danger" style="font-style: italic;">Mật khẩu nhập lại không đúng. Vui lòng thử lại</p>
+                                                    <p class="text-danger" style="font-style: italic;">Mật khẩu nhập lại không đúng. Vui lòng thử lại !</p>
                                                 <?php
                                                 }
                                                 if (isset($_SESSION['pw_not_pass'])) {
                                                     unset($_SESSION['pw_not_pass'])
                                                 ?>
-                                                    <p class="text-danger" style="font-style: italic;">Mật khẩu hiện tại không đúng. Vui lòng thử lại</p>
+                                                    <p class="text-danger" style="font-style: italic;">Mật khẩu hiện tại không đúng. Vui lòng thử lại !</p>
                                                 <?php
                                                 }
                                                 if (isset($_SESSION['rule_password'])) {
                                                     unset($_SESSION['rule_password'])
                                                 ?>
-                                                    <p class="text-danger" style="font-style: italic;">Mật khẩu phải có độ dài lớn hơn hoặc bằng 6</p>
+                                                    <p class="text-danger" style="font-style: italic;">Mật khẩu quá yếu. Vui lòng thử lại !</p>
                                                 <?php } ?>
                                             </div>
                                             <div class="text-center">
-                                                <button type="submit" class="btn btn-primary" value="change_pass_btn" name="change_pass_btn">Xác nhận</button>
+                                                <button type="submit" class="btn btn-primary" value="change_pass_btn" name="change_pass_btn">Cập nhật</button>
                                             </div>
                                     </form>
                                     <!-- End Change Password Form -->
