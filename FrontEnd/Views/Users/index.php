@@ -125,15 +125,14 @@
 											</p>
 										</div>
 									<?php } ?>
-
+									<p id="roleUser" type="button" class="text-decoration-underline text-danger col-sm-1" data-toggle="modal" data-target="#exampleModalLong">
+										Chú thích
+									</P>
 									<div class="text-center">
 										<button type="submit" class="btn btn-primary" value="update_btn" name="update_btn">Cập nhật</button>
 									</div>
 								</form>
 							</div>
-
-
-
 							<div name="profileCreate" class="tab-pane fade show profile-create" id="profile-create">
 
 								<form method="POST" action="user">
@@ -148,7 +147,7 @@
 										</div>
 										<div class="col-sm-6">
 											<label for="" class="col-form-label">Mật khẩu</label>
-											<input type="text" class="form-control" id="newpass" name="newpass" value="">
+											<input type="password" class="form-control" id="newpass" name="newpass" value="">
 										</div>
 										<div class="col-sm-6">
 											<label for="" class="col-form-label">Số điện thoại</label>
@@ -170,6 +169,15 @@
 										<div class="text-center mb-2">
 											<p class="small mb-0 text-center text-success" style="font-style: italic;">
 												Tạo tài khoản thành công !
+											</p>
+										</div>
+									<?php }
+									if (isset($_SESSION["DELETE_SUCCESS"])) {
+										unset($_SESSION["DELETE_SUCCESS"]);
+									?>
+										<div id="deleteSuccessMessage" class="text-center mb-2">
+											<p class="small mb-0 text-center text-success" style="font-style: italic;">
+												Xóa tài khoản thành công !
 											</p>
 										</div>
 									<?php }
@@ -236,6 +244,9 @@
 											</p>
 										</div>
 									<?php } ?>
+									<p id="roleUser2" type="button" class="text-decoration-underline text-danger col-sm-1" data-toggle="modal" data-target="#exampleModalLong">
+										Chú thích
+									</P>
 									<div class="text-center">
 										<button type="submit" class="btn btn-primary" value="create_btn" name="create_btn">Tạo</button>
 									</div>
@@ -245,12 +256,14 @@
 						</div>
 
 
-						<button id="roleUser" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+						<!-- <button id="roleUser" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
 							Chú thích
-						</button>
+						</button>  -->
+
+
 
 						<div class="modal fade" id="roleText" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
+							<div class="modal-dialog modal-dialog-centered modal-lg">
 								<div class="modal-content">
 									<form id="saveForm" method="post" action="detailreflect">
 										<div class="modal-header">
@@ -258,8 +271,16 @@
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
-
-											<div>Nếu tài khoản </div>
+											<ul>
+												<li>Phải điền đầy đủ các thông tin: <strong>Tên đăng nhập, Mật khẩu, Quyền</strong></li>
+												<li>Mật khẩu phải có độ dài lớn hơn hoặc bằng <strong> 6 </strong></li>
+												<li>Nếu tên đăng nhập có đuôi là:
+													<ul>
+														<li><strong>@gmail.com:</strong> được sử dụng các quyền <strong> Admin, Employee, Customer </strong></li>
+														<li><strong> Không </strong> phải là đuôi @gmail.com: Chỉ được sử dụng các quyền <strong> Admin, Employee </strong></li>
+													</ul>
+												</li>
+											</ul>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
 											</div>
@@ -267,73 +288,6 @@
 								</div>
 							</div>
 						</div>
-
-						<!-- <form method="POST" action="user">
-							<div class="row mb-3">
-								<div class="col-sm-6">
-									<label for="" class="col-form-label">Mã tài khoản</label>
-									<input type="text" class="form-control" id="txtmtk" name="txtmtk" value="" readonly>
-								</div>
-								<div class="col-sm-6">
-									<label for="" class="col-form-label">Tên đăng nhập</label>
-									<input type="text" class="form-control" id="txttdn" name="txttdn" value="" readonly>
-								</div>
-								<div class="col-sm-6">
-									<label for="" class="col-form-label">Họ tên</label>
-									<input type="text" class="form-control" id="txthoten" name="txthoten" value="">
-								</div>
-								<div class="col-sm-6">
-									<label for="" class="col-form-label">Mật khẩu</label>
-									<input type="text" class="form-control" id="txtmk" name="txtmk" value="">
-								</div>
-								<div class="col-sm-6">
-									<label for="" class="col-form-label">Số điện thoại</label>
-									<input type="number" class="form-control" id="txtphone" name="txtphone" value="">
-								</div>
-								<div class="col-sm-6">
-									<label for="" class="col-form-label">Quyền</label>
-									<select class="form-select" aria-label="" name="txtlevel" id="txtlevel">
-										<option selected value="0">Admin</option>
-										<option value="1">Employee</option>
-										<option value="2">Customer</option>
-									</select>
-								</div>
-							</div>
-							<?php
-							if (isset($_SESSION["UPDATE_SUCCESS"])) {
-								unset($_SESSION["UPDATE_SUCCESS"]);
-							?>
-								<div class="text-center mb-2">
-									<p class="small mb-0 text-center text-success" style="font-style: italic;">
-										Cập nhật thành công !
-									</p>
-								</div>
-							<?php } else 							
-							if (isset($_SESSION["UPDATE_FAIL"])) {
-								unset($_SESSION["UPDATE_FAIL"]);
-							?>
-								<div class="text-center mb-2">
-									<p class="small mb-0 text-center text-danger" style="font-style: italic;">
-										Cập nhật thất bại !
-									</p>
-								</div>
-							<?php } else 
-								if (isset($_SESSION["UPDATE_ERROR"])) {
-								unset($_SESSION["UPDATE_ERROR"]);
-							?>
-								<div class="text-center mb-2">
-									<p class="small mb-0 text-center text-danger" style="font-style: italic;">
-										Không có dữ liệu nào !
-									</p>
-								</div>
-							<?php } ?>
-
-							<div class="text-center">
-								<button type="submit" class="btn btn-primary" value="create_btn" name="create_btn">Thêm</button>
-								<button type="submit" class="btn btn-primary" value="update_btn" name="update_btn">Cập nhật</button>
-							</div>
-						</form> -->
-						<!-- End Horizontal Form -->
 					</div>
 				</div>
 			</div>
@@ -391,10 +345,20 @@
 										<td style="text-align: center;"><?= $userId ?></td>
 										<td style="text-align: center;"><?= $userData['email'] ?></td>
 										<td style="text-align: center;"><?= $userData['fullname'] ?></td>
-										<td style="text-align: center;"><?= $userData['password'] ?></td>
+										<td style="text-align: center;" ><?= $userData['password'] ?></td>
 
 										<td style="text-align: center;"><?= $userData['phone'] ?></td>
-										<td style="text-align: center;"><?= $userData['level'] ?></td>
+										<td style="text-align: center;"><?php
+																		if ($userData['level'] == 0) {
+																			echo 'Admin';
+																		}
+																		if ($userData['level'] == 1) {
+																			echo "Employee";
+																		}
+																		if ($userData['level'] == 2) {
+																			echo "Customer";
+																		}
+																		?></td>
 										<td style="text-align: center;">
 											<a href="javascript:void(0)" class="select-btn" data-id="<?= $userId ?>" data-email="<?= $userData['email'] ?>" data-fullname="<?= $userData['fullname'] ?>" data-password="<?= $userData['password'] ?>" data-phone="<?= $userData['phone'] ?>" data-level="<?= $userData['level'] ?>">
 												Chọn
@@ -530,6 +494,11 @@
 	}, 5000);
 
 	document.getElementById('roleUser').addEventListener('click', function() {
+		var myModal = new bootstrap.Modal(document.getElementById('roleText'));
+		myModal.show();
+
+	});
+	document.getElementById('roleUser2').addEventListener('click', function() {
 		var myModal = new bootstrap.Modal(document.getElementById('roleText'));
 		myModal.show();
 

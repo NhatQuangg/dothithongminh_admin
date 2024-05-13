@@ -79,30 +79,31 @@ class UserController extends Controller
                     if (strlen($pw) >= 6) {
                         // is @gmail.com
                         if (strpos($un, '@gmail.com') !== false) {
-                            if ($level != 2) {
-                                $flag = 1;
-                                $updateUser = $service->updateUser($userId, $un, $fn, $pw, $phone, $level, $flag);
-
-                                if ($updateUser != null) {
-                                    $_SESSION["UPDATE_SUCCESS"] = "Thành công";
-                                    header("Location: /dothithongminh_admin/user");
-                                } else {
-                                    $_SESSION["UPDATE_FAIL"] = "Thất bại";
-                                    header("Location: /dothithongminh_admin/user");
-                                }
-                            } else {
-                                $_SESSION["UPDATE_FAIL_LEVEL"] = "Fail";
-                                header("Location: /dothithongminh_admin/user");
-                            }
-                            // not @gmail.com
-                        } else {
+                            // level = 2 : customer
+                            $flag = 1;
                             $updateUser = $service->updateUser($userId, $un, $fn, $pw, $phone, $level, $flag);
 
                             if ($updateUser != null) {
                                 $_SESSION["UPDATE_SUCCESS"] = "Thành công";
                                 header("Location: /dothithongminh_admin/user");
                             } else {
-                                $_SESSION["UPDATE_FAIL_NOT_GMAIL"] = "Thất bại";
+                                $_SESSION["UPDATE_FAIL"] = "Thất bại";
+                                header("Location: /dothithongminh_admin/user");
+                            }
+                            // not @gmail.com
+                        } else {
+                            if ($level != 2) {
+                                $updateUser = $service->updateUser($userId, $un, $fn, $pw, $phone, $level, $flag);
+
+                                if ($updateUser != null) {
+                                    $_SESSION["UPDATE_SUCCESS"] = "Thành công";
+                                    header("Location: /dothithongminh_admin/user");
+                                } else {
+                                    $_SESSION["UPDATE_FAIL_NOT_GMAIL"] = "Thất bại";
+                                    header("Location: /dothithongminh_admin/user");
+                                }
+                            } else {
+                                $_SESSION["UPDATE_FAIL_LEVEL"] = "Fail";
                                 header("Location: /dothithongminh_admin/user");
                             }
                         }
@@ -128,9 +129,9 @@ class UserController extends Controller
                         $_SESSION["CREATE_ERROR_SPACE"] = "Space";
                         header("Location: /dothithongminh_admin/user");
                     } else {
-                        // is @gmail.com
-                        if (strpos($newun, '@gmail.com') !== false) {
-                            if (strlen($newpw) >= 6) {
+                        if (strlen($newpw) >= 6) {
+                            // is @gmail.com
+                            if (strpos($newun, '@gmail.com') !== false) {
                                 $value = 1;
                                 $createAuth = $service->create($newun, $newfn, $newpw, $newphone, $newlevel, $value);
                                 if ($createAuth) {
@@ -140,26 +141,26 @@ class UserController extends Controller
                                     $_SESSION["CREATE_ERROR_EXIST"] = "ERROR";
                                     header("Location: /dothithongminh_admin/user");
                                 }
+                                // not @gmail.com
                             } else {
-                                $_SESSION["CREATE_ERROR_<6"] = "Error";
-                                header("Location: /dothithongminh_admin/user");
-                            }
-                            // not @gmail.com
-                        } else {
-                            if ($newlevel != 2) {
-                                $value = 2;
-                                $createAuth = $service->create($newun, $newfn, $newpw, $newphone, $newlevel, $value);
-                                if ($createAuth) {
-                                    $_SESSION["CREATE_SUCCESSFUL"] = "Successful";
-                                    header("Location: /dothithongminh_admin/user");
+                                if ($newlevel != 2) {
+                                    $value = 2;
+                                    $createAuth = $service->create($newun, $newfn, $newpw, $newphone, $newlevel, $value);
+                                    if ($createAuth) {
+                                        $_SESSION["CREATE_SUCCESSFUL"] = "Successful";
+                                        header("Location: /dothithongminh_admin/user");
+                                    } else {
+                                        $_SESSION["CREATE_ERROR_EXIST"] = "ERROR";
+                                        header("Location: /dothithongminh_admin/user");
+                                    }
                                 } else {
-                                    $_SESSION["CREATE_ERROR_EXIST"] = "ERROR";
+                                    $_SESSION["CREATE_ERROR_LEVEL"] = "Level";
                                     header("Location: /dothithongminh_admin/user");
                                 }
-                            } else {
-                                $_SESSION["CREATE_ERROR_LEVEL"] = "Level";
-                                header("Location: /dothithongminh_admin/user");
                             }
+                        } else {
+                            $_SESSION["CREATE_ERROR_<6"] = "Error";
+                            header("Location: /dothithongminh_admin/user");
                         }
                     }
                 } else {
