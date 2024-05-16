@@ -72,4 +72,22 @@ class ReflectService
 
         return $result;
     }
+
+    public function editTime($time, $reflectId) {
+        $result = $this->ReflectData->editTime($time, $reflectId);
+
+        return $result;
+    }
+
+    public function editContentFeedback($contentfeedback, $reflectId) {
+        $result = $this->ReflectData->editContentFeedback($contentfeedback, $reflectId);
+
+        return $result;
+    }
+
+    public function editFile($dataArray, $reflectId) {
+        $result = $this->ReflectData->editFile($dataArray, $reflectId);
+
+        // return $result;
+    }
 }

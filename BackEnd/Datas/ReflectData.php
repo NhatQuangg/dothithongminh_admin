@@ -251,4 +251,52 @@ class ReflectData
 
         return $updateQuery;
     }
+
+    public function editTime($time, $reflectId)
+    {
+
+        $refPath = "Reflects/{$reflectId}/contentfeedback/0";
+
+        $updateData = [$refPath => $time];
+
+        $updateQuery = $this->ReflectContext->getReference()->update($updateData);
+
+        return $updateQuery; 
+    }
+
+    public function editContentFeedback($conentFeedback, $reflectId)
+    {
+
+        $refPath = "Reflects/{$reflectId}/contentfeedback/1";
+
+        $updateData = [$refPath => $conentFeedback];
+
+        $updateQuery = $this->ReflectContext->getReference()->update($updateData);
+
+        return $updateQuery; 
+    }
+
+    public function editFile($dataArray, $reflectId)
+    {
+
+        $ref_table = "Reflects/" . $reflectId . "/contentfeedback";
+
+        $contentData = [];
+
+        foreach ($dataArray as $index => $data) {
+            $contentData[$index] = $data;
+            echo $contentData[$index];
+        }
+
+        $updateQuery = $this->ReflectContext
+            ->getReference($ref_table)
+            ->update($contentData);
+
+        if ($updateQuery)
+            echo "thc";
+        else
+            echo "tb";
+
+        // return $updateQuery;
+    }
 }

@@ -66,23 +66,10 @@ class ReflectController extends Controller
                         $fileName = $_FILES['fileToUpload']['name'][$i];
                         $tmpFilePath = $_FILES['fileToUpload']['tmp_name'][$i];
 
-                        echo $fileName;
-                        echo "<br/>";
-                        echo $tmpFilePath;
-                        echo "<br/>";
-
                         // Kiểm tra xem có lỗi khi tải lên không
                         if ($_FILES['fileToUpload']['error'][$i] === UPLOAD_ERR_OK) {
 
-                            echo "Không lỗi";
-                            echo "<br/>";
-
                             $downloadUrl = $service->upFile($tmpFilePath, $fileName);
-
-                            echo "--------------------------------------------------";
-
-                            echo  $downloadUrl;
-                            echo "<br/>";
 
                             $dataArray[] = $downloadUrl;
                         } else {
@@ -96,8 +83,63 @@ class ReflectController extends Controller
 
                 $previousPageUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: $previousPageUrl");
-                
             }
+            // if (isset($_POST['editTimeProcess'])) {
+            //     $time = $_POST['time'];
+            //     $reflectId = $_POST['id_reflect'];
+
+            //     $udpate =  $service->editTime($time, $reflectId);
+
+            //     $previousPageUrl = $_SERVER['HTTP_REFERER'];
+            //     header("Location: $previousPageUrl");
+            // }
+            // if (isset($_POST['editContentFeedback'])) {
+            //     $contentfeedback = $_POST['contentfeedback'];
+            //     $reflectId = $_POST['id_reflect'];
+
+            //     $udpate =  $service->editContentFeedback($contentfeedback, $reflectId);
+
+            //     $previousPageUrl = $_SERVER['HTTP_REFERER'];
+            //     header("Location: $previousPageUrl");
+            // }
+
+            // if (isset($_POST['editFile'])) {
+            //     $dataArray = [];
+            //     $reflectId = $_POST['id_reflect'];
+
+            //     $timee = $_POST['timee'];
+            //     $ctfb = $_POST['ctfb'];
+
+            //     $dataArray[] = $timee;
+            //     $dataArray[] = $ctfb;
+
+            //     if (!empty($_FILES['fileToUpload']['name'][0])) {
+            //         $fileCount = count($_FILES['fileToUpload']['name']);
+
+            //         echo $fileCount;
+
+            //         // Lặp qua từng tệp tin được tải lên
+            //         for ($i = 0; $i < $fileCount; $i++) {
+            //             $fileName = $_FILES['fileToUpload']['name'][$i];
+            //             $tmpFilePath = $_FILES['fileToUpload']['tmp_name'][$i];
+
+            //             // Kiểm tra xem có lỗi khi tải lên không
+            //             if ($_FILES['fileToUpload']['error'][$i] === UPLOAD_ERR_OK) {
+
+            //                 $downloadUrl = $service->upFile($tmpFilePath, $fileName);
+
+            //                 $dataArray[] = $downloadUrl;
+            //             } else {
+            //                 echo "Có lỗi khi tải lên file: " . $_FILES['fileToUpload']['error'][$i] . "<br>";
+            //             }
+            //         }
+            //     }
+
+            //     $updateContentFeedback = $service->updateContentFeedback($dataArray, $reflectId);
+
+            //     // $previousPageUrl = $_SERVER['HTTP_REFERER'];
+            //     // header("Location: $previousPageUrl");
+            // }
         }
         if ($method == "GET") {
             if (isset($_GET['detail'])) {

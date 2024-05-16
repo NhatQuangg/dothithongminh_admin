@@ -255,13 +255,6 @@
 							</div>
 						</div>
 
-
-						<!-- <button id="roleUser" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-							Chú thích
-						</button>  -->
-
-
-
 						<div class="modal fade" id="roleText" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered modal-lg">
 								<div class="modal-content">
@@ -501,6 +494,5 @@
 	document.getElementById('roleUser2').addEventListener('click', function() {
 		var myModal = new bootstrap.Modal(document.getElementById('roleText'));
 		myModal.show();
-
 	});
 </script>
