@@ -1,20 +1,3 @@
-<style>
-	.file-preview {
-		border: none;
-		padding: 2px;
-		margin-bottom: 10px;
-		background-color: #f5f5f5;
-		width: 400px;
-		display: flex;
-		align-items: center;
-	}
-
-	.file-name {
-		color: #15c;
-		font-weight: 600;
-		margin-left: 5px;
-	}
-</style>
 
 <main id="main" class="main">
 	<section class="section">
@@ -32,7 +15,7 @@
 										<div class="d-flex justify-content-end align-items-center" style="padding: 20px 0 15px 0;">
 											<h5 style="color: red; margin: 5px 20px 5px 0px;">Đang xử lý</h5>
 											<?php if ($reflect['accept'] == false) { ?>
-												<button type="button" class="btn btn-outline-danger" id="acceptButton" value="accept" name="accept" onclick="open1()">Tiếp nhận</button>
+												<button type="button" class="btn btn-outline-danger" id="acceptButton" value="accept" name="accept" onclick="openTimeProcess()">Tiếp nhận</button>
 											<?php } ?>
 										</div>
 									</div>
@@ -161,6 +144,27 @@
 													<div class="col-sm-10">
 														<p class="form-control form-control-plaintext"><?= $contentFeedbacks ?></p>
 														<input type="hidden" name="timeAccept" id="timeAccept" value="<?= $contentFeedbacks; ?>">
+														<p id="editButton" type="button" class="text-decoration-underline text-primary col-sm-1" value="" name="" onclick="openEditTimeProcess()">Sửa</p>
+
+														<!-- Modal -->
+														<div class="modal fade" id="editTimeProcessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="exampleModalLabel">Tiếp nhận</h5>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																	</div>
+																	<div class="modal-body">
+																		<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
+																		<textarea class="form-control" id="editTimeValue" rows="1" name="editTimeValue"><?= $contentFeedbacks; ?></textarea>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="submit" class="btn btn-primary" id="editTimeProcess" value="editTimeProcess" name="editTimeProcess">Lưu</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+
 													</div>
 												</div>
 											</div>
@@ -168,6 +172,8 @@
 										<?php break; ?>
 									<?php } ?>
 								<?php } ?>
+
+
 
 								<!-- == 1 : Đang xử lý -->
 								<!-- == 0 : Đã xử lý   -->
@@ -209,18 +215,40 @@
 											<div class="row">
 												<label for="inputText" class="col-sm-2 col-form-label" style="font-style: italic;">Nội dung phản hồi</label>
 												<div class="col-sm-10">
-													<p class="form-control form-control-plaintext" style="  text-align: justify; text-justify: inter-word;">
+													<p class="form-control form-control-plaintext" style="text-align: justify; text-justify: inter-word;">
 														<?php
 														$contentFeedbackss = $reflect['contentfeedback'];
 														if (!empty($contentFeedbackss) && isset($contentFeedbackss[1])) {
 															echo $contentFeedbackss[1];
 														?>
-														<?php
+													<p id="editButton" type="button" class="text-decoration-underline text-primary col-sm-1" value="" name="" onclick="openEditContentFeedback()">Sửa</p>
+
+													<!-- Modal -->
+													<div class="modal fade" id="editContentFeedbackModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-dialog-centered modal-lg">
+															<div class="modal-content ">
+																<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
+
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa nội dung phản hồi</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<textarea class="form-control" id="editContentFeedbackValue" rows="10" name="editContentFeedbackValue"><?= $contentFeedbackss[1]; ?></textarea>
+																</div>
+																<div class="modal-footer">
+																	<button type="submit" class="btn btn-primary" id="editContentFeedback" value="editContentFeedback" name="editContentFeedback">Lưu</button>
+
+																</div>
+															</div>
+														</div>
+													</div>
+												<?php
 														} else {
 															echo "";
 														}
-														?>
-													</p>
+												?>
+												</p>
 												</div>
 											</div>
 										</div>
@@ -256,8 +284,31 @@
 															<a href="<?= $contentFeedbacks[$index] ?>" download><?= $filename; ?></a>
 														<?php } ?>
 													</div>
-												<?php } ?>
+													<div class="modal fade" id="editFileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-dialog-centered modal-lg">
+															<div class="modal-content ">
+																<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
+																<input type="hidden" name="tpc" id="tpc" value="<?= $contentFeedbacks[0]; ?>">
+																<input type="hidden" name="ctfb" id="ctfb" value="<?= $contentFeedbacks[1]; ?>">
 
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa nội dung phản hồi</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<div class="col-sm-10">
+																		<input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
+																		<div class="mt-2" id="preview"></div>
+																	</div>
+																</div>
+																<div class="modal-footer">
+																	<button type="submit" class="btn btn-primary" id="editFile" value="editFile" name="editFile">Lưu</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												<?php } ?>
+												<p id="editButton" type="button" class="text-decoration-underline text-primary col-sm-1" value="" name="" onclick="openEditFile()">Sửa</p>
 											</div>
 										</div>
 									</div>
@@ -274,6 +325,9 @@
 	</section>
 </main>
 <!-- End #main -->
+
+
+
 
 <script>
 	function previewFiles() {
@@ -372,7 +426,7 @@
 		}
 	}
 
-	function open1() {
+	function openTimeProcess() {
 		// Lấy ngày hiện tại
 		var currentDate = new Date().toISOString().slice(0, 10);
 		// Đặt giá trị cho input ngày hiện tại
@@ -384,16 +438,19 @@
 
 	}
 
+	function openEditTimeProcess() {
+		var myModal = new bootstrap.Modal(document.getElementById('editTimeProcessModal'));
+		myModal.show();
+	}
+
 	function openEditContentFeedback() {
 		var myModal = new bootstrap.Modal(document.getElementById('editContentFeedbackModal'));
 		myModal.show();
 	}
 
-	function openEditTimeProcess() {
-
-		var myModal = new bootstrap.Modal(document.getElementById('editTimeProcessModal'));
+	function openEditFile() {
+		var myModal = new bootstrap.Modal(document.getElementById('editFileModal'));
 		myModal.show();
-
 	}
 
 

@@ -25,7 +25,6 @@ class ReflectController extends Controller
         $service = new ReflectService();
 
         if ($method == "POST") {
-            // $dataArray = [];
             if (isset($_POST['save'])) {
                 $currentDateInput = $_POST['currentDateInput'];
                 $processingDeadline = $_POST['processingDeadline'];
@@ -41,9 +40,10 @@ class ReflectController extends Controller
                 $update = $service->updateContentFeedback($dataArray, $reflectId);
                 $accept = $service->updateAccept($reflectId);
 
-                $previousPageUrl = $_SERVER['HTTP_REFERER'];
+                header("Location: detailreflect?detail=$reflectId");
 
-                header("Location: $previousPageUrl");
+                // $previousPageUrl = $_SERVER['HTTP_REFERER'];
+                // header("Location: $previousPageUrl");
             }
             if (isset($_POST['update_btn'])) {
 
@@ -81,65 +81,65 @@ class ReflectController extends Controller
                 $updateContentFeedback = $service->updateContentFeedback($dataArray, $reflectId);
                 $updateHandle = $service->updateHandle($reflectId);
 
+                header("Location: detailreflect?detail=$reflectId");
+
+                // $previousPageUrl = $_SERVER['HTTP_REFERER'];
+                // header("Location: $previousPageUrl");
+            }
+            if (isset($_POST['editTimeProcess'])) {
+
+                $editTimeValue = $_POST['editTimeValue'];
+                $reflectId = $_POST['id_reflect'];
+
+                $udpate =  $service->editTime($editTimeValue, $reflectId);
+
                 $previousPageUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: $previousPageUrl");
             }
-            // if (isset($_POST['editTimeProcess'])) {
-            //     $time = $_POST['time'];
-            //     $reflectId = $_POST['id_reflect'];
+            if (isset($_POST['editContentFeedback'])) {
+                $editContentFeedbackValue = $_POST['editContentFeedbackValue'];
+                $reflectId = $_POST['id_reflect'];
 
-            //     $udpate =  $service->editTime($time, $reflectId);
+                $udpate =  $service->editContentFeedback($editContentFeedbackValue, $reflectId);
 
-            //     $previousPageUrl = $_SERVER['HTTP_REFERER'];
-            //     header("Location: $previousPageUrl");
-            // }
-            // if (isset($_POST['editContentFeedback'])) {
-            //     $contentfeedback = $_POST['contentfeedback'];
-            //     $reflectId = $_POST['id_reflect'];
+                header("Location: detailreflect?detail=$reflectId");
 
-            //     $udpate =  $service->editContentFeedback($contentfeedback, $reflectId);
+                // $previousPageUrl = $_SERVER['HTTP_REFERER'];
+                // header("Location: $previousPageUrl");
+            }
+            if (isset($_POST['editFile'])) {
+                $dataArray = [];
+                $reflectId = $_POST['id_reflect'];
 
-            //     $previousPageUrl = $_SERVER['HTTP_REFERER'];
-            //     header("Location: $previousPageUrl");
-            // }
+                $tpc = $_POST['tpc'];
+                $ctfb = $_POST['ctfb'];
 
-            // if (isset($_POST['editFile'])) {
-            //     $dataArray = [];
-            //     $reflectId = $_POST['id_reflect'];
+                $dataArray[] = $tpc;
+                $dataArray[] = $ctfb;
 
-            //     $timee = $_POST['timee'];
-            //     $ctfb = $_POST['ctfb'];
+                if (!empty($_FILES['fileToUpload']['name'][0])) {
+                    $fileCount = count($_FILES['fileToUpload']['name']);
 
-            //     $dataArray[] = $timee;
-            //     $dataArray[] = $ctfb;
+                    for ($i = 0; $i < $fileCount; $i++) {
+                        $fileName = $_FILES['fileToUpload']['name'][$i];
+                        $tmpFilePath = $_FILES['fileToUpload']['tmp_name'][$i];
 
-            //     if (!empty($_FILES['fileToUpload']['name'][0])) {
-            //         $fileCount = count($_FILES['fileToUpload']['name']);
+                        if ($_FILES['fileToUpload']['error'][$i] === UPLOAD_ERR_OK) {
+                            $downloadUrl = $service->upFile($tmpFilePath, $fileName);
+                            $dataArray[] = $downloadUrl;
+                        } else {
+                            echo "Có lỗi khi tải lên file: " . $_FILES['fileToUpload']['error'][$i] . "<br>";
+                        }
+                    }
+                }
 
-            //         echo $fileCount;
+                $updateContentFeedback = $service->updateContentFeedback($dataArray, $reflectId);
+                
+                header("Location: detailreflect?detail=$reflectId");
 
-            //         // Lặp qua từng tệp tin được tải lên
-            //         for ($i = 0; $i < $fileCount; $i++) {
-            //             $fileName = $_FILES['fileToUpload']['name'][$i];
-            //             $tmpFilePath = $_FILES['fileToUpload']['tmp_name'][$i];
-
-            //             // Kiểm tra xem có lỗi khi tải lên không
-            //             if ($_FILES['fileToUpload']['error'][$i] === UPLOAD_ERR_OK) {
-
-            //                 $downloadUrl = $service->upFile($tmpFilePath, $fileName);
-
-            //                 $dataArray[] = $downloadUrl;
-            //             } else {
-            //                 echo "Có lỗi khi tải lên file: " . $_FILES['fileToUpload']['error'][$i] . "<br>";
-            //             }
-            //         }
-            //     }
-
-            //     $updateContentFeedback = $service->updateContentFeedback($dataArray, $reflectId);
-
-            //     // $previousPageUrl = $_SERVER['HTTP_REFERER'];
-            //     // header("Location: $previousPageUrl");
-            // }
+                // $previousPageUrl = $_SERVER['HTTP_REFERER'];
+                // header("Location: $previousPageUrl");
+            }
         }
         if ($method == "GET") {
             if (isset($_GET['detail'])) {

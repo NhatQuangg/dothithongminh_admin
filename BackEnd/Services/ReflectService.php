@@ -85,9 +85,4 @@ class ReflectService
         return $result;
     }
 
-    public function editFile($dataArray, $reflectId) {
-        $result = $this->ReflectData->editFile($dataArray, $reflectId);
-
-        // return $result;
-    }
 }

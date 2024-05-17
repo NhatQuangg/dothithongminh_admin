@@ -44,7 +44,21 @@
       -moz-appearance: textfield;
     }
 
-    
+    .file-preview {
+      border: none;
+      padding: 2px;
+      margin-bottom: 10px;
+      background-color: #f5f5f5;
+      width: 400px;
+      display: flex;
+      align-items: center;
+    }
+
+    .file-name {
+      color: #15c;
+      font-weight: 600;
+      margin-left: 5px;
+    }
   </style>
 
 </head>

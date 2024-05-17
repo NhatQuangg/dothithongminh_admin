@@ -164,9 +164,12 @@ class ReflectData
 
         $bucket = $this->StorageContext->getBucket('dothithongminhkl.appspot.com');
 
+        // $expiryDates = new \DateTime();
+        $expiryDates = (new \DateTime())->format('d-m-Y H:i:s');
+
         $file = fopen($filePath, 'r');
         $object = $bucket->upload($file, [
-            'name' => "ListingContentFeedback/{$subfolder}/{$fileName}",
+            'name' => "ListingContentFeedback/{$expiryDates}/{$subfolder}/{$fileName}",
             'predefinedAcl' => 'publicRead'
         ]);
 
@@ -204,8 +207,6 @@ class ReflectData
         echo $ref_table;
         $contentData = [];
 
-        // echo $dataArray[0];
-        // echo $dataArray[1];
         foreach ($dataArray as $index => $data) {
             $contentData[$index] = $data;
         }
@@ -276,27 +277,4 @@ class ReflectData
         return $updateQuery; 
     }
 
-    public function editFile($dataArray, $reflectId)
-    {
-
-        $ref_table = "Reflects/" . $reflectId . "/contentfeedback";
-
-        $contentData = [];
-
-        foreach ($dataArray as $index => $data) {
-            $contentData[$index] = $data;
-            echo $contentData[$index];
-        }
-
-        $updateQuery = $this->ReflectContext
-            ->getReference($ref_table)
-            ->update($contentData);
-
-        if ($updateQuery)
-            echo "thc";
-        else
-            echo "tb";
-
-        // return $updateQuery;
-    }
 }
