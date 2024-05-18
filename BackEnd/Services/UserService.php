@@ -57,4 +57,16 @@ class UserService
 
         return $result;
     }
+
+    public function getReflectsByUserId($userId)
+    {
+        $reflectIds = $this->UserData->getReflectsByUserId($userId);
+        return $reflectIds;
+    }
+
+    public function deleteReflectsByUserId($userId)
+    {
+        $result = $this->UserData->deleteReflectsByUserId($userId);
+        return $result;
+    }
 }

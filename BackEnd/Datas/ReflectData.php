@@ -77,14 +77,6 @@ class ReflectData
             }
         }
 
-        // if (!empty($contentFeedbacks)) {
-        //     foreach ($contentFeedbacks as $contentFeedback) {
-        //         echo "$contentFeedback";
-        //     }
-        // } else {
-        //     echo "";
-        // }
-
         if ($detailReflect && isset($detailReflect['media'])) {
             $media = $detailReflect['media'];
 

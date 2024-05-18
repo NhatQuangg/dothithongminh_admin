@@ -45,14 +45,14 @@ class UserController extends Controller
                 if (strpos($email, '@gmail.com') !== false) {
                     $flagg = 1;
                     $delete = $service->deleteUser($userId, $email, $flagg);
-
-                    if ($delete != null) {
-                        $_SESSION["DELETE_SUCCESS"] = "Thành công";
-                        header("Location: /dothithongminh_admin/user");
-                    } else {
-                        $_SESSION["DELETE_FAIL"] = "Thất bại";
-                        header("Location: /dothithongminh_admin/user");
-                    }
+                    
+                    // if ($delete != null) {
+                    //     $_SESSION["DELETE_SUCCESS"] = "Thành công";
+                    //     header("Location: /dothithongminh_admin/user");
+                    // } else {
+                    //     $_SESSION["DELETE_FAIL"] = "Thất bại";
+                    //     header("Location: /dothithongminh_admin/user");
+                    // }
                 } else {
                     $flagg = 2;
                     $delete = $service->deleteUser($userId, $email, $flagg);

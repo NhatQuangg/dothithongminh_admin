@@ -74,10 +74,13 @@ class UserData
 
     public function deleteUser($userId, $email, $flagg)
     {
+
+        $deleteReflect = $this->deleteReflectsByUserId($userId);
+
         if ($flagg == 1) {
             $uid = $this->getUidByEmail($email);
             $this->deleteAuthUser($uid);
-        }
+        }   
 
         $ref_table = "Users";
 
@@ -85,8 +88,38 @@ class UserData
             ->getReference($ref_table)
             ->getChild($userId)
             ->remove();
-        
+
         return $deleteUser;
+    }
+
+    public function getReflectsByUserId($userId)
+    {
+        $ref_table = "Reflects";
+
+        $allReflects = $this->UserContext->getReference($ref_table)->getValue();
+        $filteredReflects = [];
+
+        if ($allReflects) {
+            foreach ($allReflects as $reflectId => $reflectData) {
+                if (isset($reflectData['id_user']) && $reflectData['id_user'] == $userId) {
+                    $filteredReflects[] = $reflectId;
+                }
+            }
+        }
+        return $filteredReflects;
+    }
+
+    public function deleteReflectsByUserId($userId)
+    {
+        $reflectIds = $this->getReflectsByUserId($userId);
+
+        $ref_table = "Reflects";
+
+        foreach ($reflectIds as $reflectId) {
+            $this->UserContext
+                ->getReference($ref_table . '/' . $reflectId)
+                ->remove();
+        }
     }
 
     public function deleteAuthUser($uid)

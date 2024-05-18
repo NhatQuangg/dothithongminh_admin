@@ -27,7 +27,7 @@
 											echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['create_empty'] . "</em></p>";
 											unset($_SESSION['create_empty']);
 										}
-										
+
 										if (isset($_SESSION['update_success'])) {
 											echo '<p class="font-italic text-success mt-1"><em>' . $_SESSION['update_success'] . "</em></p>";
 											unset($_SESSION['update_success']);
@@ -62,8 +62,7 @@
 								<div class="col">
 									<h5 class="card-title">Danh sách</h5>
 								</div>
-								<div class="col">
-									<!-- <h5 class="" style="padding: 20px 0 15px 0;" >haha</h5> -->
+								<div class="col mt-4" style="text-align: right;">
 									<em class="font-italic text-success" style="padding: 20px 0 15px 0;">
 										<?php
 										if (isset($_SESSION['delete_success'])) {
@@ -76,12 +75,12 @@
 								</div>
 							</div>
 							<?php
-
 							if (isset($_SESSION['delete_fail'])) {
 								echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['delete_fail'] . "</em></p>";
 								unset($_SESSION['delete_fail']);
 							}
 							?>
+
 							<!-- Table with stripped rows -->
 							<table class="table table-bordered table-hover ">
 								<thead>
@@ -154,7 +153,7 @@
 			document.querySelector('.font-italic.text-danger').style.display = 'none';
 		}, 5000); // 5000 milliseconds = 5 giây
 	</script>
-	
+
 	<script>
 		// Lắng nghe sự kiện click trên nút Chọn
 		document.querySelectorAll('.select-btn').forEach(button => {
