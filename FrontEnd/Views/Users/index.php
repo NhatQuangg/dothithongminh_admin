@@ -328,17 +328,17 @@
 									<th scope="col"></th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody class="content-table">
 								<?php
 								$i = 1;
 								foreach ($allUsers as $userId => $userData) {
 								?>
-									<tr style="vertical-align: middle;">
+									<tr class="td-item" style="vertical-align: middle;">
 										<th scope="row" style="text-align: center;"><?= $i++; ?></th>
 										<td style="text-align: center;"><?= $userId ?></td>
 										<td style="text-align: center;"><?= $userData['email'] ?></td>
 										<td style="text-align: center;"><?= $userData['fullname'] ?></td>
-										<td style="text-align: center;" ><?= $userData['password'] ?></td>
+										<td style="text-align: center;"><?= $userData['password'] ?></td>
 
 										<td style="text-align: center;"><?= $userData['phone'] ?></td>
 										<td style="text-align: center;"><?php
@@ -366,6 +366,8 @@
 								?>
 							</tbody>
 						</table>
+						<ul class="listPage"></ul>
+
 						<form id="deleteForm" method="POST" action="user">
 							<input type="hidden" name="userId" id="userIdInput">
 							<input type="hidden" name="email" id="emailInput">

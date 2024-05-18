@@ -23,14 +23,14 @@
 										<th scope="col">Chi tiết</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="content-table">
 									<?php
 									$i = 1;
 									foreach ($allReflects as $reflectId => $reflectData) {
 										$timestamp = $reflectData['createdAt'];
 										$date = date('d-m-Y H:i:s', $timestamp / 1000);
 									?>
-										<tr style="vertical-align: middle;">
+										<tr class="td-item" style="vertical-align: middle;">
 											<th scope="row" style="text-align: center;"><?= $i++; ?></th>
 											<td style="text-align: center;"><?= $reflectId ?></td>
 											<td style="text-align: center;"><?= $reflectData['email']; ?></td>
@@ -64,9 +64,11 @@
 									?>
 								</tbody>
 							</table>
-							<!-- End Table with stripped rows -->
+							<ul class="listPage"></ul>
 						</div>
+						<!-- End Table with stripped rows -->
 					</div>
+
 				</div>
 			</div>
 		</section>

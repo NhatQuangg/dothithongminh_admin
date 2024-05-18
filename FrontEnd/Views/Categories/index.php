@@ -1,5 +1,5 @@
 	<!-- =============== Main ============== -->
-	<main id="main" class="main" style="min-height: 625px;">
+	<main id="main" class="main" style="min-height: 800px;">
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-5">
@@ -93,12 +93,12 @@
 										<th scope="col"></th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="content-table">
 									<?php
 									$i = 1;
 									foreach ($allCategory as $categoryId => $categoryData) {
 									?>
-										<tr style="vertical-align: middle;">
+										<tr class="td-item" style="vertical-align: middle;">
 											<th scope="row" style="text-align: center;"><?= $i++; ?></th>
 											<td style="text-align: center;"><?= $categoryId ?></td>
 											<td style="text-align: center;"><?= $categoryData['category_name'] ?></td>
@@ -114,6 +114,9 @@
 									?>
 								</tbody>
 							</table>
+							<ul class="listPage"></ul>
+
+
 							<form id="deleteForm" method="POST" action="category">
 								<input type="hidden" name="categoryId" id="categoryIdInput">
 								<input type="hidden" name="delete_btn">

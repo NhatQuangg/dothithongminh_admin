@@ -1,20 +1,645 @@
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<link rel="stylesheet" href="./FrontEnd/assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>CKEditor 5 – Classic editor</title>
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Phản ánh đô thị</title>
+
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <style>
+        .carousel-custom {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .carousel-item img,
+        .carousel-item video {
+            width: 100%;
+            /* Đảm bảo rằng ảnh sẽ lấp đầy container */
+            height: 250px;
+            /* Thiết lập chiều cao cố định cho tất cả các hình ảnh */
+            object-fit: cover;
+        }
+
+        .media-item {
+            width: 100%;
+            /* Đảm bảo rằng ảnh sẽ lấp đầy container */
+            height: 250px;
+            /* Thiết lập chiều cao cố định cho tất cả các hình ảnh */
+            object-fit: cover;
+        }
+
+
+        /* Ẩn các mũi tên điều chỉnh từ input số */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .file-preview {
+            border: none;
+            padding: 2px;
+            margin-bottom: 10px;
+            background-color: #f5f5f5;
+            width: 400px;
+            display: flex;
+            align-items: center;
+        }
+
+        .file-name {
+            color: #15c;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        :root {
+            --green-main: #1f601f;
+            --red-main: #f00;
+            --gray-main: #eee;
+            --green-extra: #4ca215;
+            --green-price: #199427;
+            --green-list: #459429;
+            --orange-hover: #f46200;
+            --gray-slick: #a3a3a3;
+            --gray-list: #383838;
+            --gray-extra: #ccc;
+        }
+
+        .listPage {
+            /* margin-top: 20px; */
+            padding: 40px;
+            text-align: center;
+            list-style: none;
+        }
+
+        .listPage li {
+            padding: 8px 12px;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid var(--gray-extra);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .listPage .active {
+            background-color: var(--green-price);
+            color: #fff;
+        }
+    </style>
+
 </head>
+
 <body>
-    <h1>Classic editor</h1>
-    <div id="editor">
-        <p>This is some sample content.</p>
+
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="" class="logo d-flex align-items-center">
+                <img src="../assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">Đô thị thông minh</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li>
+                <!-- End Search Icon-->
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">admin</span>
+                </a>
+                <!-- End Profile Iamge Icon -->
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>admin</h6>
+                        <!-- <span>Web Designer</span> -->
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="profile">
+                            <i class="bi bi-person"></i>
+                            <span>Hồ sơ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <!-- Đăng xuất -->
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="user?logout">
+                            <i class="bi bi-box-arrow-right"></i> <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header>
+    <!-- End Header -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="home">
+                    <i class="bi bi-circle"></i>
+                    <span>Quản lý phản ánh</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="category">
+                    <i class="bi bi-circle"></i>
+                    <span>Quản lý danh mục</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="user">
+                    <i class="bi bi-circle"></i>
+                    <span>Quản lý tài khoản</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="statistic">
+                    <i class="bi bi-circle"></i>
+                    <span>Thống kê</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <!-- =============== Main ============== -->
+    <main id="main" class="main" style="min-height: 625px;">
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tài khoản</h5>
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+
+                                <li class="nav-item">
+                                    <button name="profileEdit" class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-edit">Sửa tài khoản</button>
+                                </li>
+
+                                <li class="nav-item">
+                                    <button name="profileCreate" class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-create">Tạo tài khoản</button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content pt-4">
+
+                                <div name="profileEdit" class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                                    <form method="POST" action="user">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Mã tài khoản</label>
+                                                <input type="text" class="form-control" id="txtmtk" name="txtmtk"
+                                                    value="" readonly>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Tên đăng nhập</label>
+                                                <input type="text" class="form-control" id="txttdn" name="txttdn"
+                                                    value="" readonly>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Họ tên</label>
+                                                <input type="text" class="form-control" id="txthoten" name="txthoten"
+                                                    value="">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Mật khẩu</label>
+                                                <input type="password" class="form-control" id="txtmk" name="txtmk"
+                                                    value="">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Số điện thoại</label>
+                                                <input type="number" class="form-control" id="txtphone" name="txtphone"
+                                                    value="">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Quyền</label>
+                                                <select class="form-select" aria-label="" name="txtlevel" id="txtlevel">
+                                                    <option selected value="0">Admin</option>
+                                                    <option value="1">Employee</option>
+                                                    <option value="2">Customer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <p id="roleUser" type="button"
+                                            class="text-decoration-underline text-danger col-sm-1" data-toggle="modal"
+                                            data-target="#exampleModalLong">
+                                            Chú thích
+                                        </P>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary" value="update_btn"
+                                                name="update_btn">Cập nhật</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div name="profileCreate" class="tab-pane fade show profile-create" id="profile-create">
+
+                                    <form method="POST" action="user">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Tên đăng nhập</label>
+                                                <input type="text" class="form-control" id="newun" name="newun"
+                                                    value="">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Họ tên</label>
+                                                <input type="text" class="form-control" id="newfn" name="newfn"
+                                                    value="">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Mật khẩu</label>
+                                                <input type="password" class="form-control" id="newpass" name="newpass"
+                                                    value="">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Số điện thoại</label>
+                                                <input type="number" class="form-control" id="newphone" name="newphone"
+                                                    value="">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="" class="col-form-label">Quyền</label>
+                                                <select class="form-select" aria-label="" name="newlevel" id="newlevel">
+                                                    <option selected value="0">Admin</option>
+                                                    <option value="1">Employee</option>
+                                                    <option value="2">Customer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <p id="roleUser2" type="button"
+                                            class="text-decoration-underline text-danger col-sm-1" data-toggle="modal"
+                                            data-target="#exampleModalLong">
+                                            Chú thích
+                                        </P>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary" value="create_btn"
+                                                name="create_btn">Tạo</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="roleText" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <form id="saveForm" method="post" action="detailreflect">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Chú thích</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <ul>
+                                                    <li>Phải điền đầy đủ các thông tin: <strong>Tên đăng nhập, Mật khẩu,
+                                                            Quyền</strong></li>
+                                                    <li>Mật khẩu phải có độ dài lớn hơn hoặc bằng <strong> 6 </strong>
+                                                    </li>
+                                                    <li>Nếu tên đăng nhập có đuôi là:
+                                                        <ul>
+                                                            <li><strong>@gmail.com:</strong> được sử dụng các quyền
+                                                                <strong> Admin, Employee, Customer </strong>
+                                                            </li>
+                                                            <li><strong> Không </strong> phải là đuôi @gmail.com: Chỉ
+                                                                được sử dụng các quyền <strong> Admin, Employee
+                                                                </strong></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Đóng</button>
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body" style="max-height: 630px; overflow-y: auto;">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title">Danh sách</h5>
+                                </div>
+                                <div class="col">
+                                    <em class="font-italic text-success" style="padding: 20px 0 15px 0;">
+                                    </em>
+                                </div>
+                            </div>
+                            <!-- Table with stripped rows -->
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr style="text-align: center; vertical-align: middle;">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Mã tài khoản</th>
+                                        <th scope="col">Tên đăng nhập</th>
+                                        <th scope="col">Họ tên</th>
+                                        <th scope="col">Mật khẩu</th>
+                                        <th scope="col">Số điện thoại</th>
+                                        <th scope="col">Quyền</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="content-table">
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">1</th>
+                                        <td style="text-align: center;">-Nt6kArP6Zv0kz6qT_cJ</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">quang</td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;">0911345301</td>
+                                        <td style="text-align: center;">Customer</td>
+
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">2</th>
+                                        <td style="text-align: center;">-Nt9svcqe-9YlKL7jkOs</td>
+                                        <td style="text-align: center;">nhi@gmail.com</td>
+                                        <td style="text-align: center;">nhi</td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;">016</td>
+                                        <td style="text-align: center;">Customer</td>
+
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">3</th>
+                                        <td style="text-align: center;">-NtPoHvG9XC82-VOV3Oh</td>
+                                        <td style="text-align: center;">1</td>
+                                        <td style="text-align: center;">admin</td>
+                                        <td style="text-align: center;">123</td>
+
+                                        <td style="text-align: center;">0911345300</td>
+                                        <td style="text-align: center;">Ad
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">4</th>
+                                        <td style="text-align: center;">-NxbzwLNoWjdj9VtsKzc</td>
+                                        <td style="text-align: center;">nam@gmail.com</td>
+                                        <td style="text-align: center;">Nam</td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">Employee</td>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">5</th>
+                                        <td style="text-align: center;">-Nxu8x0v-YXmmroYjTRm</td>
+                                        <td style="text-align: center;">â@gmail.com</td>
+                                        <td style="text-align: center;">quậgd</td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;">11</td>
+                                        <td style="text-align: center;">Employee</td>
+
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">7</th>
+                                        <td style="text-align: center;">-Nxu9jM_pApf7esvyg0R</td>
+                                        <td style="text-align: center;">hgaoheg@gmail.com</td>
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">Employee</td>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">8</th>
+                                        <td style="text-align: center;">-NxuBv6mmoVT9Y9M4DZy</td>
+                                        <td style="text-align: center;">ageg@gmail.com</td>
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">Employee</td>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">9</th>
+                                        <td style="text-align: center;">-NxuDDG2jaebF-j924xQ</td>
+                                        <td style="text-align: center;">gqgdqdg@gmail.com</td>
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">Employee</td>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">10</th>
+                                        <td style="text-align: center;">-NxuEti9gb_-uQo89O6W</td>
+                                        <td style="text-align: center;">alll@gmail.com</td>
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">Employee</td>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">11</th>
+                                        <td style="text-align: center;">-NxuILrX2W2rUOKFdFIy</td>
+                                        <td style="text-align: center;">shdhdh@gmail.com</td>
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">123456</td>
+
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">Employee</td>
+                                </tbody>
+                            </table>
+                            <form id="deleteForm" method="POST" action="user">
+                                <input type="hidden" name="userId" id="userIdInput">
+                                <input type="hidden" name="email" id="emailInput">
+                                <input type="hidden" name="delete_btn">
+                            </form>
+
+                            <script>
+                                // Lắng nghe sự kiện click trên nút Xóa
+                                document.querySelectorAll('.delete-btn').forEach(button => {
+                                    button.addEventListener('click', function () {
+                                        // Lấy id từ thuộc tính data-id
+                                        const userId = this.getAttribute('data-id');
+                                        const email = this.getAttribute('data-email');
+                                        // Hiển thị confirm dialog
+                                        if (confirm("Bạn có muốn xóa tài khoản này không?")) {
+                                            // Nếu người dùng chọn OK, gán userId vào input của form và submit form
+                                            document.getElementById('userIdInput').value = userId;
+                                            document.getElementById('emailInput').value = email;
+                                            // Đặt giá trị cho nút để xác định hành động là delete_btn
+                                            document.getElementById('deleteForm').submit();
+                                        }
+                                    });
+                                });
+                            </script>
+                            <!-- End Table with stripped rows -->
+                        </div>
+                        <ul class="listPage">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+
+
+        document.querySelectorAll('.select-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const userId = this.getAttribute('data-id');
+                const email = this.getAttribute('data-email');
+                const fullname = this.getAttribute('data-fullname');
+                const password = this.getAttribute('data-password');
+                const phone = this.getAttribute('data-phone');
+                const level = this.getAttribute('data-level');
+                // Cập nhật giá trị cho các trường input trong form
+                document.getElementById('txtmtk').value = userId;
+                document.getElementById('txttdn').value = email;
+                document.getElementById('txthoten').value = fullname;
+                document.getElementById('txtmk').value = password;
+                document.getElementById('txtphone').value = phone;
+                document.getElementById('txtlevel').value = level;
+            });
+        });
+
+        document.querySelector('button[name="update_btn"]').addEventListener('click', function (event) {
+            // Lấy giá trị của các trường input
+            const mtkValue = document.getElementById('txtmtk').value.trim();
+            const tdnValue = document.getElementById('txttdn').value.trim();
+            const mkValue = document.getElementById('txtmk').value.trim();
+
+            // Kiểm tra xem các trường có dữ liệu không
+            if (mtkValue === '' || tdnValue === '' || mkValue === '') {
+                // Không hiển thị thông báo nếu có trường nào đó rỗng
+                return;
+            }
+            // Hiển thị confirm dialog
+            if (!confirm("Bạn có chắc chắn muốn cập nhật không?")) {
+                // Nếu người dùng chọn Cancel, ngăn chặn việc submit form bằng cách ngăn chặn mặc định hành vi của nút
+                event.preventDefault();
+            }
+        });
+
+
+        const TAB_ACTIVE_KEY = 'tab-active';
+        const defaultActive = 'profileEdit';
+        const tabActive = JSON.parse(localStorage.getItem(TAB_ACTIVE_KEY)) ?? defaultActive;
+        console.log('tab active storage:', tabActive)
+
+
+        const buttonBars = document.querySelectorAll('.card .nav-item .nav-link');
+        const tabPanes = document.querySelectorAll('.tab-content .tab-pane');
+
+        (() => {
+            tabPanes.forEach(tab => {
+                const tabId = tab.getAttribute('name');
+                if (tabId === tabActive)
+                    tab.classList.add('active', 'show');
+                else tab.classList.remove('active', 'show');
+            })
+
+            buttonBars.forEach(btn => {
+                if (btn.getAttribute('name') === tabActive)
+                    btn.classList.add('active');
+                else btn.classList.remove('active');
+            })
+        })()
+
+        buttonBars.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const btnName = btn.getAttribute('name');
+
+                tabPanes.forEach(tab => {
+                    const tabId = tab.getAttribute('name');
+                    // console.log({tabId});
+                    if (tabId === btnName) {
+                        tab.classList.add('active', 'show');
+                        localStorage.setItem(TAB_ACTIVE_KEY, JSON.stringify(tabId));
+                    } else tab.classList.remove('active', 'show');
+
+                })
+            })
+        })
+
+        setTimeout(function () {
+            var deleteSuccessMessage = document.getElementById('deleteSuccessMessage');
+            var deleteFailMessage = document.getElementById('deleteFailMessage');
+            if (deleteSuccessMessage) {
+                deleteSuccessMessage.style.display = 'none';
+            }
+            if (deleteFailMessage) {
+                deleteFailMessage.style.display = 'none';
+            }
+        }, 5000);
+
+        document.getElementById('roleUser').addEventListener('click', function () {
+            var myModal = new bootstrap.Modal(document.getElementById('roleText'));
+            myModal.show();
+
+        });
+        document.getElementById('roleUser2').addEventListener('click', function () {
+            var myModal = new bootstrap.Modal(document.getElementById('roleText'));
+            myModal.show();
+        });
     </script>
+
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>QuangNguyen</span></strong>. All Rights Reserved
+        </div>
+
+    </footer>
+    <!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
 </body>
+
 </html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+<script src="./FrontEnd/assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="./phantrang.js"></script>

@@ -59,6 +59,41 @@
       font-weight: 600;
       margin-left: 5px;
     }
+
+    :root {
+      --green-main: #1f601f;
+      --red-main: #f00;
+      --gray-main: #eee;
+      --green-extra: #4ca215;
+      --green-price: #199427;
+      --green-list: #459429;
+      --orange-hover: #f46200;
+      --gray-slick: #a3a3a3;
+      --gray-list: #383838;
+      --gray-extra: #ccc;
+      --purple: #012970;
+    }
+
+    .listPage {
+      padding: 10px;
+      text-align: center;
+      list-style: none;
+    }
+
+    .listPage li {
+      padding: 8px 12px;
+      display: inline-block;
+      margin: 0 5px;
+      cursor: pointer;
+      border: 1px solid var(--gray-extra);
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .listPage .active {
+      background-color: var(--purple);
+      color: #fff;
+    }
   </style>
 
 </head>

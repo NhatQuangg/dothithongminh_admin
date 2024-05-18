@@ -1,4 +1,3 @@
-
 <main id="main" class="main">
 	<section class="section">
 		<div class="row">
@@ -103,7 +102,7 @@
 												<p class="form-control form-control-plaintext"><?= $date ?></p>
 											</div>
 										</div>
-										<div class="row">
+										<div class="row mt-5">
 											<div id="carouselExampleIndicators" class="carousel slide carousel-custom" data-ride="carousel" data-interval="false">
 												<div class="carousel-inner">
 													<?php foreach ($reflect['media'] as $index => $mediaUrl) { ?>
@@ -148,10 +147,10 @@
 
 														<!-- Modal -->
 														<div class="modal fade" id="editTimeProcessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-															<div class="modal-dialog">
+															<div class="modal-dialog modal-dialog-centered">
 																<div class="modal-content">
 																	<div class="modal-header">
-																		<h5 class="modal-title" id="exampleModalLabel">Tiếp nhận</h5>
+																		<h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thời hạn xử lý</h5>
 																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 																	</div>
 																	<div class="modal-body">
