@@ -33,12 +33,12 @@
 										<!-- <th scope="col">Quyền</th> -->
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="content-table-statistics-1">
 									<?php
 									$i = 1;
 									foreach ($categoryReflectCounts as $categoryReflectCount) {
 									?>
-										<tr style="vertical-align: middle;">
+										<tr class="td-item" style="vertical-align: middle;">
 											<th scope="row" style="text-align: center;"><?= $i++; ?></th>
 											<td style="text-align: center;"><?= $categoryReflectCount['id_category'] ?></td>
 											<td style="text-align: center;"><?= $categoryReflectCount['category_name'] ?></td>
@@ -49,6 +49,8 @@
 									?>
 								</tbody>
 							</table>
+							<ul class="listPage-statistics-1"></ul>
+
 							<!-- End Table with stripped rows -->
 						</div>
 					</div>
@@ -76,12 +78,12 @@
 										<th scope="col">Đang xử lý</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="content-table-statistics-2">
 									<?php
 									$i = 1;
 									foreach ($usersWithReflectCounts  as $userWithReflectCount) {
 									?>
-										<tr style="vertical-align: middle;">
+										<tr class = "td-item" style="vertical-align: middle;">
 											<th scope="row" style="text-align: center;"><?= $i++; ?></th>
 											<td style="text-align: center;"><?= $userWithReflectCount['id_user'] ?></td>
 											<td style="text-align: center;"><?= $userWithReflectCount['email'] ?></td>
@@ -95,6 +97,8 @@
 									?>
 								</tbody>
 							</table>
+							<ul class="listPage-statistics-2"></ul>
+
 						</div>
 					</div>
 				</div>
@@ -122,12 +126,5 @@
 				accountTable.style.display = "block";
 			}
 		});
-	});
-</script>
-
-<script>
-	$(document).ready(function() {
-		$('#table1').DataTable();
-		$('#table2').DataTable();
 	});
 </script>

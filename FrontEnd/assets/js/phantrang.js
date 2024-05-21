@@ -1,7 +1,8 @@
 let thisPage = 1;
-let limit = 10;
+let limit = 5;
 let list = document.querySelectorAll('.content-table .td-item');
 
+console.log(list)
 console.log(list)
 
 function loadItem(){
@@ -27,6 +28,8 @@ function listPage(){
     // dùng math.ceil để làm tròn
     let count = Math.ceil(list.length / limit);   
     document.querySelector('.listPage').innerHTML = '';
+
+    console.log(thisPage);
     
     if(thisPage != 1){
         let start = document.createElement('li');

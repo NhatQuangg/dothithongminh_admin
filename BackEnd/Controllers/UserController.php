@@ -45,14 +45,14 @@ class UserController extends Controller
                 if (strpos($email, '@gmail.com') !== false) {
                     $flagg = 1;
                     $delete = $service->deleteUser($userId, $email, $flagg);
-                    
-                    // if ($delete != null) {
-                    //     $_SESSION["DELETE_SUCCESS"] = "Thành công";
-                    //     header("Location: /dothithongminh_admin/user");
-                    // } else {
-                    //     $_SESSION["DELETE_FAIL"] = "Thất bại";
-                    //     header("Location: /dothithongminh_admin/user");
-                    // }
+
+                    if ($delete != null) {
+                        $_SESSION["DELETE_SUCCESS"] = "Thành công";
+                        header("Location: /dothithongminh_admin/user");
+                    } else {
+                        $_SESSION["DELETE_FAIL"] = "Thất bại";
+                        header("Location: /dothithongminh_admin/user");
+                    }
                 } else {
                     $flagg = 2;
                     $delete = $service->deleteUser($userId, $email, $flagg);
@@ -125,6 +125,10 @@ class UserController extends Controller
 
                 $value = 0;
                 if ($newun != null && $newpw != null && $newlevel != null) {
+                    if (!preg_match('/^[a-zA-Z0-9]+@gmail\.com$/', $newun)) {
+                        $_SESSION["CREATE_ERROR_INVALID"] = "Invalid username format";
+                        header("Location: /dothithongminh_admin/user");
+                    } else
                     if (strpos($newun, ' ') !== false) {
                         $_SESSION["CREATE_ERROR_SPACE"] = "Space";
                         header("Location: /dothithongminh_admin/user");

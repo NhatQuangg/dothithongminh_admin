@@ -20,7 +20,6 @@
 						<div class="tab-content pt-4">
 
 							<div name="profileEdit" class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
 								<form method="POST" action="user">
 									<div class="row mb-3">
 										<div class="col-sm-6">
@@ -133,6 +132,7 @@
 									</div>
 								</form>
 							</div>
+
 							<div name="profileCreate" class="tab-pane fade show profile-create" id="profile-create">
 
 								<form method="POST" action="user">
@@ -243,6 +243,15 @@
 												Xóa tài khoản thất bại !
 											</p>
 										</div>
+									<?php }
+									if (isset($_SESSION["CREATE_ERROR_INVALID"])) {
+										unset($_SESSION["CREATE_ERROR_INVALID"]);
+									?>
+										<div id="deleteFailMessage" class="text-center mb-2">
+											<p class="small mb-0 text-center text-danger" style="font-style: italic;">
+												Tên đăng nhập chỉ chứa các chữ cái từ a-z và số !
+											</p>
+										</div>
 									<?php } ?>
 									<p id="roleUser2" type="button" class="text-decoration-underline text-danger col-sm-1" data-toggle="modal" data-target="#exampleModalLong">
 										Chú thích
@@ -293,6 +302,13 @@
 							<div class="col">
 								<h5 class="card-title">Danh sách</h5>
 							</div>
+
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<input type="text" id="searchInputReflect1" class="form-control mb-3" placeholder="Tìm kiếm người dùng...">
+								</div>
+							</div>
+
 							<div class="col">
 								<!-- <h5 class="" style="padding: 20px 0 15px 0;" >haha</h5> -->
 								<em class="font-italic text-success" style="padding: 20px 0 15px 0;">
@@ -497,4 +513,28 @@
 		var myModal = new bootstrap.Modal(document.getElementById('roleText'));
 		myModal.show();
 	});
+
+	function removeVietnameseTones(str) {
+		str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+		str = str.replace(/đ/g, "d").replace(/Đ/g, "D");
+		return str;
+	}
+
+	function filterTable() {
+		const searchValue = removeVietnameseTones(document.getElementById('searchInputReflect1').value.toLowerCase());
+		const rows = document.querySelectorAll('.content-table tr');
+
+		rows.forEach(row => {
+			const title = removeVietnameseTones(row.querySelectorAll('td')[2].textContent.toLowerCase());
+			const category = removeVietnameseTones(row.querySelectorAll('td')[3].textContent.toLowerCase());
+
+			if (title.includes(searchValue) || category.includes(searchValue)) {
+				row.style.display = '';
+			} else {
+				row.style.display = 'none';
+			}
+		});
+	}
+
+	document.getElementById('searchInputReflect1').addEventListener('keyup', filterTable);
 </script>

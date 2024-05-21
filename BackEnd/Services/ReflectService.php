@@ -84,5 +84,4 @@ class ReflectService
 
         return $result;
     }
-
 }

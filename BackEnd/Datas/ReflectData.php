@@ -28,16 +28,21 @@ class ReflectData
 
         if (!empty($allReflects)) {
             foreach ($allReflects as $reflectId => $reflectData) {
-                // get id_user in reflect
+
                 $userId = $reflectData['id_user'];
                 $categoryId = $reflectData['id_category'];
 
                 $email = $this->getEmailByUserId($userId);
                 $categoryName = $this->getCategoryNameByCategoryId($categoryId);
 
+                $allReflects[$reflectId]["id"] = $reflectId;
                 $allReflects[$reflectId]['email'] = $email;
                 $allReflects[$reflectId]['category_name'] = $categoryName;
             }
+
+            usort($allReflects, function($a, $b) {
+                return $b['createdAt'] - $a['createdAt'];
+            });
         }
 
         return $allReflects;

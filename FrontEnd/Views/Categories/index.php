@@ -74,6 +74,13 @@
 									</em>
 								</div>
 							</div>
+							<!-- Search -->
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm danh mục...">
+								</div>
+							</div>
+
 							<?php
 							if (isset($_SESSION['delete_fail'])) {
 								echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['delete_fail'] . "</em></p>";
@@ -152,9 +159,7 @@
 			// Ẩn thẻ chứa SESSION
 			document.querySelector('.font-italic.text-danger').style.display = 'none';
 		}, 5000); // 5000 milliseconds = 5 giây
-	</script>
 
-	<script>
 		// Lắng nghe sự kiện click trên nút Chọn
 		document.querySelectorAll('.select-btn').forEach(button => {
 			button.addEventListener('click', function() {
@@ -166,4 +171,28 @@
 				document.getElementById('txtcategory').value = categoryName;
 			});
 		});
+
+		function removeVietnameseTones(str) {
+			str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+			str = str.replace(/đ/g, "d").replace(/Đ/g, "D");
+			return str;
+		}
+
+		function filterTable() {
+			const searchValue = removeVietnameseTones(document.getElementById('searchInput').value.toLowerCase());
+			const rows = document.querySelectorAll('.content-table tr');
+
+			rows.forEach(row => {
+				const categoryName = removeVietnameseTones(row.querySelectorAll('td')[1].textContent.toLowerCase());
+
+				if (categoryName.includes(searchValue)) {
+					row.style.display = '';
+				} else {
+					row.style.display = 'none';
+				}
+			});
+		}
+
+		document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
 	</script>

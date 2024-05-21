@@ -7,7 +7,7 @@
 
   <title>Phản ánh đô thị</title>
 
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <style>
     .carousel-custom {
@@ -91,6 +91,39 @@
     }
 
     .listPage .active {
+      background-color: var(--purple);
+      color: #fff;
+    }
+
+    .listPage-reflect-1,
+    .listPage-reflect-2,
+    .listPage-reflect-3,
+    .listPage-statistics-1,
+    .listPage-statistics-2 {
+      padding: 10px;
+      text-align: center;
+      list-style: none;
+    }
+
+    .listPage-reflect-1 li,
+    .listPage-reflect-2 li,
+    .listPage-reflect-3 li,
+    .listPage-statistics-1 li,
+    .listPage-statistics-2 li {
+      padding: 8px 12px;
+      display: inline-block;
+      margin: 0 5px;
+      cursor: pointer;
+      border: 1px solid var(--gray-extra);
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .listPage-reflect-1 .active,
+    .listPage-reflect-2 .active,
+    .listPage-reflect-3 .active,
+    .listPage-statistics-1 .active,
+    .listPage-statistics-2 .active {
       background-color: var(--purple);
       color: #fff;
     }

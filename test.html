@@ -18,7 +18,7 @@
 
     <title>Phản ánh đô thị</title>
 
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <style>
         .carousel-custom {
@@ -82,11 +82,11 @@
             --gray-slick: #a3a3a3;
             --gray-list: #383838;
             --gray-extra: #ccc;
+            --purple: #012970;
         }
 
         .listPage {
-            /* margin-top: 20px; */
-            padding: 40px;
+            padding: 10px;
             text-align: center;
             list-style: none;
         }
@@ -102,7 +102,40 @@
         }
 
         .listPage .active {
-            background-color: var(--green-price);
+            background-color: var(--purple);
+            color: #fff;
+        }
+
+        .listPage-reflect-1,
+        .listPage-reflect-2,
+        .listPage-reflect-3,
+        .listPage-statistics-1,
+        .listPage-statistics-2 {
+            padding: 10px;
+            text-align: center;
+            list-style: none;
+        }
+
+        .listPage-reflect-1 li,
+        .listPage-reflect-2 li,
+        .listPage-reflect-3 li,
+        .listPage-statistics-1 li,
+        .listPage-statistics-2 li {
+            padding: 8px 12px;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid var(--gray-extra);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .listPage-reflect-1 .active,
+        .listPage-reflect-2 .active,
+        .listPage-reflect-3 .active,
+        .listPage-statistics-1 .active,
+        .listPage-statistics-2 .active {
+            background-color: var(--purple);
             color: #fff;
         }
     </style>
@@ -208,419 +241,541 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Tài khoản</h5>
-                            <ul class="nav nav-tabs nav-tabs-bordered">
+                            <h5 class="card-title">Danh sách phản ánh</h5>
 
-                                <li class="nav-item">
-                                    <button name="profileEdit" class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#profile-edit">Sửa tài khoản</button>
-                                </li>
 
-                                <li class="nav-item">
-                                    <button name="profileCreate" class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#profile-create">Tạo tài khoản</button>
-                                </li>
-                            </ul>
+                            <!-- <div class="row mb-3">
+								<div class="col-md-4">
+									<input type="text" id="searchInputReflect1" class="form-control mb-3" placeholder="Tìm kiếm phản ánh...">
+								</div>
+							</div> -->
 
-                            <div class="tab-content pt-4">
-
-                                <div name="profileEdit" class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-                                    <form method="POST" action="user">
-                                        <div class="row mb-3">
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Mã tài khoản</label>
-                                                <input type="text" class="form-control" id="txtmtk" name="txtmtk"
-                                                    value="" readonly>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Tên đăng nhập</label>
-                                                <input type="text" class="form-control" id="txttdn" name="txttdn"
-                                                    value="" readonly>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Họ tên</label>
-                                                <input type="text" class="form-control" id="txthoten" name="txthoten"
-                                                    value="">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Mật khẩu</label>
-                                                <input type="password" class="form-control" id="txtmk" name="txtmk"
-                                                    value="">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Số điện thoại</label>
-                                                <input type="number" class="form-control" id="txtphone" name="txtphone"
-                                                    value="">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Quyền</label>
-                                                <select class="form-select" aria-label="" name="txtlevel" id="txtlevel">
-                                                    <option selected value="0">Admin</option>
-                                                    <option value="1">Employee</option>
-                                                    <option value="2">Customer</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <p id="roleUser" type="button"
-                                            class="text-decoration-underline text-danger col-sm-1" data-toggle="modal"
-                                            data-target="#exampleModalLong">
-                                            Chú thích
-                                        </P>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary" value="update_btn"
-                                                name="update_btn">Cập nhật</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div name="profileCreate" class="tab-pane fade show profile-create" id="profile-create">
-
-                                    <form method="POST" action="user">
-                                        <div class="row mb-3">
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Tên đăng nhập</label>
-                                                <input type="text" class="form-control" id="newun" name="newun"
-                                                    value="">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Họ tên</label>
-                                                <input type="text" class="form-control" id="newfn" name="newfn"
-                                                    value="">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Mật khẩu</label>
-                                                <input type="password" class="form-control" id="newpass" name="newpass"
-                                                    value="">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Số điện thoại</label>
-                                                <input type="number" class="form-control" id="newphone" name="newphone"
-                                                    value="">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label for="" class="col-form-label">Quyền</label>
-                                                <select class="form-select" aria-label="" name="newlevel" id="newlevel">
-                                                    <option selected value="0">Admin</option>
-                                                    <option value="1">Employee</option>
-                                                    <option value="2">Customer</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <p id="roleUser2" type="button"
-                                            class="text-decoration-underline text-danger col-sm-1" data-toggle="modal"
-                                            data-target="#exampleModalLong">
-                                            Chú thích
-                                        </P>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary" value="create_btn"
-                                                name="create_btn">Tạo</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                            </div>
-
-                            <div class="modal fade" id="roleText" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <form id="saveForm" method="post" action="detailreflect">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Chú thích</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <ul>
-                                                    <li>Phải điền đầy đủ các thông tin: <strong>Tên đăng nhập, Mật khẩu,
-                                                            Quyền</strong></li>
-                                                    <li>Mật khẩu phải có độ dài lớn hơn hoặc bằng <strong> 6 </strong>
-                                                    </li>
-                                                    <li>Nếu tên đăng nhập có đuôi là:
-                                                        <ul>
-                                                            <li><strong>@gmail.com:</strong> được sử dụng các quyền
-                                                                <strong> Admin, Employee, Customer </strong>
-                                                            </li>
-                                                            <li><strong> Không </strong> phải là đuôi @gmail.com: Chỉ
-                                                                được sử dụng các quyền <strong> Admin, Employee
-                                                                </strong></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Đóng</button>
-                                                </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-
-                    <div class="card">
-                        <div class="card-body" style="max-height: 630px; overflow-y: auto;">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title">Danh sách</h5>
-                                </div>
-                                <div class="col">
-                                    <em class="font-italic text-success" style="padding: 20px 0 15px 0;">
-                                    </em>
-                                </div>
-                            </div>
-                            <!-- Table with stripped rows -->
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr style="text-align: center; vertical-align: middle;">
                                         <th scope="col">#</th>
-                                        <th scope="col">Mã tài khoản</th>
-                                        <th scope="col">Tên đăng nhập</th>
-                                        <th scope="col">Họ tên</th>
-                                        <th scope="col">Mật khẩu</th>
-                                        <th scope="col">Số điện thoại</th>
-                                        <th scope="col">Quyền</th>
+                                        <th scope="col">Mã phản ánh</th>
+                                        <th scope="col">Tác giả</th>
+                                        <th scope="col">Tiêu đề</th>
+                                        <th scope="col">Loại</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Ngày phản ánh</th>
+                                        <th scope="col">Handle</th>
+                                        <th scope="col">Duyệt</th>
+                                        <th scope="col">Chi tiết</th>
                                     </tr>
                                 </thead>
-                                <tbody class="content-table">
+                                <tbody class="content-table-reflect-1">
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">1</th>
-                                        <td style="text-align: center;">-Nt6kArP6Zv0kz6qT_cJ</td>
-                                        <td style="text-align: center;">quang@gmail.com</td>
-                                        <td style="text-align: center;">quang</td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-NyLZg38lCPCJD0u9rP3</td>
+                                        <td style="text-align: center;">songuitar156@gmail.com</td>
+                                        <td style="text-align: center;">xả rác bừa bãi</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Môi trường</td>
+                                        <td style="text-align: center;">thôn 4, Điền Hải, Phong, Điền, Thừa Thiên Huế
+                                        </td>
+                                        <td style="text-align: center;">20-05-2024 17:15:51</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
 
-                                        <td style="text-align: center;">0911345301</td>
-                                        <td style="text-align: center;">Customer</td>
-
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NyLZg38lCPCJD0u9rP3">Xem</a></td>
                                     </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">2</th>
-                                        <td style="text-align: center;">-Nt9svcqe-9YlKL7jkOs</td>
-                                        <td style="text-align: center;">nhi@gmail.com</td>
-                                        <td style="text-align: center;">nhi</td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-NyBAXAUaZpVWS5XQsCI</td>
+                                        <td style="text-align: center;">Email không tồn tại</td>
+                                        <td style="text-align: center;">veaag</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">18-05-2024 16:49:44</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
 
-                                        <td style="text-align: center;">016</td>
-                                        <td style="text-align: center;">Customer</td>
-
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NyBAXAUaZpVWS5XQsCI">Xem</a></td>
                                     </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">3</th>
-                                        <td style="text-align: center;">-NtPoHvG9XC82-VOV3Oh</td>
-                                        <td style="text-align: center;">1</td>
-                                        <td style="text-align: center;">admin</td>
-                                        <td style="text-align: center;">123</td>
+                                        <td style="text-align: center;">-NyBAQyZV84C-dIyPDy-</td>
+                                        <td style="text-align: center;">Email không tồn tại</td>
+                                        <td style="text-align: center;">gaegaegage</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">18-05-2024 16:49:19</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
 
-                                        <td style="text-align: center;">0911345300</td>
-                                        <td style="text-align: center;">Ad
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NyBAQyZV84C-dIyPDy-">Xem</a></td>
                                     </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">4</th>
-                                        <td style="text-align: center;">-NxbzwLNoWjdj9VtsKzc</td>
-                                        <td style="text-align: center;">nam@gmail.com</td>
-                                        <td style="text-align: center;">Nam</td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-NxzzaDracRUclT3GoBi</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">aegagaegag</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Dịch vụ du lịch</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">16-05-2024 08:02:09</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
 
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">Employee</td>
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NxzzaDracRUclT3GoBi">Xem</a></td>
+                                    </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">5</th>
-                                        <td style="text-align: center;">-Nxu8x0v-YXmmroYjTRm</td>
-                                        <td style="text-align: center;">â@gmail.com</td>
-                                        <td style="text-align: center;">quậgd</td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-NxzzPcCG1ug_BWCDEfI</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">tes</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">16-05-2024 08:01:21</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
 
-                                        <td style="text-align: center;">11</td>
-                                        <td style="text-align: center;">Employee</td>
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NxzzPcCG1ug_BWCDEfI">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">6</th>
+                                        <td style="text-align: center;">-Nxbz7mjzGt6BNUESh-j</td>
+                                        <td style="text-align: center;">nhi@gmail.com</td>
+                                        <td style="text-align: center;">Để vật liệu và làm sập đường tại hẻm 4 kiệt 86
+                                            Lê Ngô Cát</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">Kiệt 86 Lê Ngô Cát, Thủy Xuân, Thành phô Huê,
+                                            Thừa Thiên Huê, Việt Nam</td>
+                                        <td style="text-align: center;">11-05-2024 16:09:15</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
 
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-Nxbz7mjzGt6BNUESh-j">Xem</a></td>
                                     </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">7</th>
-                                        <td style="text-align: center;">-Nxu9jM_pApf7esvyg0R</td>
-                                        <td style="text-align: center;">hgaoheg@gmail.com</td>
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-Nxbxx6iWzD77AdmBN_8</td>
+                                        <td style="text-align: center;">nhi@gmail.com</td>
+                                        <td style="text-align: center;">Lấn chiếm vỉa hè tại 84 Ngô Quyền</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">84 ngô quyền phường vĩnh ninh TP Huế tỉnh Thừa
+                                            Thiên Huế</td>
+                                        <td style="text-align: center;">11-05-2024 16:04:05</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
 
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">Employee</td>
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-Nxbxx6iWzD77AdmBN_8">Xem</a></td>
+                                    </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">8</th>
-                                        <td style="text-align: center;">-NxuBv6mmoVT9Y9M4DZy</td>
-                                        <td style="text-align: center;">ageg@gmail.com</td>
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-NxbvDoDiP4LlAj3nuRV</td>
+                                        <td style="text-align: center;">nhi@gmail.com</td>
+                                        <td style="text-align: center;">Tái diễn đậu đỗ xe chiếm lòng đường kiệt 10 Võ
+                                            Thị Sáu</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">10 Võ Thị Sáu, Phú Hội, Thành phố Huế, Thừa
+                                            Thiên Huế 530000, Việt Nam</td>
+                                        <td style="text-align: center;">11-05-2024 15:52:11</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
 
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">Employee</td>
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NxbvDoDiP4LlAj3nuRV">Xem</a></td>
+                                    </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">9</th>
-                                        <td style="text-align: center;">-NxuDDG2jaebF-j924xQ</td>
-                                        <td style="text-align: center;">gqgdqdg@gmail.com</td>
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-NxbuEdmGoY2cdUwk5KZ</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">Kiến nghị tưới nước giảm bụi thi công đường Hà
+                                            Công</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Hạ tầng đô thị</td>
+                                        <td style="text-align: center;">117 La Chữ, Hượng Chữ, Hương Trà Hương Trà, Thừa
+                                            Thiên Huế, Việt Nam</td>
+                                        <td style="text-align: center;">11-05-2024 15:47:52</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
 
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">Employee</td>
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NxbuEdmGoY2cdUwk5KZ">Xem</a></td>
+                                    </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">10</th>
-                                        <td style="text-align: center;">-NxuEti9gb_-uQo89O6W</td>
-                                        <td style="text-align: center;">alll@gmail.com</td>
+                                        <td style="text-align: center;">-NxbrNgSotdHQVAcuZ9S</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">Xây nhà không che chắn tại đường Chế Lan Viên
+                                        </td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
                                         <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">11-05-2024 15:35:23</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
 
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">Employee</td>
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NxbrNgSotdHQVAcuZ9S">Xem</a></td>
+                                    </tr>
                                     <tr class="td-item" style="vertical-align: middle;">
                                         <th scope="row" style="text-align: center;">11</th>
-                                        <td style="text-align: center;">-NxuILrX2W2rUOKFdFIy</td>
-                                        <td style="text-align: center;">shdhdh@gmail.com</td>
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">123456</td>
+                                        <td style="text-align: center;">-NxbpNe0B5xzZ0pD7V9L</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">Xe máy đỗ lộn xộn trên vỉa hè tại đường Đống Đa
+                                        </td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">Vincom Plaza Huế</td>
+                                        <td style="text-align: center;">11-05-2024 15:26:38</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
 
-                                        <td style="text-align: center;"></td>
-                                        <td style="text-align: center;">Employee</td>
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a
+                                                href="detailreflect?detail=-NxbpNe0B5xzZ0pD7V9L">Xem</a></td>
+                                    </tr>
                                 </tbody>
                             </table>
-                            <form id="deleteForm" method="POST" action="user">
-                                <input type="hidden" name="userId" id="userIdInput">
-                                <input type="hidden" name="email" id="emailInput">
-                                <input type="hidden" name="delete_btn">
-                            </form>
+                            <ul class="listPage-reflect-1"></ul>
 
-                            <script>
-                                // Lắng nghe sự kiện click trên nút Xóa
-                                document.querySelectorAll('.delete-btn').forEach(button => {
-                                    button.addEventListener('click', function () {
-                                        // Lấy id từ thuộc tính data-id
-                                        const userId = this.getAttribute('data-id');
-                                        const email = this.getAttribute('data-email');
-                                        // Hiển thị confirm dialog
-                                        if (confirm("Bạn có muốn xóa tài khoản này không?")) {
-                                            // Nếu người dùng chọn OK, gán userId vào input của form và submit form
-                                            document.getElementById('userIdInput').value = userId;
-                                            document.getElementById('emailInput').value = email;
-                                            // Đặt giá trị cho nút để xác định hành động là delete_btn
-                                            document.getElementById('deleteForm').submit();
-                                        }
-                                    });
-                                });
-                            </script>
-                            <!-- End Table with stripped rows -->
                         </div>
-                        <ul class="listPage">
+                    </div>
 
-                        </ul>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Danh sách đã xử lý</h5>
+
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr style="text-align: center; vertical-align: middle;">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Mã phản ánh</th>
+                                        <th scope="col">Tác giả</th>
+                                        <th scope="col">Tiêu đề</th>
+                                        <th scope="col">Loại</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Ngày phản ánh</th>
+                                        <th scope="col">Handle</th>
+                                        <th scope="col">Duyệt</th>
+                                        <th scope="col">Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="content-table-reflect-2">
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">1</th>
+                                        <td style="text-align: center;">3</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">aegagaegag</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Dịch vụ du lịch</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">16-05-2024 08:02:09</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=3">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">2</th>
+                                        <td style="text-align: center;">4</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">tes</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">16-05-2024 08:01:21</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=4">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">3</th>
+                                        <td style="text-align: center;">5</td>
+                                        <td style="text-align: center;">nhi@gmail.com</td>
+                                        <td style="text-align: center;">Để vật liệu và làm sập đường tại hẻm 4 kiệt 86
+                                            Lê Ngô Cát</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">Kiệt 86 Lê Ngô Cát, Thủy Xuân, Thành phô Huê,
+                                            Thừa Thiên Huê, Việt Nam</td>
+                                        <td style="text-align: center;">11-05-2024 16:09:15</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=5">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">4</th>
+                                        <td style="text-align: center;">7</td>
+                                        <td style="text-align: center;">nhi@gmail.com</td>
+                                        <td style="text-align: center;">Tái diễn đậu đỗ xe chiếm lòng đường kiệt 10 Võ
+                                            Thị Sáu</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">10 Võ Thị Sáu, Phú Hội, Thành phố Huế, Thừa
+                                            Thiên Huế 530000, Việt Nam</td>
+                                        <td style="text-align: center;">11-05-2024 15:52:11</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=7">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">5</th>
+                                        <td style="text-align: center;">9</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">Xây nhà không che chắn tại đường Chế Lan Viên
+                                        </td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;"></td>
+                                        <td style="text-align: center;">11-05-2024 15:35:23</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=9">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">6</th>
+                                        <td style="text-align: center;">10</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">Xe máy đỗ lộn xộn trên vỉa hè tại đường Đống Đa
+                                        </td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">Vincom Plaza Huế</td>
+                                        <td style="text-align: center;">11-05-2024 15:26:38</td>
+                                        <td style="text-align: center;" class="text-primary">Đã xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-check"></i>
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=10">Xem</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ul class="listPage-reflect-2"></ul>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Danh sách đã xử lý</h5>
+
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr style="text-align: center; vertical-align: middle;">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Mã phản ánh</th>
+                                        <th scope="col">Tác giả</th>
+                                        <th scope="col">Tiêu đề</th>
+                                        <th scope="col">Loại</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">Ngày phản ánh</th>
+                                        <th scope="col">Handle</th>
+                                        <th scope="col">Duyệt</th>
+                                        <th scope="col">Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="content-table-reflect-3">
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">1</th>
+                                        <td style="text-align: center;">0</td>
+                                        <td style="text-align: center;">songuitar156@gmail.com</td>
+                                        <td style="text-align: center;">xả rác bừa bãi</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Môi trường</td>
+                                        <td style="text-align: center;">thôn 4, Điền Hải, Phong, Điền, Thừa Thiên Huế
+                                        </td>
+                                        <td style="text-align: center;">20-05-2024 17:15:51</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=0">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">2</th>
+                                        <td style="text-align: center;">1</td>
+                                        <td style="text-align: center;">Email không tồn tại</td>
+                                        <td style="text-align: center;">veaag</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">18-05-2024 16:49:44</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=1">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">3</th>
+                                        <td style="text-align: center;">2</td>
+                                        <td style="text-align: center;">Email không tồn tại</td>
+                                        <td style="text-align: center;">gaegaegage</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">70 Phan Bội Châu, Thành phố Huế, Thừa Thiên Huế,
+                                            Vietnam</td>
+                                        <td style="text-align: center;">18-05-2024 16:49:19</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=2">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">4</th>
+                                        <td style="text-align: center;">6</td>
+                                        <td style="text-align: center;">nhi@gmail.com</td>
+                                        <td style="text-align: center;">Lấn chiếm vỉa hè tại 84 Ngô Quyền</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Giao thông, trật tự đô thị</td>
+                                        <td style="text-align: center;">84 ngô quyền phường vĩnh ninh TP Huế tỉnh Thừa
+                                            Thiên Huế</td>
+                                        <td style="text-align: center;">11-05-2024 16:04:05</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=6">Xem</a></td>
+                                    </tr>
+                                    <tr class="td-item" style="vertical-align: middle;">
+                                        <th scope="row" style="text-align: center;">5</th>
+                                        <td style="text-align: center;">8</td>
+                                        <td style="text-align: center;">quang@gmail.com</td>
+                                        <td style="text-align: center;">Kiến nghị tưới nước giảm bụi thi công đường Hà
+                                            Công</td>
+                                        <!-- == 1: Đã xử lý
+												== 0: Đang xử lý
+											-->
+                                        <td style="text-align: center;">Hạ tầng đô thị</td>
+                                        <td style="text-align: center;">117 La Chữ, Hượng Chữ, Hương Trà Hương Trà, Thừa
+                                            Thiên Huế, Việt Nam</td>
+                                        <td style="text-align: center;">11-05-2024 15:47:52</td>
+                                        <td style="text-align: center;" class="text-danger">Đang xử lý</td>
+
+                                        <td style="text-align: center;">
+                                            <i class="bi bi-x"></i>
+                                            <!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
+                                        </td>
+                                        <td style="text-align: center;"><a href="detailreflect?detail=8">Xem</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ul class="listPage-reflect-3"></ul>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
-
-    <script>
-
-
-        document.querySelectorAll('.select-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const userId = this.getAttribute('data-id');
-                const email = this.getAttribute('data-email');
-                const fullname = this.getAttribute('data-fullname');
-                const password = this.getAttribute('data-password');
-                const phone = this.getAttribute('data-phone');
-                const level = this.getAttribute('data-level');
-                // Cập nhật giá trị cho các trường input trong form
-                document.getElementById('txtmtk').value = userId;
-                document.getElementById('txttdn').value = email;
-                document.getElementById('txthoten').value = fullname;
-                document.getElementById('txtmk').value = password;
-                document.getElementById('txtphone').value = phone;
-                document.getElementById('txtlevel').value = level;
-            });
-        });
-
-        document.querySelector('button[name="update_btn"]').addEventListener('click', function (event) {
-            // Lấy giá trị của các trường input
-            const mtkValue = document.getElementById('txtmtk').value.trim();
-            const tdnValue = document.getElementById('txttdn').value.trim();
-            const mkValue = document.getElementById('txtmk').value.trim();
-
-            // Kiểm tra xem các trường có dữ liệu không
-            if (mtkValue === '' || tdnValue === '' || mkValue === '') {
-                // Không hiển thị thông báo nếu có trường nào đó rỗng
-                return;
-            }
-            // Hiển thị confirm dialog
-            if (!confirm("Bạn có chắc chắn muốn cập nhật không?")) {
-                // Nếu người dùng chọn Cancel, ngăn chặn việc submit form bằng cách ngăn chặn mặc định hành vi của nút
-                event.preventDefault();
-            }
-        });
-
-
-        const TAB_ACTIVE_KEY = 'tab-active';
-        const defaultActive = 'profileEdit';
-        const tabActive = JSON.parse(localStorage.getItem(TAB_ACTIVE_KEY)) ?? defaultActive;
-        console.log('tab active storage:', tabActive)
-
-
-        const buttonBars = document.querySelectorAll('.card .nav-item .nav-link');
-        const tabPanes = document.querySelectorAll('.tab-content .tab-pane');
-
-        (() => {
-            tabPanes.forEach(tab => {
-                const tabId = tab.getAttribute('name');
-                if (tabId === tabActive)
-                    tab.classList.add('active', 'show');
-                else tab.classList.remove('active', 'show');
-            })
-
-            buttonBars.forEach(btn => {
-                if (btn.getAttribute('name') === tabActive)
-                    btn.classList.add('active');
-                else btn.classList.remove('active');
-            })
-        })()
-
-        buttonBars.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const btnName = btn.getAttribute('name');
-
-                tabPanes.forEach(tab => {
-                    const tabId = tab.getAttribute('name');
-                    // console.log({tabId});
-                    if (tabId === btnName) {
-                        tab.classList.add('active', 'show');
-                        localStorage.setItem(TAB_ACTIVE_KEY, JSON.stringify(tabId));
-                    } else tab.classList.remove('active', 'show');
-
-                })
-            })
-        })
-
-        setTimeout(function () {
-            var deleteSuccessMessage = document.getElementById('deleteSuccessMessage');
-            var deleteFailMessage = document.getElementById('deleteFailMessage');
-            if (deleteSuccessMessage) {
-                deleteSuccessMessage.style.display = 'none';
-            }
-            if (deleteFailMessage) {
-                deleteFailMessage.style.display = 'none';
-            }
-        }, 5000);
-
-        document.getElementById('roleUser').addEventListener('click', function () {
-            var myModal = new bootstrap.Modal(document.getElementById('roleText'));
-            myModal.show();
-
-        });
-        document.getElementById('roleUser2').addEventListener('click', function () {
-            var myModal = new bootstrap.Modal(document.getElementById('roleText'));
-            myModal.show();
-        });
-    </script>
 
     <footer id="footer" class="footer">
         <div class="copyright">
@@ -642,4 +797,6 @@
 <script src="./FrontEnd/assets/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="./phantrang.js"></script>
+<script src="./FrontEnd/assets/js/phantrang.js"></script>
+<script src="./FrontEnd/assets/js/phantrang-reflect.js"></script>
+<script src="./FrontEnd/assets/js/phantrang-statistics.js"></script>
