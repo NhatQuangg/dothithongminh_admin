@@ -163,14 +163,16 @@
           $userData = $user['userData'];
           $userId = $user['userId'];
 
+          $displayName = !empty($userData['fullname']) ? $userData['fullname'] : "Xin chào";
+
         ?>
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?= $userData['fullname'] ?></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?= $displayName ?></span>
           </a>
           <!-- End Profile Iamge Icon -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6><?= $userData['fullname'] ?></h6>
+              <h6><?= $displayName ?></h6>
               <!-- <span>Web Designer</span> -->
             </li>
             <li>

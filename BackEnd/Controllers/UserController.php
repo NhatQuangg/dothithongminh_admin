@@ -41,28 +41,48 @@ class UserController extends Controller
                 $userId = $_POST['userId'];
                 $email = $_POST['email'];
 
+                $user = $_SESSION["USER_LOGED"];
+                $userIdCurrent = $user['userId'];
+
+                echo $userIdCurrent;
+
+
                 // is @gmail.com
                 if (strpos($email, '@gmail.com') !== false) {
-                    $flagg = 1;
-                    $delete = $service->deleteUser($userId, $email, $flagg);
+                    if ($userId == $userIdCurrent) {
+                        $flagg = 1;
+                        $delete = $service->deleteUser($userId, $email, $flagg);
 
-                    if ($delete != null) {
-                        $_SESSION["DELETE_SUCCESS"] = "Thành công";
-                        header("Location: /dothithongminh_admin/user");
+                        header("Location: user?logout");
                     } else {
-                        $_SESSION["DELETE_FAIL"] = "Thất bại";
-                        header("Location: /dothithongminh_admin/user");
+                        $flagg = 1;
+                        $delete = $service->deleteUser($userId, $email, $flagg);
+
+                        if ($delete != null) {
+                            $_SESSION["DELETE_SUCCESS"] = "Thành công";
+                            header("Location: /dothithongminh_admin/user");
+                        } else {
+                            $_SESSION["DELETE_FAIL"] = "Thất bại";
+                            header("Location: /dothithongminh_admin/user");
+                        }
                     }
                 } else {
-                    $flagg = 2;
-                    $delete = $service->deleteUser($userId, $email, $flagg);
+                    if ($userId == $userIdCurrent) {
+                        $flagg = 2;
+                        $delete = $service->deleteUser($userId, $email, $flagg);
 
-                    if ($delete != null) {
-                        $_SESSION["DELETE_SUCCESS"] = "Thành công";
-                        header("Location: /dothithongminh_admin/user");
+                        header("Location: /dothithongminh_admin/user?logout");
                     } else {
-                        $_SESSION["DELETE_FAIL"] = "Thất bại";
-                        header("Location: /dothithongminh_admin/user");
+                        $flagg = 2;
+                        $delete = $service->deleteUser($userId, $email, $flagg);
+
+                        if ($delete != null) {
+                            $_SESSION["DELETE_SUCCESS"] = "Thành công";
+                            header("Location: /dothithongminh_admin/user");
+                        } else {
+                            $_SESSION["DELETE_FAIL"] = "Thất bại";
+                            header("Location: /dothithongminh_admin/user");
+                        }
                     }
                 }
             }
@@ -125,10 +145,6 @@ class UserController extends Controller
 
                 $value = 0;
                 if ($newun != null && $newpw != null && $newlevel != null) {
-                    if (!preg_match('/^[a-zA-Z0-9]+@gmail\.com$/', $newun)) {
-                        $_SESSION["CREATE_ERROR_INVALID"] = "Invalid username format";
-                        header("Location: /dothithongminh_admin/user");
-                    } else
                     if (strpos($newun, ' ') !== false) {
                         $_SESSION["CREATE_ERROR_SPACE"] = "Space";
                         header("Location: /dothithongminh_admin/user");
@@ -136,19 +152,11 @@ class UserController extends Controller
                         if (strlen($newpw) >= 6) {
                             // is @gmail.com
                             if (strpos($newun, '@gmail.com') !== false) {
-                                $value = 1;
-                                $createAuth = $service->create($newun, $newfn, $newpw, $newphone, $newlevel, $value);
-                                if ($createAuth) {
-                                    $_SESSION["CREATE_SUCCESSFUL"] = "Successful";
+                                if (!preg_match('/^[a-zA-Z0-9]+@gmail\.com$/', $newun)) {
+                                    $_SESSION["CREATE_ERROR_INVALID"] = "Invalid username format";
                                     header("Location: /dothithongminh_admin/user");
                                 } else {
-                                    $_SESSION["CREATE_ERROR_EXIST"] = "ERROR";
-                                    header("Location: /dothithongminh_admin/user");
-                                }
-                                // not @gmail.com
-                            } else {
-                                if ($newlevel != 2) {
-                                    $value = 2;
+                                    $value = 1;
                                     $createAuth = $service->create($newun, $newfn, $newpw, $newphone, $newlevel, $value);
                                     if ($createAuth) {
                                         $_SESSION["CREATE_SUCCESSFUL"] = "Successful";
@@ -156,6 +164,24 @@ class UserController extends Controller
                                     } else {
                                         $_SESSION["CREATE_ERROR_EXIST"] = "ERROR";
                                         header("Location: /dothithongminh_admin/user");
+                                    }
+                                }
+                                // not @gmail.com
+                            } else {
+                                if ($newlevel != 2) {
+                                    if (!preg_match('/^[a-zA-Z0-9]/', $newun)) {
+                                        $_SESSION["CREATE_ERROR_INVALID"] = "Invalid username format";
+                                        header("Location: /dothithongminh_admin/user");
+                                    } else {
+                                        $value = 2;
+                                        $createAuth = $service->create($newun, $newfn, $newpw, $newphone, $newlevel, $value);
+                                        if ($createAuth) {
+                                            $_SESSION["CREATE_SUCCESSFUL"] = "Successful";
+                                            header("Location: /dothithongminh_admin/user");
+                                        } else {
+                                            $_SESSION["CREATE_ERROR_EXIST"] = "ERROR";
+                                            header("Location: /dothithongminh_admin/user");
+                                        }
                                     }
                                 } else {
                                     $_SESSION["CREATE_ERROR_LEVEL"] = "Level";
