@@ -40,7 +40,7 @@ class ReflectData
                 $allReflects[$reflectId]['category_name'] = $categoryName;
             }
 
-            usort($allReflects, function($a, $b) {
+            usort($allReflects, function ($a, $b) {
                 return $b['createdAt'] - $a['createdAt'];
             });
         }
@@ -259,7 +259,7 @@ class ReflectData
 
         $updateQuery = $this->ReflectContext->getReference()->update($updateData);
 
-        return $updateQuery; 
+        return $updateQuery;
     }
 
     public function editContentFeedback($conentFeedback, $reflectId)
@@ -271,7 +271,18 @@ class ReflectData
 
         $updateQuery = $this->ReflectContext->getReference()->update($updateData);
 
-        return $updateQuery; 
+        return $updateQuery;
     }
 
+    public function deleteReflect($reflectId)
+    {
+        $ref_table = "Reflects";
+
+        $deleteReflect = $this->ReflectContext
+            ->getReference($ref_table)
+            ->getChild($reflectId)
+            ->remove();
+        
+        return $deleteReflect;
+    }
 }

@@ -13,7 +13,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 
-					<div class="card" id="allHandle" >
+					<div class="card" id="allHandle">
 						<div class="card-body">
 							<h5 class="card-title">Danh sách phản ánh</h5>
 
@@ -32,11 +32,11 @@
 										<th scope="col">Tác giả</th>
 										<th scope="col">Tiêu đề</th>
 										<th scope="col">Loại</th>
-										<th scope="col">Địa chỉ</th>
 										<th scope="col">Ngày phản ánh</th>
 										<th scope="col">Handle</th>
 										<th scope="col">Duyệt</th>
 										<th scope="col">Chi tiết</th>
+										<th scope="col"></th>
 									</tr>
 								</thead>
 								<tbody class="content-table-reflect-1">
@@ -57,7 +57,6 @@
 												== 0: Đang xử lý
 											-->
 											<td style="text-align: center;"><?= $reflectData['category_name']; ?></td>
-											<td style="text-align: center;"><?= $reflectData['address']; ?></td>
 											<td style="text-align: center;"><?= $date; ?></td>
 											<?php if ($reflectData['handle'] == 0) { ?>
 												<td style="text-align: center;" class="text-primary">Đã xử lý</td>
@@ -72,17 +71,38 @@
 											<?php } else { ?>
 												<td style="text-align: center;">
 													<i class="bi bi-x"></i>
-													<!-- <button type="button" class="btn btn-danger">Duyệt</button> -->
 												</td>
 											<?php } ?>
 											<td style="text-align: center;"><a href="detailreflect?detail=<?= $reflectData["id"]; ?>">Xem</a></td>
+											<td style="text-align: center;">
+												<a href="javascript:void(0)" class="delete-btn" data-id="<?= $reflectData["id"]; ?>">Xóa</a>
+											</td>
 										</tr>
 									<?php
 									}
 									?>
 								</tbody>
 							</table>
+
+							<div class="text-center disnone">
+								<?php
+								if (isset($_SESSION['delete_fail'])) {
+									echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['delete_fail'] . "</em></p>";
+									unset($_SESSION['delete_fail']);
+								}
+								if (isset($_SESSION['delete_success'])) {
+									echo '<p class="font-italic text-success mt-1"><em>' . $_SESSION['delete_success'] . "</em></p>";
+									unset($_SESSION['delete_success']);
+								}
+								?>
+							</div>
+
 							<ul class="listPage-reflect-1"></ul>
+
+							<form id="deleteForm" method="POST" action="detailreflect">
+								<input type="hidden" name="reflectId" id="reflectIdInput">
+								<input type="hidden" name="delete_btn">
+							</form>
 
 						</div>
 					</div>
@@ -105,11 +125,11 @@
 										<th scope="col">Tác giả</th>
 										<th scope="col">Tiêu đề</th>
 										<th scope="col">Loại</th>
-										<th scope="col">Địa chỉ</th>
 										<th scope="col">Ngày phản ánh</th>
 										<th scope="col">Handle</th>
 										<th scope="col">Duyệt</th>
 										<th scope="col">Chi tiết</th>
+										<th scope="col"></th>
 									</tr>
 								</thead>
 								<tbody class="content-table-reflect-2">
@@ -130,7 +150,6 @@
 												== 0: Đang xử lý
 											-->
 												<td style="text-align: center;"><?= $reflectData['category_name']; ?></td>
-												<td style="text-align: center;"><?= $reflectData['address']; ?></td>
 												<td style="text-align: center;"><?= $date; ?></td>
 												<?php if ($reflectData['handle'] == 0) { ?>
 													<td style="text-align: center;" class="text-primary">Đã xử lý</td>
@@ -149,6 +168,9 @@
 													</td>
 												<?php } ?>
 												<td style="text-align: center;"><a href="detailreflect?detail=<?= $reflectData["id"]; ?>">Xem</a></td>
+												<td style="text-align: center;">
+													<a href="javascript:void(0)" class="delete-btn" data-id="<?= $reflectData["id"]; ?>">Xóa</a>
+												</td>
 											</tr>
 									<?php
 										}
@@ -156,6 +178,20 @@
 									?>
 								</tbody>
 							</table>
+
+							<div class="text-center disnone">
+								<?php
+								if (isset($_SESSION['delete_fail'])) {
+									echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['delete_fail'] . "</em></p>";
+									unset($_SESSION['delete_fail']);
+								}
+								if (isset($_SESSION['delete_success'])) {
+									echo '<p class="font-italic text-success mt-1"><em>' . $_SESSION['delete_success'] . "</em></p>";
+									unset($_SESSION['delete_success']);
+								}
+								?>
+							</div>
+
 							<ul class="listPage-reflect-2"></ul>
 
 						</div>
@@ -179,11 +215,11 @@
 										<th scope="col">Tác giả</th>
 										<th scope="col">Tiêu đề</th>
 										<th scope="col">Loại</th>
-										<th scope="col">Địa chỉ</th>
 										<th scope="col">Ngày phản ánh</th>
 										<th scope="col">Handle</th>
 										<th scope="col">Duyệt</th>
 										<th scope="col">Chi tiết</th>
+										<th scope="col"></th>
 									</tr>
 								</thead>
 								<tbody class="content-table-reflect-3">
@@ -204,7 +240,6 @@
 												== 0: Đang xử lý
 											-->
 												<td style="text-align: center;"><?= $reflectData['category_name']; ?></td>
-												<td style="text-align: center;"><?= $reflectData['address']; ?></td>
 												<td style="text-align: center;"><?= $date; ?></td>
 												<?php if ($reflectData['handle'] == 0) { ?>
 													<td style="text-align: center;" class="text-primary">Đã xử lý</td>
@@ -223,6 +258,9 @@
 													</td>
 												<?php } ?>
 												<td style="text-align: center;"><a href="detailreflect?detail=<?= $reflectData["id"]; ?>">Xem</a></td>
+												<td style="text-align: center;">
+													<a href="javascript:void(0)" class="delete-btn" data-id="<?= $reflectData["id"]; ?>">Xóa</a>
+												</td>
 											</tr>
 									<?php
 										}
@@ -230,6 +268,20 @@
 									?>
 								</tbody>
 							</table>
+
+							<div class="text-center disnone">
+								<?php
+								if (isset($_SESSION['delete_fail'])) {
+									echo '<p class="font-italic text-danger mt-1"><em>' . $_SESSION['delete_fail'] . "</em></p>";
+									unset($_SESSION['delete_fail']);
+								}
+								if (isset($_SESSION['delete_success'])) {
+									echo '<p class="font-italic text-success mt-1"><em>' . $_SESSION['delete_success'] . "</em></p>";
+									unset($_SESSION['delete_success']);
+								}
+								?>
+							</div>
+
 							<ul class="listPage-reflect-3"></ul>
 
 						</div>
@@ -338,4 +390,20 @@
 				}
 			});
 		});
+
+		// Lắng nghe sự kiện click trên nút Xóa
+		document.querySelectorAll('.delete-btn').forEach(button => {
+			button.addEventListener('click', function() {
+				const reflectId = this.getAttribute('data-id');
+				if (confirm("Bạn chắc chắn có muốn xóa không?")) {
+					document.getElementById('reflectIdInput').value = reflectId;
+					document.getElementById('deleteForm').submit();
+				}
+			});
+		});
+
+		setTimeout(function() {
+			// Ẩn thẻ chứa SESSION
+			document.querySelector('.disnone').style.display = 'none';
+		}, 5000);
 	</script>

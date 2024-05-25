@@ -84,4 +84,10 @@ class ReflectService
 
         return $result;
     }
+
+    public function deleteReflect($reflectId) {
+        $result = $this->ReflectData->deleteReflect($reflectId);
+
+        return $result;
+    }
 }

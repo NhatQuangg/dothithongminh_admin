@@ -140,6 +140,19 @@ class ReflectController extends Controller
                 // $previousPageUrl = $_SERVER['HTTP_REFERER'];
                 // header("Location: $previousPageUrl");
             }
+            if (isset($_POST['delete_btn'])) {
+                $reflectId = $_POST['reflectId'];
+
+                $deleteReflect = $service->deleteReflect($reflectId);
+
+                if ($deleteReflect) {
+                    $_SESSION['delete_success'] = "Xóa phản ánh thành công";
+                    header("Location: home");
+                } else {
+                    $_SESSION['delete_fail'] = "Xóa phản ánh thất bại";
+                    header("Location: home");
+                }
+            }
         }
         if ($method == "GET") {
             if (isset($_GET['detail'])) {

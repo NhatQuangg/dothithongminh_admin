@@ -158,7 +158,7 @@
 		setTimeout(function() {
 			// Ẩn thẻ chứa SESSION
 			document.querySelector('.font-italic.text-danger').style.display = 'none';
-		}, 5000); // 5000 milliseconds = 5 giây
+		}, 5000); 
 
 		// Lắng nghe sự kiện click trên nút Chọn
 		document.querySelectorAll('.select-btn').forEach(button => {
