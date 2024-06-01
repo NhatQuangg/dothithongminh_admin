@@ -300,6 +300,9 @@
 		}
 
 		function filterTable() {
+
+			console.log("1");
+
 			const searchValue = removeVietnameseTones(document.getElementById('searchInputReflect1').value.toLowerCase());
 			const rows = document.querySelectorAll('.content-table-reflect-1 tr');
 
@@ -321,7 +324,10 @@
 		// ------------------------------------------------------------------------------------------------
 		// ------------------------------------------------------------------------------------------------
 
-		function filterTable() {
+		function filterTable2() {
+			console.log("2");
+
+
 			const searchValue = removeVietnameseTones(document.getElementById('searchInputReflect2').value.toLowerCase());
 			const rows = document.querySelectorAll('.content-table-reflect-2 tr');
 
@@ -338,12 +344,13 @@
 			});
 		}
 
-		document.getElementById('searchInputReflect2').addEventListener('keyup', filterTable);
+		document.getElementById('searchInputReflect2').addEventListener('keyup', filterTable2);
 
-		// ------------------------------------------------------------------------------------------------
-		// ------------------------------------------------------------------------------------------------
+		// // ------------------------------------------------------------------------------------------------
+		// // ------------------------------------------------------------------------------------------------
 
-		function filterTable() {
+		function filterTable3() {
+			console.log("3");
 			const searchValue = removeVietnameseTones(document.getElementById('searchInputReflect3').value.toLowerCase());
 			const rows = document.querySelectorAll('.content-table-reflect-3 tr');
 
@@ -360,7 +367,7 @@
 			});
 		}
 
-		document.getElementById('searchInputReflect3').addEventListener('keyup', filterTable);
+		document.getElementById('searchInputReflect3').addEventListener('keyup', filterTable3);
 
 
 		document.addEventListener("DOMContentLoaded", function() {
