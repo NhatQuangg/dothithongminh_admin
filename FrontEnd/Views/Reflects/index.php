@@ -33,7 +33,7 @@
 										<th scope="col">Tiêu đề</th>
 										<th scope="col">Loại</th>
 										<th scope="col">Ngày phản ánh</th>
-										<th scope="col">Handle</th>
+										<th scope="col">Trạng thái</th>
 										<th scope="col">Duyệt</th>
 										<th scope="col">Chi tiết</th>
 										<th scope="col"></th>
