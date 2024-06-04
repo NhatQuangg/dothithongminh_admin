@@ -115,7 +115,9 @@
 																	Your browser does not support the video tag.
 																</video>
 															<?php } else { ?>
-																<img src="<?= $mediaUrl ?>" class="d-block w-100 media-item" alt="...">
+																<a href="<?= $mediaUrl ?>" target="_blank">
+																	<img src="<?= $mediaUrl ?>" class="d-block w-100 media-item" alt="...">
+																</a>
 															<?php } ?>
 														</div>
 													<?php } ?>
@@ -283,32 +285,35 @@
 															<a href="<?= $contentFeedbacks[$index] ?>" download><?= $filename; ?></a>
 														<?php } ?>
 													</div>
-													<div class="modal fade" id="editFileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-														<div class="modal-dialog modal-dialog-centered modal-lg">
-															<div class="modal-content ">
-																<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
-																<input type="hidden" name="tpc" id="tpc" value="<?= $contentFeedbacks[0]; ?>">
-																<input type="hidden" name="ctfb" id="ctfb" value="<?= $contentFeedbacks[1]; ?>">
 
-																<div class="modal-header">
-																	<h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa nội dung phản hồi</h5>
-																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												<?php } ?>
+												<div class="modal fade" id="editFileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													<div class="modal-dialog modal-dialog-centered modal-lg">
+														<div class="modal-content ">
+															<input type="hidden" name="id_reflect" id="id_reflect" value="<?= $reflectId; ?>">
+															<input type="hidden" name="tpc" id="tpc" value="<?= $contentFeedbacks[0]; ?>">
+															<input type="hidden" name="ctfb" id="ctfb" value="<?= $contentFeedbacks[1]; ?>">
+
+															<div class="modal-header">
+																<h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa nội dung phản hồi</h5>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																<div class="col-sm-10">
+																	<input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
+																	<div class="mt-2" id="preview"></div>
 																</div>
-																<div class="modal-body">
-																	<div class="col-sm-10">
-																		<input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple onchange="previewFiles()">
-																		<div class="mt-2" id="preview"></div>
-																	</div>
-																</div>
-																<div class="modal-footer">
-																	<button type="submit" class="btn btn-primary" id="editFile" value="editFile" name="editFile">Lưu</button>
-																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="submit" class="btn btn-primary" id="editFile" value="editFile" name="editFile">Lưu</button>
 															</div>
 														</div>
 													</div>
-												<?php } ?>
+												</div>
 												<p id="editButton" type="button" class="text-decoration-underline text-primary col-sm-1" value="" name="" onclick="openEditFile()">Sửa</p>
+
 											</div>
+
 										</div>
 									</div>
 								<?php
@@ -448,6 +453,7 @@
 	}
 
 	function openEditFile() {
+		console.log("editfile")
 		var myModal = new bootstrap.Modal(document.getElementById('editFileModal'));
 		myModal.show();
 	}
